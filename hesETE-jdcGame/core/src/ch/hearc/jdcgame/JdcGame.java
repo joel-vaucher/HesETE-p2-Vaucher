@@ -14,7 +14,11 @@ public class JdcGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+<<<<<<< Updated upstream
 		setScreen(new PlayScreen(this));
+=======
+		img = new Texture("jdcGame.tmx");
+>>>>>>> Stashed changes
 	}
 
 	@Override
