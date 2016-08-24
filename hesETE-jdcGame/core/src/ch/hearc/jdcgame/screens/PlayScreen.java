@@ -8,6 +8,7 @@ package ch.hearc.jdcgame.screens;
 import ch.hearc.jdcgame.JdcGame;
 import ch.hearc.jdcgame.scenes.Hud;
 import ch.hearc.jdcgame.sprites.Player;
+import ch.hearc.jdcgame.tools.B2dWorldCreator;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -67,49 +68,10 @@ public class PlayScreen implements Screen{
         
         gamecam.position.set(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
     
-        world = new World(new Vector2(0, 0), true);
+        world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
         
-        BodyDef bdef = new BodyDef();
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fdef = new FixtureDef();
-        Body body;
-        
-        //create wall bodies/fixture
-        for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / JdcGame.PPM, (rect.getY() + rect.getHeight() / 2) / JdcGame.PPM);
-            
-            body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth() / 2 / JdcGame.PPM, rect.getHeight() / 2 / JdcGame.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
-        
-        //create ground bodies/fixture
-        for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / JdcGame.PPM, (rect.getY() + rect.getHeight() / 2) / JdcGame.PPM);
-            
-            body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth() / 2 / JdcGame.PPM, rect.getHeight() / 2 / JdcGame.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
-        
-        //create spike bodies/fixture
-        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / JdcGame.PPM, (rect.getY() + rect.getHeight() / 2) / JdcGame.PPM);
-            
-            body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth() / 2 / JdcGame.PPM, rect.getHeight() / 2 / JdcGame.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
+        new B2dWorldCreator(world, map);
         
         player = new Player(world);
     }
@@ -129,7 +91,7 @@ public class PlayScreen implements Screen{
             float logicPosX = (gameport.getWorldWidth()/gameport.getScreenWidth()) * gamePosX;
             float logicPosY = (gameport.getWorldHeight()/gameport.getScreenHeight()) * gamePosY;
             player.b2body.setTransform(logicPosX, JdcGame.V_HEIGHT / JdcGame.PPM - logicPosY, 0);
-        }
+        }          
         //debug
         /*
         System.out.println("Sxy : "+ Gdx.input.getX() + "-" + Gdx.input.getY() +
@@ -181,5 +143,13 @@ public class PlayScreen implements Screen{
     public void hide() {}
 
     @Override
-    public void dispose() {}  
+    public void dispose() {
+    
+        //libération ressources
+        map.dispose();
+        renderer.dispose();
+        world.dispose();
+        b2dr.dispose();
+        hud.dispose();
+    }  
 }
