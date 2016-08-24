@@ -67,7 +67,7 @@ public class PlayScreen implements Screen{
         
         gamecam.position.set(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
     
-        world = new World(new Vector2(0, 0), true);
+        world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
         
         BodyDef bdef = new BodyDef();
@@ -76,18 +76,6 @@ public class PlayScreen implements Screen{
         Body body;
         
         //create wall bodies/fixture
-        for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / JdcGame.PPM, (rect.getY() + rect.getHeight() / 2) / JdcGame.PPM);
-            
-            body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth() / 2 / JdcGame.PPM, rect.getHeight() / 2 / JdcGame.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
-        
-        //create ground bodies/fixture
         for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -99,7 +87,7 @@ public class PlayScreen implements Screen{
             body.createFixture(fdef);
         }
         
-        //create spike bodies/fixture
+        //create ground bodies/fixture
         for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -110,6 +98,20 @@ public class PlayScreen implements Screen{
             fdef.shape = shape;
             body.createFixture(fdef);
         }
+        
+        //create spike bodies/fixture
+        /*
+        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set((rect.getX() + rect.getWidth() / 2) / JdcGame.PPM, (rect.getY() + rect.getHeight() / 2) / JdcGame.PPM);
+            
+            body = world.createBody(bdef);
+            shape.setAsBox(rect.getWidth() / 2 / JdcGame.PPM, rect.getHeight() / 2 / JdcGame.PPM);
+            fdef.shape = shape;
+            body.createFixture(fdef);
+        }
+        */
         
         player = new Player(world);
     }
