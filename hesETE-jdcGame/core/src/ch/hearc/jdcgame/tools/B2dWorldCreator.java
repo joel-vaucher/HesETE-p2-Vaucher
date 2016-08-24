@@ -31,13 +31,6 @@ public class B2dWorldCreator {
         Body body;
         
         //create wall bodies/fixture
-        for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            
-            new Door(world, map, rect);
-        }
-        
-        //create ground bodies/fixture
         for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -49,7 +42,7 @@ public class B2dWorldCreator {
             body.createFixture(fdef);
         }
         
-        //create spike bodies/fixture
+        //create ground bodies/fixture
         for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
