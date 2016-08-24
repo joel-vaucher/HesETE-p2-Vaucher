@@ -52,7 +52,10 @@ public class PlayScreen implements Screen{
     private Box2DDebugRenderer b2dr;
     
     //player
-    Player player;
+    private Player player;
+    private boolean TeleportReady;
+    private float timeToReloadTeleport;
+    private float reloadTeleport;
     
     public PlayScreen(JdcGame game){
         this.game = game;
@@ -114,6 +117,9 @@ public class PlayScreen implements Screen{
         */
         
         player = new Player(world);
+        TeleportReady = true;
+        timeToReloadTeleport = 1;
+        reloadTeleport = 0;
     }
     
     @Override
@@ -123,15 +129,16 @@ public class PlayScreen implements Screen{
     //Evenements input 
     public void handleInput(float delta){
         
-        if(Gdx.input.isTouched()) {
-            //gamecam.position.x += 100 * delta;
+        if(Gdx.input.isTouched() && TeleportReady) {
             
             float gamePosX = Gdx.input.getX() - gameport.getLeftGutterWidth();
             float gamePosY = Gdx.input.getY() - gameport.getTopGutterHeight();
-            float logicPosX = (gameport.getWorldWidth()/gameport.getScreenWidth()) * gamePosX;
-            float logicPosY = (gameport.getWorldHeight()/gameport.getScreenHeight()) * gamePosY;
-            player.b2body.setTransform(logicPosX, JdcGame.V_HEIGHT / JdcGame.PPM - logicPosY, 0);
+            float logicPosX =  (gamecam.position.x - gameport.getWorldWidth()/ 2) + (gameport.getWorldWidth()/gameport.getScreenWidth()) * gamePosX ;
+            float logicPosY =  gameport.getWorldHeight() - (gameport.getWorldHeight()/gameport.getScreenHeight()) * gamePosY;
+            player.b2body.setTransform(logicPosX,logicPosY, 0);
+            TeleportReady = false;
         }
+        
         //debug
         /*
         System.out.println("Sxy : "+ Gdx.input.getX() + "-" + Gdx.input.getY() +
@@ -147,6 +154,16 @@ public class PlayScreen implements Screen{
         handleInput(delta);
         
         world.step(1/60f, 6, 2);
+        gamecam.position.x += delta;
+        if(player.b2body.getLinearVelocity().x <= 1f)
+            player.b2body.applyLinearImpulse(new Vector2(0.5f, 0),player.b2body.getWorldCenter(), true);
+        if(!TeleportReady){
+            reloadTeleport += delta;
+            if(reloadTeleport >= timeToReloadTeleport){
+                TeleportReady = true;
+                reloadTeleport = 0;
+            }
+        }
         
         gamecam.update();
         renderer.setView(gamecam);
