@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="240" height="30" tilewidth="16" tileheight="16" nextobjectid="76">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="240" height="30" tilewidth="16" tileheight="16" nextobjectid="85">
  <tileset firstgid="1" name="setForGame" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="3276" columns="78">
-  <image source="HesETE-p2-Vaucher/Assets/Tilesheet/tilesheet_complete.png" width="1408" height="768"/>
+  <image source="tilesheet_complete.png" width="1408" height="768"/>
  </tileset>
  <layer name="background" width="240" height="30">
   <data encoding="base64" compression="zlib">
@@ -13,7 +13,7 @@
    eJztXVFuFDEM3YIEUuGbY8BRoHfgGPAPBXqD0jtwCo4B39A7MCuxwops5/nZyURbnmR1Op04diZO7DiZXhwOh4skPdro8UavG4qWR5+t4FNZ18zrlUlrr0g/YCna37L1IPWd3tmJZskUJcnrtiGUx5uNrhz+bV0MH4tnTy+krpnXK5PWXpF+wNIt8L4qdGttskdXgkbqniHJ61dDKI+vG905/Nu6GD4Wz55eSF0zr1cmrb0i/YClX8D78ihim1cBuhM0UvcMtbx+b3T/V2aUx6mMxb+ti+Fj8ezphdQ183plquhPDP0G3pdH0seJ2GSP7gWN0r0CP57sU3avOqr5/Szkl5UtIwtaN1oHwu/7M4wX+txIWDL0ZBst+3/7zeHV0zpe52S/L4F2efEc44U+NxKWDD3ZRsuOtLOF//Zbyy/LKzOWVNvvO0CWt2DfXmH+tWTt6YDqyGL1+Tczvmg4Z/t9v4D9yvWkHlC7XGH+/WbIYN1H/57F6vaLjOMRnIv9ojldxI4idffsV64n9YDa5eg5TEOvTdF2fmjxr5YLbNuwV9Zrz3OxXyS/iNpRpO6e/cqcWQ+oXY6ewzRYeWStf3rtPNp3WM1+tVxg2469sl57nov9IvlF1I6OQOOUyvV21C73iH+tHLnWP712fmjzr5YLbNuxV9Zrz+p4upJfllfGttA4pX3nET+99T+1aw0rxL8sVl5/rraFI9rcfiTvLcvdG89Ux9OV/LK8ovZr7cltYzuJ1n4jfrp81rrWsEf8W4XRsmf6TLUtHFE5p/fWH5i5gC3H8NLsx0PUfq09uW1sJ9G+n4ifLp+1rjXsEf9WoUr27Holc74i2p+PqLRfb02HnQvYcgwvzX48RO0XjaElNJ+LjfG0cpnxER17e/cqUeU/Z9crmfMV0f58RKX9ems67FzAlmN4afbjIWq/TLys+VxsH9XKZcZHdOzt3atElf+cXa9kzldE+/MRlTG1Nxaw4wTS51Hfw+PFyDfDfjXd2D6qlcuMj+jY27tXiSr/GT0LYq37sGdLLH4WKmNqzwbYcQLp86jvUT2+zLBfTTe2jzLlZuaSoj67t4Yh93wwceVooP1tZOwckWnk/Iv6HtXyRfc/M/ar6cbaL2OLM3NJUZ/dW8OQ3wFg4srRQPvbyNg5ItNI+5XwxqJq+aL7n6v2YrD2y9jizFxS1Gf31jDkdwCYuHI00P42MnZu4fnII/1nCW8s8mTw2rMqh2XpEuXD2i9ji+2cPdIfRWJA+Yx23d5j48rRiMwXM849HOHF0myczeRorLHIk8Fro6oclqVLlM/M+Leds/f2RyPn+lfeR7aX/TJ5aeQshIWMzxmZK702qsphWbpE+cyMf9s5e29/1NJBs9UVzjFb2Mt+mbw0chbCQsZ+I3Nlto0Qv1LqkvFDZ8a/bV17+6OWDlpssPL8G4knK3O8TF4aOQthIfONi8hcmW0jxK+UumT80Jnx72p7oS15tDZZTXaJSDxZmeOd/Q3AzDcuIsi2EeJXSl0yfujM+He1vdCR73K099iYL+InZeNL72zLzFwwgp7s2jnuCnkza8hR/sh9lFdVX4ruu2fByIued9H2aWh6yufYmC/iJ2XjS+9sy8xcMIKe7No57gp5M2vIUf7IfZRXVV+K7rtnwciLnnfR9mloesrn2Jgv4idl40tJ2ln8WblgBD3Zre8JZOXNrCFH+SP3UV5VfSm6754FIy963kXbp6HpKZ9jY77Tet2Hy8Ph4+W/n9cbfdro80ZfNrq5rP3evHUePypvK2d7X/7u/S2qK/q/FDR5e/VqewBQfXv3by7777pKVqZ9TzyulXLa85H3bcmOyov+jw2kf7TP/QHOfIhM
   </data>
  </layer>
- <objectgroup name="walk">
+ <objectgroup name="walk" visible="0">
   <object id="2" x="272" y="65" width="15" height="159"/>
   <object id="3" x="512" y="65" width="15" height="159"/>
   <object id="4" x="560" y="290" width="16" height="125"/>
@@ -46,7 +46,7 @@
   <object id="33" x="3697" y="338" width="14" height="77"/>
   <object id="34" x="3776" y="336" width="16" height="79"/>
  </objectgroup>
- <objectgroup name="ground">
+ <objectgroup name="ground" visible="0">
   <object id="35" x="2" y="418" width="255" height="61"/>
   <object id="36" x="177" y="226" width="175" height="64"/>
   <object id="37" x="434" y="224" width="238" height="67"/>
@@ -88,5 +88,16 @@
   <object id="73" x="3441" y="130" width="208" height="47"/>
   <object id="74" x="3601" y="275" width="238" height="61"/>
   <object id="75" x="3456" y="418" width="381" height="62"/>
+ </objectgroup>
+ <objectgroup name="spikes" visible="0">
+  <object id="76" x="3314" y="467" width="141" height="11"/>
+  <object id="77" x="3040" y="465" width="220" height="13"/>
+  <object id="78" x="2880" y="465" width="81" height="15"/>
+  <object id="79" x="2609" y="465" width="140" height="18"/>
+  <object id="80" x="1922" y="464" width="588" height="15"/>
+  <object id="81" x="1666" y="465" width="160" height="14"/>
+  <object id="82" x="961" y="464" width="385" height="14"/>
+  <object id="83" x="258" y="464" width="142" height="15"/>
+  <object id="84" x="3552" y="575" height="2"/>
  </objectgroup>
 </map>

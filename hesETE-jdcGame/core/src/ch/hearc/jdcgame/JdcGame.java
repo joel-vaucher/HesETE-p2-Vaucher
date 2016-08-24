@@ -7,18 +7,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class JdcGame extends Game {
     
         public static final int V_WIDTH = 640;
-        public static final int V_HEIGHT = 376;
+        public static final int V_HEIGHT = 360;
 
 	public SpriteBatch batch;
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-<<<<<<< Updated upstream
-		setScreen(new PlayScreen(this));
-=======
-		img = new Texture("jdcGame.tmx");
->>>>>>> Stashed changes
+            batch = new SpriteBatch();
+            setScreen(new PlayScreen(this));                
 	}
 
 	@Override
