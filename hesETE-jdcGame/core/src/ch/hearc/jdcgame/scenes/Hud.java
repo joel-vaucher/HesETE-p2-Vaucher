@@ -48,13 +48,13 @@ public class Hud implements Disposable{
         table.top();
         table.setFillParent(true);
         
-        countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        scoreLabel =  new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        timeLabel =  new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        levelLabel = new Label("1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        worldLabel = new Label("Level", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        playerLabel = new Label("PLAYER", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-      
+        countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
+        scoreLabel =  new Label(String.format("%06d", score), new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
+        timeLabel =  new Label("TIME", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
+        levelLabel = new Label("1", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));;
+        worldLabel = new Label("Level", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
+        playerLabel = new Label("PLAYER", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
+        
         table.add(playerLabel).expandX().padTop(10);
         table.add(worldLabel).expandX().padTop(10);
         table.add(timeLabel).expandX().padTop(10);

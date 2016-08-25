@@ -1,10 +1,14 @@
 package ch.hearc.jdcgame;
 
 import ch.hearc.jdcgame.screens.PlayScreen;
+import ch.hearc.jdcgame.screens.ScreenEnum;
+import ch.hearc.jdcgame.screens.ScreenManager;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class JdcGame extends Game {
@@ -12,6 +16,7 @@ public class JdcGame extends Game {
         public static final int V_WIDTH = 640;
         public static final int V_HEIGHT = 360;
         public static final float PPM = 100; //Pixel Per Meter
+        public static BitmapFont FONT;
 
 	public SpriteBatch batch;
         
@@ -29,7 +34,9 @@ public class JdcGame extends Game {
             manager.load("audio/sounds/waterson.mp3", Sound.class);
             manager.finishLoading();
             
-            setScreen(new PlayScreen(this));                
+            FONT = new BitmapFont(Gdx.files.internal("comicSansFont.fnt"));
+            ScreenManager.getInstance().initialize(this);
+            ScreenManager.getInstance().showScreen(ScreenEnum.PLAY_SCREEN);               
 	}
 
 	@Override

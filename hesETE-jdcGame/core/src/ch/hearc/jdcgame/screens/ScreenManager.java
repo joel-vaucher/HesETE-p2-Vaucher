@@ -1,0 +1,45 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ch.hearc.jdcgame.screens;
+
+import ch.hearc.jdcgame.JdcGame;
+import com.badlogic.gdx.Screen;
+
+/**
+ *
+ * @author Daniel
+ */
+public class ScreenManager {
+    
+    // Singleton : instance unique
+    private static ScreenManager instance;
+    private JdcGame game;
+    
+    private ScreenManager() {
+        super();
+    }
+    
+    // Singleton : retourner l'instance
+    public static ScreenManager getInstance() {
+        if(instance == null)
+            instance = new ScreenManager();
+        return instance;
+    }
+    
+    public void initialize(JdcGame game) {
+        this.game = game;
+    }
+    
+    public void showScreen(ScreenEnum screenEnum) {
+        Screen currentScreen = game.getScreen();
+        Screen newScreen = screenEnum.getScreen(game);
+        game.setScreen(newScreen);
+        
+        if(currentScreen != null) {
+            currentScreen.dispose();
+        }
+    }
+}
