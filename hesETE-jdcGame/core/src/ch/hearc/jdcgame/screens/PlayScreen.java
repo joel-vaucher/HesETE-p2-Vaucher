@@ -9,9 +9,12 @@ import ch.hearc.jdcgame.JdcGame;
 import ch.hearc.jdcgame.scenes.Hud;
 import ch.hearc.jdcgame.sprites.Player;
 import ch.hearc.jdcgame.tools.B2dWorldCreator;
+import ch.hearc.jdcgame.tools.WorldContactListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -58,6 +61,9 @@ public class PlayScreen implements Screen{
     private float timeToReloadTeleport;
     private float reloadTeleport;
     
+    //Music
+    public Music music;
+    
     public PlayScreen(JdcGame game){
         this.game = game;
         gamecam = new OrthographicCamera();
@@ -80,6 +86,13 @@ public class PlayScreen implements Screen{
         TeleportReady = true;
         timeToReloadTeleport = 1;
         reloadTeleport = 0;
+        
+        //Son jeu
+        music = JdcGame.manager.get("audio/music/gamesic.mp3", Music.class);
+        music.setLooping(true);
+        music.play();
+        
+        world.setContactListener(new WorldContactListener());
     }
     
     @Override
@@ -97,6 +110,7 @@ public class PlayScreen implements Screen{
             float logicPosY =  gameport.getWorldHeight() - (gameport.getWorldHeight()/gameport.getScreenHeight()) * gamePosY;
             player.b2body.setTransform(logicPosX,logicPosY, 0);
             TeleportReady = false;
+            JdcGame.manager.get("audio/sounds/teletransportation.mp3", Sound.class).play();
         }
         
         //debug

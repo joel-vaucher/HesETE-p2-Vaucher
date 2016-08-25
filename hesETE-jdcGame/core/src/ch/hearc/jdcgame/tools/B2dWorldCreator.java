@@ -7,6 +7,7 @@ package ch.hearc.jdcgame.tools;
 
 import ch.hearc.jdcgame.JdcGame;
 import ch.hearc.jdcgame.sprites.Door;
+import ch.hearc.jdcgame.sprites.Water;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -33,13 +34,8 @@ public class B2dWorldCreator {
         //create wall bodies/fixture
         for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / JdcGame.PPM, (rect.getY() + rect.getHeight() / 2) / JdcGame.PPM);
             
-            body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth() / 2 / JdcGame.PPM, rect.getHeight() / 2 / JdcGame.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
+            new Door(world, map, rect);
         }
         
         //create ground bodies/fixture
@@ -52,6 +48,13 @@ public class B2dWorldCreator {
             shape.setAsBox(rect.getWidth() / 2 / JdcGame.PPM, rect.getHeight() / 2 / JdcGame.PPM);
             fdef.shape = shape;
             body.createFixture(fdef);
+        }
+        
+        //Water
+        //create ground bodies/fixture
+        for(MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            new Water(world, map, rect);
         }
     }
 }

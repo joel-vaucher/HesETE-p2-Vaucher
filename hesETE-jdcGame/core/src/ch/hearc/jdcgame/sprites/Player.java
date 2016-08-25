@@ -7,9 +7,11 @@ package ch.hearc.jdcgame.sprites;
 
 import ch.hearc.jdcgame.JdcGame;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -36,8 +38,9 @@ public class Player extends Sprite {
         b2body.setSleepingAllowed(false);
         
         FixtureDef fdef = new FixtureDef();
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(20 / JdcGame.PPM, 20 / JdcGame.PPM);
+        CircleShape shape = new CircleShape();
+        //shape.setAsBox(20 / JdcGame.PPM, 20 / JdcGame.PPM);
+        shape.setRadius(20 / JdcGame.PPM);
         
         fdef.shape = shape;
         b2body.createFixture(fdef);
