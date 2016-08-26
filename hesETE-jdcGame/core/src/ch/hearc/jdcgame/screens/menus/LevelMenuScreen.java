@@ -22,24 +22,29 @@ public class LevelMenuScreen extends AbstractMenuScreen {
     public LevelMenuScreen(JdcGame game) {
         super(game);
                           
-        TextButton levelBtn;
+        TextButton levelBtn, returnBtn;
+        TextButton.TextButtonStyle textButtonStyle = makeButtonStyle();
         
-        for(int i=1; i<4; i++) {
-            TextButton.TextButtonStyle textButtonStyle = makeButtonStyle();      
-
+        for(int i=1; i<4; i++) {      
             levelBtn = new TextButton("Niveau " + i, textButtonStyle);
-
             levelBtn.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     ScreenManager.getInstance().showScreen(ScreenEnum.PLAY_SCREEN);
                 }
             });
-
             buttonsTable.add(levelBtn);
             buttonsTable.row();
         }
         
+        returnBtn = new TextButton("Retour", textButtonStyle);
+        returnBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+            }
+        });
+        buttonsTable.add(returnBtn);
     }
     
 }
