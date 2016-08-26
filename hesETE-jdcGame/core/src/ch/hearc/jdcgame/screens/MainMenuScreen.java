@@ -11,16 +11,20 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -33,7 +37,6 @@ public class MainMenuScreen implements Screen{
     private Viewport viewport;
     private Stage stage;
     private JdcGame game;
-    private TextButton playBtn, exitBtn;
     
     public MainMenuScreen(JdcGame game) {
         this.game = game;
@@ -41,30 +44,17 @@ public class MainMenuScreen implements Screen{
         stage = new Stage(viewport, ((JdcGame) game).batch);
         Gdx.input.setInputProcessor(stage);
         
-        Table table = new Table();
-        table.center();
-        table.setFillParent(true);
+        Table mainTable = new Table();
+        Table buttonsTable = new Table();
+        mainTable.setFillParent(true);
         
-        TextButtonStyle textButtonStyle;
-        BitmapFont font;
-        Skin skin;
-        TextureAtlas buttonAtlas; 
+        Image logo = new Image(new Texture(Gdx.files.internal("logo.png")));
         
-        font = JdcGame.FONT;
-        skin = new Skin();
-        buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons.pack"));
-        skin.addRegions(buttonAtlas);
-        textButtonStyle = new TextButtonStyle();
-        textButtonStyle.font = font;
-        textButtonStyle.up = skin.getDrawable("up_button");
-        textButtonStyle.over = skin.getDrawable("over_button");
-        textButtonStyle.down = skin.getDrawable("down_button");
-        textButtonStyle.checked = skin.getDrawable("checked_button");
-//        
-        
-        Label titleLbl = new Label("Menu", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
-        playBtn = new TextButton("Play", textButtonStyle);
-        exitBtn = new TextButton("Exit", textButtonStyle);
+        TextButton playBtn, exitBtn;
+        TextButtonStyle textButtonStyle = makeButtonStyle();
+
+        playBtn = new TextButton("Jouer", textButtonStyle);
+        exitBtn = new TextButton("Quitter", textButtonStyle);
         
         playBtn.addListener(new ClickListener() {
             @Override
@@ -80,13 +70,47 @@ public class MainMenuScreen implements Screen{
                 Gdx.app.exit();
             }
         });
+
+        buttonsTable.defaults().expandX().center();
+        buttonsTable.defaults().expandY().center();
+        buttonsTable.columnDefaults(0).right();
+        buttonsTable.add(playBtn);
+        buttonsTable.row();
+        buttonsTable.add(exitBtn);
         
-        table.add(titleLbl);
-        table.row();
-        table.add(playBtn);
-        table.row().reset();
-        table.add(exitBtn);
-        stage.addActor(table);
+        mainTable.defaults().pad(50f);
+        mainTable.defaults().expandX().center();
+        mainTable.defaults().expandY().center();
+        mainTable.columnDefaults(0).align(Align.left);
+        mainTable.columnDefaults(1).align(Align.right);
+        mainTable.add(logo);
+        mainTable.add(buttonsTable);
+        
+        stage.addActor(mainTable);
+    }
+    
+    
+    private TextButtonStyle makeButtonStyle () {
+        TextButtonStyle textButtonStyle;
+        BitmapFont font;
+        Skin skin;
+        TextureAtlas buttonAtlas; 
+        
+        font = JdcGame.FONT;
+        skin = new Skin();
+        buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons.pack"));
+        skin.addRegions(buttonAtlas);
+        textButtonStyle = new TextButtonStyle();
+        textButtonStyle.font = font;
+        textButtonStyle.fontColor = Color.WHITE;
+        textButtonStyle.overFontColor = Color.valueOf("49b47e");
+        textButtonStyle.downFontColor = Color.valueOf("307553");
+        textButtonStyle.up = skin.getDrawable("up_button");
+        textButtonStyle.over = skin.getDrawable("over_button");
+        textButtonStyle.down = skin.getDrawable("down_button");
+        textButtonStyle.checked = skin.getDrawable("checked_button");
+        
+        return textButtonStyle;
     }
     
     @Override
@@ -97,12 +121,16 @@ public class MainMenuScreen implements Screen{
     public void render(float delta) {      
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act();
+        stage.getBatch().begin();
+        stage.getBatch().draw(new Texture(Gdx.files.internal("bg_menu.png")), 0, 0, JdcGame.V_WIDTH, JdcGame.V_HEIGHT);
+        stage.getBatch().end();
+        stage.act(delta);
         stage.draw();  
     }
 
     @Override
-    public void resize(int i, int i1) {
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
     }
 
     @Override
