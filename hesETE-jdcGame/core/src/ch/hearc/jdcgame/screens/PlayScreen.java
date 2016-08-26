@@ -8,6 +8,7 @@ package ch.hearc.jdcgame.screens;
 import ch.hearc.jdcgame.JdcGame;
 import ch.hearc.jdcgame.scenes.Hud;
 import ch.hearc.jdcgame.sprites.Player;
+import ch.hearc.jdcgame.sprites.Teleportation;
 import ch.hearc.jdcgame.tools.B2dWorldCreator;
 import ch.hearc.jdcgame.tools.WorldContactListener;
 import com.badlogic.gdx.Gdx;
@@ -60,6 +61,7 @@ public class PlayScreen implements Screen{
     
     //player
     private Player player;
+    private Teleportation teleportation;
     private boolean TeleportReady;
     private float timeToReloadTeleport;
     private float reloadTeleport;
@@ -88,6 +90,7 @@ public class PlayScreen implements Screen{
         new B2dWorldCreator(world, map);
         
         player = new Player(world, this);
+        teleportation = new Teleportation(this);
         TeleportReady = true;
         timeToReloadTeleport = 1;
         reloadTeleport = 0;
@@ -118,6 +121,7 @@ public class PlayScreen implements Screen{
             float logicPosX =  (gamecam.position.x - gameport.getWorldWidth()/ 2) + (gameport.getWorldWidth()/gameport.getScreenWidth()) * gamePosX ;
             float logicPosY =  gameport.getWorldHeight() - (gameport.getWorldHeight()/gameport.getScreenHeight()) * gamePosY;
             player.b2body.setTransform(logicPosX,logicPosY, 0);
+            teleportation.changePosition(logicPosX, logicPosY);
             TeleportReady = false;
             JdcGame.manager.get("audio/sounds/teletransportation.mp3", Sound.class).play();
         }
@@ -141,6 +145,7 @@ public class PlayScreen implements Screen{
         if(player.b2body.getLinearVelocity().x <= 1f)
             player.b2body.applyLinearImpulse(new Vector2(0.5f, 0),player.b2body.getWorldCenter(), true);
         if(!TeleportReady){
+            teleportation.update(delta);
             reloadTeleport += delta;
             if(reloadTeleport >= timeToReloadTeleport){
                 TeleportReady = true;
@@ -169,6 +174,8 @@ public class PlayScreen implements Screen{
         game.batch.begin();
         player.draw(game.batch);
         game.batch.end();
+        
+        teleportation.render(game, teleportation.x, teleportation.y);
         
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
