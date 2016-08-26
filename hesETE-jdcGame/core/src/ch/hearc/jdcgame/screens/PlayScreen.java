@@ -18,6 +18,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -42,6 +43,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class PlayScreen implements Screen{
 
     private JdcGame game;
+    private TextureAtlas sprite;
+    
     private OrthographicCamera gamecam;
     private Viewport gameport;
     private Hud hud;
@@ -65,6 +68,8 @@ public class PlayScreen implements Screen{
     public Music music;
     
     public PlayScreen(JdcGame game){
+        sprite = new TextureAtlas("sprite.pack");
+        
         this.game = game;
         gamecam = new OrthographicCamera();
         gameport = new FitViewport(JdcGame.V_WIDTH / JdcGame.PPM, JdcGame.V_HEIGHT / JdcGame.PPM, gamecam);
@@ -82,7 +87,7 @@ public class PlayScreen implements Screen{
         
         new B2dWorldCreator(world, map);
         
-        player = new Player(world);
+        player = new Player(world, this);
         TeleportReady = true;
         timeToReloadTeleport = 1;
         reloadTeleport = 0;
@@ -93,6 +98,10 @@ public class PlayScreen implements Screen{
         music.play();
         
         world.setContactListener(new WorldContactListener());
+    }
+    
+    public TextureAtlas getSprites(){
+        return sprite;
     }
     
     @Override
@@ -139,6 +148,7 @@ public class PlayScreen implements Screen{
             }
         }
         
+        player.update(delta);
         gamecam.update();
         renderer.setView(gamecam);
     }
@@ -154,6 +164,11 @@ public class PlayScreen implements Screen{
         
         //renderer Box2DDebugLines
         b2dr.render(world, gamecam.combined);
+        
+        game.batch.setProjectionMatrix(gamecam.combined);
+        game.batch.begin();
+        player.draw(game.batch);
+        game.batch.end();
         
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
