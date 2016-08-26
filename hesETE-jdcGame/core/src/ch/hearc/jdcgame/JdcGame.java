@@ -18,9 +18,7 @@ public class JdcGame extends Game {
         public static final float PPM = 100; //Pixel Per Meter
         public static BitmapFont FONT;
 
-	public SpriteBatch batch;
-        
-        
+		public SpriteBatch batch;
         
         public static AssetManager manager;
 	
@@ -31,12 +29,12 @@ public class JdcGame extends Game {
             
             manager.load("audio/music/gamesic.mp3", Music.class);
             manager.load("audio/sounds/teletransportation.mp3", Sound.class);
-            manager.load("audio/sounds/waterson.mp3", Sound.class);
+            //manager.load("audio/sounds/waterson.mp3", Sound.class);
             manager.finishLoading();
             
-            FONT = new BitmapFont(Gdx.files.internal("comicSansFont.fnt"));
+            FONT = new BitmapFont(Gdx.files.internal("ComicSansMS.fnt"));
             ScreenManager.getInstance().initialize(this);
-            ScreenManager.getInstance().showScreen(ScreenEnum.PLAY_SCREEN);               
+            ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);               
 	}
 
 	@Override

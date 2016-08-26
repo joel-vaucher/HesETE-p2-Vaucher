@@ -12,7 +12,6 @@ import ch.hearc.jdcgame.sprites.Teleportation;
 import ch.hearc.jdcgame.tools.B2dWorldCreator;
 import ch.hearc.jdcgame.tools.WorldContactListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -23,16 +22,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -55,7 +49,7 @@ public class PlayScreen implements Screen{
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     
-    //Box2d variables
+   //Box2d variables
     private World world;
     private Box2DDebugRenderer b2dr;
     
@@ -84,6 +78,9 @@ public class PlayScreen implements Screen{
         
         gamecam.position.set(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
     
+        
+        
+        
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
         
@@ -151,9 +148,10 @@ public class PlayScreen implements Screen{
                 TeleportReady = true;
                 reloadTeleport = 0;
             }
-        }
-        
+        }        
         player.update(delta);
+   
+        //Mise a jour de la position de la camera suivant les nouvelles coordonnées
         gamecam.update();
         renderer.setView(gamecam);
     }
@@ -164,9 +162,13 @@ public class PlayScreen implements Screen{
         
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
         renderer.render();
         
+        //TiledMapTileLayer mainLayer = (TiledMapTileLayer) map.getLayers().get(0);
+        //int tileSize = (int) mainLayer.getTileWidth();
+        //int mapWidth = mainLayer.getWidth() * tileSize;  
+        //int mapHeight = mainLayer.getHeight() * tileSize;
+        //System.out.println(mapWidth);
         //renderer Box2DDebugLines
         b2dr.render(world, gamecam.combined);
         
