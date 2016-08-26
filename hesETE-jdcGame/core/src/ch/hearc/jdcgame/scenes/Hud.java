@@ -53,7 +53,7 @@ public class Hud implements Disposable{
         timeLabel =  new Label("TIME", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         levelLabel = new Label("1", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));;
         worldLabel = new Label("Level", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
-        playerLabel = new Label("PLAYER", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
+        playerLabel = new Label("Life", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         
         table.add(playerLabel).expandX().padTop(10);
         table.add(worldLabel).expandX().padTop(10);
