@@ -83,6 +83,12 @@ public class Player extends Sprite {
     private TextureRegion getFrameRunning(float delta) {
         TextureRegion pic = runAnimation.getKeyFrame(stateTimerRun%runAnimation.getAnimationDuration());
         stateTimerRun += delta;
+        if(world.getGravity().y >= 0 && !pic.isFlipY()){
+            pic.flip(false, true);
+        }
+        if(world.getGravity().y <= 0 && pic.isFlipY()){
+            pic.flip(false, true);
+        }
         return pic;
     }
     

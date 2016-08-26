@@ -12,6 +12,8 @@ import ch.hearc.jdcgame.sprites.Teleportation;
 import ch.hearc.jdcgame.tools.B2dWorldCreator;
 import ch.hearc.jdcgame.tools.WorldContactListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -60,6 +62,12 @@ public class PlayScreen implements Screen{
     private float timeToReloadTeleport;
     private float reloadTeleport;
     
+    private boolean GravityReady;
+    private float timeToReloadGravity;
+    private float reloadGravity;
+    
+    private float gravity;
+    
     //Music
     public Music music;
     
@@ -79,9 +87,9 @@ public class PlayScreen implements Screen{
         gamecam.position.set(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
     
         
+        gravity = -9;
         
-        
-        world = new World(new Vector2(0, -10), true);
+        world = new World(new Vector2(0, gravity), true);
         b2dr = new Box2DDebugRenderer();
         
         new B2dWorldCreator(world, map);
@@ -91,6 +99,10 @@ public class PlayScreen implements Screen{
         TeleportReady = true;
         timeToReloadTeleport = 1;
         reloadTeleport = 0;
+        
+        GravityReady = true;
+        timeToReloadGravity = 2;
+        reloadGravity = 0;
         
         //Son jeu
         music = JdcGame.manager.get("audio/music/gamesic.mp3", Music.class);
@@ -123,6 +135,12 @@ public class PlayScreen implements Screen{
             JdcGame.manager.get("audio/sounds/teletransportation.mp3", Sound.class).play();
         }
         
+        if(Gdx.input.isKeyJustPressed(Keys.SPACE) && GravityReady) {
+            gravity *= -1;
+            world.setGravity(new Vector2(0, gravity));
+            GravityReady = false;
+        }
+        
         //debug
         /*
         System.out.println("Sxy : "+ Gdx.input.getX() + "-" + Gdx.input.getY() +
@@ -141,12 +159,20 @@ public class PlayScreen implements Screen{
         gamecam.position.x += delta;
         if(player.b2body.getLinearVelocity().x <= 1f)
             player.b2body.applyLinearImpulse(new Vector2(0.5f, 0),player.b2body.getWorldCenter(), true);
+        
         if(!TeleportReady){
             teleportation.update(delta);
             reloadTeleport += delta;
             if(reloadTeleport >= timeToReloadTeleport){
                 TeleportReady = true;
                 reloadTeleport = 0;
+            }
+        }
+        if(!GravityReady){
+            reloadGravity += delta;
+            if(reloadGravity >= timeToReloadGravity){
+                GravityReady = true;
+                reloadGravity = 0;
             }
         }        
         player.update(delta);
