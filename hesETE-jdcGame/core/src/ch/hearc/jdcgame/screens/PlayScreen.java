@@ -71,8 +71,12 @@ public class PlayScreen implements Screen{
     //Music
     public Music music;
     
+    private boolean pause;
+    
     public PlayScreen(JdcGame game){
         sprite = new TextureAtlas("sprite.pack");
+        
+        pause = false;
         
         this.game = game;
         gamecam = new OrthographicCamera();
@@ -141,6 +145,12 @@ public class PlayScreen implements Screen{
             GravityReady = false;
         }
         
+        if(Gdx.input.isKeyJustPressed(Keys.P)) {
+            pause = !pause;
+            if(pause) music.pause();
+            else music.play();
+        }
+        
         //debug
         /*
         System.out.println("Sxy : "+ Gdx.input.getX() + "-" + Gdx.input.getY() +
@@ -155,31 +165,33 @@ public class PlayScreen implements Screen{
     public void update(float delta){
         handleInput(delta);
         
-        world.step(1/60f, 6, 2);
-        gamecam.position.x += delta;
-        if(player.b2body.getLinearVelocity().x <= 1f)
-            player.b2body.applyLinearImpulse(new Vector2(0.5f, 0),player.b2body.getWorldCenter(), true);
-        
-        if(!TeleportReady){
-            teleportation.update(delta);
-            reloadTeleport += delta;
-            if(reloadTeleport >= timeToReloadTeleport){
-                TeleportReady = true;
-                reloadTeleport = 0;
+        if(!pause) {
+            world.step(1/60f, 6, 2);
+            gamecam.position.x += delta;
+            if(player.b2body.getLinearVelocity().x <= 1f)
+                player.b2body.applyLinearImpulse(new Vector2(0.5f, 0),player.b2body.getWorldCenter(), true);
+
+            if(!TeleportReady){
+                teleportation.update(delta);
+                reloadTeleport += delta;
+                if(reloadTeleport >= timeToReloadTeleport){
+                    TeleportReady = true;
+                    reloadTeleport = 0;
+                }
             }
+            if(!GravityReady){
+                reloadGravity += delta;
+                if(reloadGravity >= timeToReloadGravity){
+                    GravityReady = true;
+                    reloadGravity = 0;
+                }
+            }        
+            player.update(delta);
+
+            //Mise a jour de la position de la camera suivant les nouvelles coordonnées
+            gamecam.update();
+            renderer.setView(gamecam);
         }
-        if(!GravityReady){
-            reloadGravity += delta;
-            if(reloadGravity >= timeToReloadGravity){
-                GravityReady = true;
-                reloadGravity = 0;
-            }
-        }        
-        player.update(delta);
-   
-        //Mise a jour de la position de la camera suivant les nouvelles coordonnées
-        gamecam.update();
-        renderer.setView(gamecam);
     }
     
     @Override
