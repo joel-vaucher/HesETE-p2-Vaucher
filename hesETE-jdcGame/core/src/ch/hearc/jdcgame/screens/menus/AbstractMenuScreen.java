@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ch.hearc.jdcgame.screens;
+package ch.hearc.jdcgame.screens.menus;
 
 import ch.hearc.jdcgame.JdcGame;
 import com.badlogic.gdx.Gdx;
@@ -14,16 +14,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -32,52 +27,29 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  *
  * @author Daniel
  */
-public class MainMenuScreen implements Screen{
-
-    private Viewport viewport;
-    private Stage stage;
-    private JdcGame game;
+public abstract class AbstractMenuScreen implements Screen{
     
-    public MainMenuScreen(JdcGame game) {
+    protected Viewport viewport;
+    protected Stage stage;
+    protected JdcGame game;
+    protected Table buttonsTable;
+         
+    
+    public AbstractMenuScreen(JdcGame game) {
         this.game = game;
         viewport = new FitViewport(JdcGame.V_WIDTH, JdcGame.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, ((JdcGame) game).batch);
         Gdx.input.setInputProcessor(stage);
         
+        buttonsTable = new Table();
         Table mainTable = new Table();
-        Table buttonsTable = new Table();
         mainTable.setFillParent(true);
         
         Image logo = new Image(new Texture(Gdx.files.internal("logo.png")));
         
-        TextButton playBtn, exitBtn;
-        TextButtonStyle textButtonStyle = makeButtonStyle();
-
-        playBtn = new TextButton("Jouer", textButtonStyle);
-        exitBtn = new TextButton("Quitter", textButtonStyle);
-        
-        playBtn.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                ScreenManager.getInstance().showScreen(ScreenEnum.PLAY_SCREEN);
-            }
-        });
-        
-        exitBtn.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                dispose();
-                Gdx.app.exit();
-            }
-        });
-
         buttonsTable.defaults().expandX().center();
         buttonsTable.defaults().expandY().center();
         buttonsTable.columnDefaults(0).right();
-        buttonsTable.add(playBtn);
-        buttonsTable.row();
-        buttonsTable.add(exitBtn);
-        
         mainTable.defaults().pad(50f);
         mainTable.defaults().expandX().center();
         mainTable.defaults().expandY().center();
@@ -86,12 +58,11 @@ public class MainMenuScreen implements Screen{
         mainTable.add(logo);
         mainTable.add(buttonsTable);
         
-        stage.addActor(mainTable);
+        stage.addActor(mainTable);    
     }
     
-    
-    private TextButtonStyle makeButtonStyle () {
-        TextButtonStyle textButtonStyle;
+    protected TextButton.TextButtonStyle makeButtonStyle () {
+        TextButton.TextButtonStyle textButtonStyle;
         BitmapFont font;
         Skin skin;
         TextureAtlas buttonAtlas; 
@@ -100,7 +71,7 @@ public class MainMenuScreen implements Screen{
         skin = new Skin();
         buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons.pack"));
         skin.addRegions(buttonAtlas);
-        textButtonStyle = new TextButtonStyle();
+        textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = font;
         textButtonStyle.fontColor = Color.WHITE;
         textButtonStyle.overFontColor = Color.valueOf("49b47e");
@@ -114,19 +85,17 @@ public class MainMenuScreen implements Screen{
     }
     
     @Override
-    public void show() {
-    }
+    public void show() {}
 
     @Override
-    public void render(float delta) {      
+    public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.getBatch().begin();
         stage.getBatch().draw(new Texture(Gdx.files.internal("bg_menu.png")), 0, 0, JdcGame.V_WIDTH, JdcGame.V_HEIGHT);
         stage.getBatch().end();
         stage.act(delta);
-        stage.draw();  
-    }
+        stage.draw(); }
 
     @Override
     public void resize(int width, int height) {
@@ -134,16 +103,13 @@ public class MainMenuScreen implements Screen{
     }
 
     @Override
-    public void pause() {
-    }
+    public void pause() {}
 
     @Override
-    public void resume() {
-    }
+    public void resume() {}
 
     @Override
-    public void hide() {
-    }
+    public void hide() {}
 
     @Override
     public void dispose() {

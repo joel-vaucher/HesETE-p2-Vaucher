@@ -5,6 +5,8 @@
  */
 package ch.hearc.jdcgame.screens;
 
+import ch.hearc.jdcgame.screens.menus.MainMenuScreen;
+import ch.hearc.jdcgame.screens.menus.LevelMenuScreen;
 import ch.hearc.jdcgame.JdcGame;
 import com.badlogic.gdx.Screen;
 
@@ -22,7 +24,13 @@ public enum ScreenEnum {
     PLAY_SCREEN {
         @Override
         public Screen getScreen(JdcGame game) {
-            return new PlayScreen((JdcGame) game);
+            return new PlayScreen(game);
+        }
+    },
+    LEVEL_MENU {
+        @Override
+        public Screen getScreen(JdcGame game) {
+            return new LevelMenuScreen(game);
         }
     };
     
