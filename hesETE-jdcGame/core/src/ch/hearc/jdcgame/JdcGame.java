@@ -31,7 +31,7 @@ public class JdcGame extends Game {
             
             manager.load("audio/music/gamesic.mp3", Music.class);
             manager.load("audio/sounds/teletransportation.mp3", Sound.class);
-            manager.load("audio/sounds/waterson.mp3", Sound.class);
+            //manager.load("audio/sounds/waterson.mp3", Sound.class);
             manager.finishLoading();
             
             FONT = new BitmapFont(Gdx.files.internal("comicSansFont.fnt"));
