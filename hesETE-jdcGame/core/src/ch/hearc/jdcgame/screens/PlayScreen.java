@@ -7,6 +7,7 @@ package ch.hearc.jdcgame.screens;
 
 import ch.hearc.jdcgame.JdcGame;
 import ch.hearc.jdcgame.scenes.Hud;
+import ch.hearc.jdcgame.scenes.PauseScene;
 import ch.hearc.jdcgame.sprites.Player;
 import ch.hearc.jdcgame.sprites.Teleportation;
 import ch.hearc.jdcgame.tools.B2dWorldCreator;
@@ -72,11 +73,10 @@ public class PlayScreen implements Screen{
     public Music music;
     
     private boolean pause;
+    private PauseScene pauseScene;
     
     public PlayScreen(JdcGame game){
         sprite = new TextureAtlas("sprite.pack");
-        
-        pause = false;
         
         this.game = game;
         gamecam = new OrthographicCamera();
@@ -90,6 +90,7 @@ public class PlayScreen implements Screen{
         
         gamecam.position.set(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
     
+        pause = false;
         
         gravity = -9;
         
@@ -127,7 +128,7 @@ public class PlayScreen implements Screen{
     //Evenements input 
     public void handleInput(float delta){
         
-        if(Gdx.input.isTouched() && TeleportReady) {
+        if(Gdx.input.isTouched() && TeleportReady && !pause) {
             
             float gamePosX = Gdx.input.getX() - gameport.getLeftGutterWidth();
             float gamePosY = Gdx.input.getY() - gameport.getTopGutterHeight();
@@ -139,7 +140,7 @@ public class PlayScreen implements Screen{
             JdcGame.manager.get("audio/sounds/teletransportation.mp3", Sound.class).play();
         }
         
-        if(Gdx.input.isKeyJustPressed(Keys.SPACE) && GravityReady) {
+        if(Gdx.input.isKeyJustPressed(Keys.SPACE) && GravityReady && !pause) {
             gravity *= -1;
             world.setGravity(new Vector2(0, gravity));
             GravityReady = false;
@@ -147,8 +148,13 @@ public class PlayScreen implements Screen{
         
         if(Gdx.input.isKeyJustPressed(Keys.P)) {
             pause = !pause;
-            if(pause) music.pause();
-            else music.play();
+            if(pause) {
+                music.pause();
+                pauseScene =  new PauseScene(game.batch);
+            } else {
+                music.play();
+                pauseScene.dispose();
+            }
         }
         
         //debug
@@ -219,11 +225,17 @@ public class PlayScreen implements Screen{
         
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+        if(pause) {
+            game.batch.setProjectionMatrix(pauseScene.stage.getCamera().combined);
+            pauseScene.stage.draw();
+        }
+
     }
 
     @Override
     public void resize(int width, int height) {
         gameport.update(width, height);
+        if(pause) pauseScene.stage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -244,5 +256,6 @@ public class PlayScreen implements Screen{
         world.dispose();
         b2dr.dispose();
         hud.dispose();
+        pauseScene.dispose();
     }  
 }
