@@ -17,8 +17,15 @@ public class JdcGame extends Game {
         public static final int V_HEIGHT = 360;
         public static final float PPM = 100; //Pixel Per Meter
         public static BitmapFont FONT;
+        
+        public static final short GROUND_BIT = 1;
+        public static final short PLAYER_BIT = 2;
+        public static final short WATER_BIT = 4;
+        public static final short DOOR_BIT = 8;
+        public static final short DESTROYED_BIT = 16;
+        
 
-		public SpriteBatch batch;
+        public SpriteBatch batch;
         
         public static AssetManager manager;
 	

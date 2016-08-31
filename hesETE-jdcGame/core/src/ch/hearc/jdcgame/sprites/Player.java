@@ -37,12 +37,12 @@ public class Player extends Sprite {
     private final int SPRITE_WIDTH = 40;
     private final int SPRITE_HEIGHT = 50;
     
-    public Player(World world, PlayScreen screen) {
+    public Player(PlayScreen screen) {
         super(screen.getSprites().findRegion("Run_sprite"));
         
         AtlasRegion run =screen.getSprites().findRegion("Run_sprite");
         
-        this.world = world;
+        this.world = screen.getWorld();
         
         stateTimerRun = 0;
         
@@ -76,8 +76,19 @@ public class Player extends Sprite {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(20 / JdcGame.PPM, 20 / JdcGame.PPM);
         
+        fdef.filter.categoryBits = JdcGame.PLAYER_BIT;
+        fdef.filter.maskBits = JdcGame.GROUND_BIT | JdcGame.WATER_BIT | JdcGame.DOOR_BIT;
+        
         fdef.shape = shape;
         b2body.createFixture(fdef);
+        
+        EdgeShape deadpart = new EdgeShape();
+        deadpart.set(new Vector2( 23 / JdcGame.PPM, 10 / JdcGame.PPM),
+                     new Vector2( 23 / JdcGame.PPM,-10 / JdcGame.PPM));
+        fdef.shape = deadpart;
+        fdef.isSensor = true;
+        
+        b2body.createFixture(fdef).setUserData("deadpart");
     }
 
     private TextureRegion getFrameRunning(float delta) {

@@ -50,6 +50,7 @@ public class PlayScreen implements Screen{
     private TmxMapLoader mapLoader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
+    private int widthmap;
     
    //Box2d variables
     private World world;
@@ -67,6 +68,8 @@ public class PlayScreen implements Screen{
     private float reloadGravity;
     
     private float gravity;
+    
+    private boolean debugMoving = false;
     
     //Music
     public Music music;
@@ -87,6 +90,8 @@ public class PlayScreen implements Screen{
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("level1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / JdcGame.PPM);
+        widthmap = map.getProperties().get("width", Integer.class) *
+                   map.getProperties().get("tilewidth", Integer.class);
         
         gamecam.position.set(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
     
@@ -96,9 +101,9 @@ public class PlayScreen implements Screen{
         world = new World(new Vector2(0, gravity), true);
         b2dr = new Box2DDebugRenderer();
         
-        new B2dWorldCreator(world, map);
+        new B2dWorldCreator(this);
         
-        player = new Player(world, this);
+        player = new Player(this);
         teleportation = new Teleportation(this);
         TeleportReady = true;
         timeToReloadTeleport = 1;
@@ -167,10 +172,13 @@ public class PlayScreen implements Screen{
         
         if(!pause) {
             world.step(1/60f, 6, 2);
-            gamecam.position.x += delta;
-            if(player.b2body.getLinearVelocity().x <= 1f)
-                player.b2body.applyLinearImpulse(new Vector2(0.5f, 0),player.b2body.getWorldCenter(), true);
-
+            if(!debugMoving) {
+                Gdx.app.log("position x", gamecam.position.x + " " + (float)widthmap / JdcGame.PPM);
+                if(gamecam.position.x + gameport.getWorldWidth()/ 2 < (float)widthmap / JdcGame.PPM)
+                gamecam.position.x += delta;
+                if(player.b2body.getLinearVelocity().x <= 1f)
+                    player.b2body.applyLinearImpulse(new Vector2(0.5f, 0),player.b2body.getWorldCenter(), true);
+            }
             if(!TeleportReady){
                 teleportation.update(delta);
                 reloadTeleport += delta;
@@ -213,9 +221,8 @@ public class PlayScreen implements Screen{
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
         player.draw(game.batch);
+        teleportation.render(game.batch, teleportation.x, teleportation.y);
         game.batch.end();
-        
-        teleportation.render(game, teleportation.x, teleportation.y);
         
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
@@ -224,6 +231,14 @@ public class PlayScreen implements Screen{
     @Override
     public void resize(int width, int height) {
         gameport.update(width, height);
+    }
+    
+    public TiledMap getMap() {
+        return map;
+    }
+    
+    public World getWorld() {
+        return world;
     }
 
     @Override

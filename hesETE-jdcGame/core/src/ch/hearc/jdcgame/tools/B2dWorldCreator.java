@@ -6,8 +6,12 @@
 package ch.hearc.jdcgame.tools;
 
 import ch.hearc.jdcgame.JdcGame;
+import ch.hearc.jdcgame.screens.PlayScreen;
 import ch.hearc.jdcgame.sprites.Door;
+import ch.hearc.jdcgame.sprites.Ground;
 import ch.hearc.jdcgame.sprites.Water;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -24,7 +28,9 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 public class B2dWorldCreator {
     
-    public B2dWorldCreator(World world, TiledMap map){
+    public B2dWorldCreator(PlayScreen screen){
+        World world = screen.getWorld();
+        TiledMap map = screen.getMap();
         
         BodyDef bdef = new BodyDef();
         PolygonShape shape = new PolygonShape();
@@ -32,29 +38,23 @@ public class B2dWorldCreator {
         Body body;
         
         //create wall bodies/fixture
-        for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            
-            new Door(world, map, rect);
+            //Gdx.app.log("build",rect.toString());
+            new Door(screen, rect);
         }
         
         //create ground bodies/fixture
-        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / JdcGame.PPM, (rect.getY() + rect.getHeight() / 2) / JdcGame.PPM);
-            
-            body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth() / 2 / JdcGame.PPM, rect.getHeight() / 2 / JdcGame.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
+            new Ground(screen, rect);
         }
         
         //Water
         //create ground bodies/fixture
         for(MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Water(world, map, rect);
+            new Water(screen, rect);
         }
     }
 }

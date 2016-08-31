@@ -10,6 +10,7 @@ import ch.hearc.jdcgame.screens.PlayScreen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -64,10 +65,8 @@ public class Teleportation {
         tpSprite = getFrameTeleporting(delta);
     }
     
-    public void render(JdcGame game, float x, float y){
-        game.batch.begin();
-        game.batch.draw(tpSprite, x - SPRITE_WIDTH / 2 / JdcGame.PPM, y - SPRITE_HEIGHT / 2 / JdcGame.PPM, SPRITE_WIDTH / JdcGame.PPM, SPRITE_HEIGHT / JdcGame.PPM);
-        game.batch.end();
+    public void render(SpriteBatch batch, float x, float y){
+        batch.draw(tpSprite, x - SPRITE_WIDTH / 2 / JdcGame.PPM, y - SPRITE_HEIGHT / 2 / JdcGame.PPM, SPRITE_WIDTH / JdcGame.PPM, SPRITE_HEIGHT / JdcGame.PPM);
     }
 
     private TextureRegion getFrameTeleporting(float delta) {
