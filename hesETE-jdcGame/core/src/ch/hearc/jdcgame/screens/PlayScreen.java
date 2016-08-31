@@ -51,6 +51,7 @@ public class PlayScreen implements Screen{
     private TmxMapLoader mapLoader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
+    private static String levelFileName;
     
    //Box2d variables
     private World world;
@@ -75,7 +76,12 @@ public class PlayScreen implements Screen{
     private boolean pause;
     private PauseScene pauseScene;
     
-    public PlayScreen(JdcGame game){
+    public PlayScreen(JdcGame game) {
+        this(game, levelFileName);
+    }
+    
+    public PlayScreen(JdcGame game, String levelFileName){
+        this.levelFileName = levelFileName;
         sprite = new TextureAtlas("sprite.pack");
         
         this.game = game;
@@ -85,7 +91,7 @@ public class PlayScreen implements Screen{
         
         //Loader
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("level1.tmx");
+        map = mapLoader.load(levelFileName);
         renderer = new OrthogonalTiledMapRenderer(map, 1 / JdcGame.PPM);
         
         gamecam.position.set(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);

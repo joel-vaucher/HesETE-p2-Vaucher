@@ -42,4 +42,14 @@ public class ScreenManager {
             currentScreen.dispose();
         }
     }
+    
+    public void showPlayScreen(ScreenEnum screenEnum, String levelFileName) {
+        Screen currentScreen = game.getScreen();
+        Screen newScreen = screenEnum.PLAY_SCREEN.getPlayScreen(game, levelFileName);
+        game.setScreen(newScreen);
+        
+        if(currentScreen != null) {
+            currentScreen.dispose();
+        }
+    }
 }
