@@ -75,6 +75,7 @@ public class PlayScreen implements Screen{
     public Music music;
     
     private boolean pause;
+    private PauseScene pauseScene;
     
     public PlayScreen(JdcGame game){
         sprite = new TextureAtlas("sprite.pack");

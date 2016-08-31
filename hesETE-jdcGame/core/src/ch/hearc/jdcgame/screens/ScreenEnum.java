@@ -35,4 +35,8 @@ public enum ScreenEnum {
     };
     
     public abstract Screen getScreen(JdcGame game);
+
+    public Screen getPlayScreen(JdcGame game, String levelFileName) {
+        return new PlayScreen(game, levelFileName);
+    }
 }
