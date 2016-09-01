@@ -35,6 +35,7 @@ public class WorldContactListener implements ContactListener{
                 ((Enemy) object.getUserData()).onPlayerHit();
             }
         }
+        
     }
 
     @Override

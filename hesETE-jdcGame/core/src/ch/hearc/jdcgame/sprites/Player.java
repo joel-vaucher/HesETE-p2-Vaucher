@@ -88,9 +88,11 @@ public class Player extends Sprite {
         fdef.shape = shape;
         b2body.createFixture(fdef);
         
-        EdgeShape deadpart = new EdgeShape();
-        deadpart.set(new Vector2( 23 / JdcGame.PPM, 10 / JdcGame.PPM),
-                     new Vector2( 23 / JdcGame.PPM,-10 / JdcGame.PPM));
+        PolygonShape deadpart = new PolygonShape();
+        deadpart.set(new Vector2[]{new Vector2( 20 / JdcGame.PPM, 20 / JdcGame.PPM),
+                                    new Vector2( 20 / JdcGame.PPM, -20 / JdcGame.PPM),
+                                    new Vector2( -20 / JdcGame.PPM, -20 / JdcGame.PPM),
+                                    new Vector2( -20 / JdcGame.PPM, 20 / JdcGame.PPM)});
         fdef.shape = deadpart;
         fdef.isSensor = true;
         
