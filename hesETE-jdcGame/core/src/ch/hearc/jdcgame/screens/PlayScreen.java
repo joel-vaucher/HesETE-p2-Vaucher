@@ -193,7 +193,10 @@ public class PlayScreen implements Screen{
     }
     
     public void update(float delta){
+<<<<<<< HEAD
         
+=======
+>>>>>>> origin/master
         if(!endGame) {
             handleInput(delta);
             if(!pause) {                
