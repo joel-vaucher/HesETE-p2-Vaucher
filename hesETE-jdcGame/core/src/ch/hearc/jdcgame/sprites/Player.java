@@ -124,7 +124,7 @@ public class Player extends Sprite {
     //}
     
     public void manIsDead(int value){         
-        if(Hud.updateHealth(value) == 0){
+        if(Hud.updateHealth(value) <= 0){
             screen.endGame(false);
         }
             
