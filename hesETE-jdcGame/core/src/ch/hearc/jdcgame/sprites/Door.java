@@ -30,24 +30,14 @@ public class Door extends Enemy{
 
     @Override
     protected void defineEnemy() {
-       
-        BodyDef bdef = new BodyDef();
-        FixtureDef fdef = new FixtureDef();
-        PolygonShape shape = new PolygonShape();
-        
-        bdef.type = BodyDef.BodyType.StaticBody;
-        bdef.position.set((bounds.getX() + bounds.getWidth() / 2) / JdcGame.PPM, (bounds.getY() + bounds.getHeight() / 2) / JdcGame.PPM);
-            
-        body = world.createBody(bdef);
-        shape.setAsBox(bounds.getWidth() / 2 / JdcGame.PPM, bounds.getHeight() / 2 / JdcGame.PPM);
-        fdef.shape = shape;
-        fixture = body.createFixture(fdef);
+        defaultDefineEnemy();
     }
 
     @Override
     public void onPlayerHit() {
         Gdx.app.log("door", "collision");
         setCategoryFilter(JdcGame.DESTROYED_BIT);
+        screen.getPlayer().loseLife(false);
     
     }
     

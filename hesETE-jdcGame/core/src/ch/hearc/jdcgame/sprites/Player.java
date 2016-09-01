@@ -7,6 +7,7 @@ package ch.hearc.jdcgame.sprites;
 
 import ch.hearc.jdcgame.JdcGame;
 import ch.hearc.jdcgame.screens.PlayScreen;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -29,6 +30,7 @@ public class Player extends Sprite {
     
     public World world;
     public Body b2body;
+    public PlayScreen screen;
     
     private TextureRegion runSprite;
     private Animation runAnimation;
@@ -37,12 +39,15 @@ public class Player extends Sprite {
     private final int SPRITE_WIDTH = 40;
     private final int SPRITE_HEIGHT = 50;
     
+    private int life = 5;
+    
     public Player(PlayScreen screen) {
         super(screen.getSprites().findRegion("Run_sprite"));
         
         AtlasRegion run =screen.getSprites().findRegion("Run_sprite");
         
         this.world = screen.getWorld();
+        this.screen = screen;
         
         stateTimerRun = 0;
         
@@ -101,6 +106,14 @@ public class Player extends Sprite {
             pic.flip(false, true);
         }
         return pic;
+    }
+    
+    public void loseLife(boolean all){
+        life = all ? 0 : life-1;
+        if(life == 0){
+            screen.endGame(false);
+        }
+        Gdx.app.log("life", life + "");
     }
     
 }

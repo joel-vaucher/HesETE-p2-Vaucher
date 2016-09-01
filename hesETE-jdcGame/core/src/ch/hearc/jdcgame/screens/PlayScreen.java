@@ -71,6 +71,8 @@ public class PlayScreen implements Screen{
     
     private float gravity;
     
+    private boolean endGame;
+    
     private boolean debugMoving = false;
     
     //Music
@@ -119,6 +121,8 @@ public class PlayScreen implements Screen{
         GravityReady = true;
         timeToReloadGravity = 2;
         reloadGravity = 0;
+        
+        endGame = false;
         
         //Son jeu
         music = JdcGame.manager.get("audio/music/gamesic.mp3", Music.class);
@@ -180,6 +184,7 @@ public class PlayScreen implements Screen{
     }
     
     public void update(float delta){
+<<<<<<< HEAD
         handleInput(delta);
         
         if(!pause) {
@@ -197,20 +202,41 @@ public class PlayScreen implements Screen{
                 if(reloadTeleport >= timeToReloadTeleport){
                     TeleportReady = true;
                     reloadTeleport = 0;
+=======
+        if(!endGame) {
+            if(!pause) {
+                handleInput(delta);
+                
+                world.step(1/60f, 6, 2);
+                if(!debugMoving) {
+                    //Gdx.app.log("position x", gamecam.position.x + " " + (float)widthmap / JdcGame.PPM);
+                    if(gamecam.position.x + gameport.getWorldWidth()/ 2 < (float)widthmap / JdcGame.PPM)
+                    gamecam.position.x += delta;
+                    if(player.b2body.getLinearVelocity().x <= 1f)
+                        player.b2body.applyLinearImpulse(new Vector2(0.5f, 0),player.b2body.getWorldCenter(), true);
+>>>>>>> origin/master
                 }
-            }
-            if(!GravityReady){
-                reloadGravity += delta;
-                if(reloadGravity >= timeToReloadGravity){
-                    GravityReady = true;
-                    reloadGravity = 0;
+                if(!TeleportReady){
+                    teleportation.update(delta);
+                    reloadTeleport += delta;
+                    if(reloadTeleport >= timeToReloadTeleport){
+                        TeleportReady = true;
+                        reloadTeleport = 0;
+                    }
                 }
-            }        
-            player.update(delta);
+                if(!GravityReady){
+                    reloadGravity += delta;
+                    if(reloadGravity >= timeToReloadGravity){
+                        GravityReady = true;
+                        reloadGravity = 0;
+                    }
+                }        
+                player.update(delta);
 
-            //Mise a jour de la position de la camera suivant les nouvelles coordonnées
-            gamecam.update();
-            renderer.setView(gamecam);
+                //Mise a jour de la position de la camera suivant les nouvelles coordonnées
+                gamecam.update();
+                renderer.setView(gamecam);
+            }
         }
     }
     
@@ -234,6 +260,9 @@ public class PlayScreen implements Screen{
         game.batch.begin();
         player.draw(game.batch);
         teleportation.render(game.batch, teleportation.x, teleportation.y);
+        if(endGame) {
+            game.batch.draw(new Texture("GameOver.png"), (gamecam.position.x - gameport.getWorldWidth()/ 2), 0,6.4f,3.6f);
+        }
         game.batch.end();
         
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
@@ -243,6 +272,10 @@ public class PlayScreen implements Screen{
             pauseScene.stage.draw();
         }
 
+    }
+    
+    public void endGame(boolean victory){
+        endGame = true;
     }
 
     @Override
@@ -257,6 +290,10 @@ public class PlayScreen implements Screen{
     
     public World getWorld() {
         return world;
+    }
+    
+    public Player getPlayer() {
+        return player;
     }
 
     @Override
