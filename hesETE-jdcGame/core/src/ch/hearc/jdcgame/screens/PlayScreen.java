@@ -171,7 +171,7 @@ public class PlayScreen implements Screen{
             GravityReady = false;
         }
         
-        if(Gdx.input.isKeyJustPressed(Keys.P)) {
+        if(Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
             pause = !pause;
             if(pause) {
                 music.pause();
@@ -195,9 +195,8 @@ public class PlayScreen implements Screen{
     
     public void update(float delta){
         if(!endGame) {
-            if(!pause) {
-                handleInput(delta);
-                
+            handleInput(delta);
+            if(!pause) {                
                 world.step(1/60f, 6, 2);
                 if(!debugMoving) {
                     //Gdx.app.log("position x", gamecam.position.x + " " + (float)widthmap / JdcGame.PPM);
@@ -216,6 +215,7 @@ public class PlayScreen implements Screen{
                         player.b2body.applyLinearImpulse(new Vector2(player.getSpeed(), 0),player.b2body.getWorldCenter(), true);
                     }
                 }
+                
                 if(!TeleportReady){
                     teleportation.update(delta);
                     reloadTeleport += delta;

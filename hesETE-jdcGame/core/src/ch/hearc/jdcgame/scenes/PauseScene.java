@@ -50,7 +50,7 @@ public class PauseScene implements Disposable{
         Label title = new Label("Pause", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         BitmapFont font = new BitmapFont(Gdx.files.internal("ComicSansMS.fnt"));
         font.getData().setScale(0.5f);
-        Label returnLbl = new Label("Touche [p] pour revenir au jeu.", new Label.LabelStyle(font, Color.WHITE));
+        Label returnLbl = new Label("Touche [ESC] pour revenir au jeu.", new Label.LabelStyle(font, Color.WHITE));
         
         
         TextButton replayBtn, exitBtn;
