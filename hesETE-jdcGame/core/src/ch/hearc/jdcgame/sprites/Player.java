@@ -135,11 +135,7 @@ public class Player extends Sprite {
         return speed;
     }
     
-<<<<<<< HEAD
-    
-=======
     public void setSpeed(float s) {
         speed = s;
     }
->>>>>>> origin/master
 }
