@@ -31,8 +31,13 @@ public class Door extends Enemy{
     public void onPlayerHit() {
         //Gdx.app.log("door", "collision");
         setCategoryFilter(JdcGame.DESTROYED_BIT);
+<<<<<<< HEAD
         screen.getPlayer().manIsDead();
         //Hud.updateHealth(1);
+=======
+        screen.getPlayer().loseLife(false);
+        screen.getPlayer().setSpeed(0);
+>>>>>>> origin/master
     }
     
 }
