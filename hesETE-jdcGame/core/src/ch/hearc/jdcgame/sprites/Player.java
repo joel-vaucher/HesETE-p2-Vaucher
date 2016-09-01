@@ -123,10 +123,9 @@ public class Player extends Sprite {
         //Gdx.app.log("life", life + "");
     //}
     
-    public void manIsDead(){         
-        if(Hud.updateHealth(1) == 0){
+    public void manIsDead(int value){         
+        if(Hud.updateHealth(value) == 0){
             screen.endGame(false);
-            
         }
             
     }
@@ -135,11 +134,8 @@ public class Player extends Sprite {
         return speed;
     }
     
-<<<<<<< HEAD
     
-=======
     public void setSpeed(float s) {
         speed = s;
     }
->>>>>>> origin/master
 }

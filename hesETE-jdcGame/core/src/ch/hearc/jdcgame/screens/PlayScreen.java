@@ -7,7 +7,7 @@ package ch.hearc.jdcgame.screens;
 
 import ch.hearc.jdcgame.JdcGame;
 import ch.hearc.jdcgame.scenes.Hud;
-import ch.hearc.jdcgame.scenes.PauseScene;
+import ch.hearc.jdcgame.scenes.OtherScene;
 import ch.hearc.jdcgame.sprites.Player;
 import ch.hearc.jdcgame.sprites.Teleportation;
 import ch.hearc.jdcgame.tools.B2dWorldCreator;
@@ -84,7 +84,7 @@ public class PlayScreen implements Screen{
     public Music music;
     
     private boolean pause;
-    private PauseScene pauseScene;
+    private OtherScene scene;
     
     public PlayScreen(JdcGame game) {
         this(game, levelFileName);
@@ -175,13 +175,12 @@ public class PlayScreen implements Screen{
             pause = !pause;
             if(pause) {
                 //music.pause();
-                pauseScene =  new PauseScene(game.batch);
+                scene =  new OtherScene(game.batch, "Pause");
             } else {
                 //music.play();
-                pauseScene.dispose();
+                scene.dispose();
             }
         }
-        
         //debug
         /*
         System.out.println("Sxy : "+ Gdx.input.getX() + "-" + Gdx.input.getY() +
@@ -194,19 +193,7 @@ public class PlayScreen implements Screen{
     }
     
     public void update(float delta){
-<<<<<<< HEAD
-        handleInput(delta);
         
-        if(!pause) {
-            world.step(1/60f, 6, 2);
-            if(!debugMoving) {
-                //dx.app.log("position x", gamecam.position.x + " " + (float)widthmap / JdcGame.PPM);
-                if(gamecam.position.x + gameport.getWorldWidth()/ 2 < (float)widthmap / JdcGame.PPM)
-                    gamecam.position.x += delta;
-                if(player.b2body.getLinearVelocity().x <= 1f)
-                    player.b2body.applyLinearImpulse(new Vector2(0.5f, 0),player.b2body.getWorldCenter(), true);
-            
-=======
         if(!endGame) {
             handleInput(delta);
             if(!pause) {                
@@ -228,8 +215,6 @@ public class PlayScreen implements Screen{
                         player.b2body.applyLinearImpulse(new Vector2(player.getSpeed(), 0),player.b2body.getWorldCenter(), true);
                     }
                 }
-                
->>>>>>> origin/master
                 if(!TeleportReady){
                     teleportation.update(delta);
                     reloadTeleport += delta;
@@ -276,14 +261,25 @@ public class PlayScreen implements Screen{
         teleportation.render(game.batch, teleportation.x, teleportation.y);
         if(endGame) {
             game.batch.draw(new Texture("GameOver.png"), (gamecam.position.x - gameport.getWorldWidth()/ 2), 0,6.4f,3.6f);
+            
+            if(Gdx.input.isTouched()) {
+                pause = !pause;
+                if(pause) {
+                //music.pause();
+                scene =  new OtherScene(game.batch, "Game Over");
+            } else {
+                //music.play();
+                scene.dispose();
+            }
+        }
         }
         game.batch.end();
         
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
         if(pause) {
-            game.batch.setProjectionMatrix(pauseScene.stage.getCamera().combined);
-            pauseScene.stage.draw();
+            game.batch.setProjectionMatrix(scene.stage.getCamera().combined);
+            scene.stage.draw();
         }
 
     }
@@ -295,7 +291,7 @@ public class PlayScreen implements Screen{
     @Override
     public void resize(int width, int height) {
         gameport.update(width, height);
-        if(pause) pauseScene.stage.getViewport().update(width, height, true);
+        if(pause) scene.stage.getViewport().update(width, height, true);
     }
     
     public TiledMap getMap() {
@@ -328,6 +324,6 @@ public class PlayScreen implements Screen{
         world.dispose();
         b2dr.dispose();
         hud.dispose();
-        pauseScene.dispose();
+        scene.dispose();
     }  
 }

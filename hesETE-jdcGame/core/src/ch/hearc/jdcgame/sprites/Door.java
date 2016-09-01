@@ -6,7 +6,6 @@
 package ch.hearc.jdcgame.sprites;
 
 import ch.hearc.jdcgame.JdcGame;
-import ch.hearc.jdcgame.scenes.Hud;
 import ch.hearc.jdcgame.screens.PlayScreen;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -29,15 +28,9 @@ public class Door extends Enemy{
 
     @Override
     public void onPlayerHit() {
-        //Gdx.app.log("door", "collision");
         setCategoryFilter(JdcGame.DESTROYED_BIT);
-<<<<<<< HEAD
-        screen.getPlayer().manIsDead();
-        //Hud.updateHealth(1);
-=======
-        screen.getPlayer().loseLife(false);
+        screen.getPlayer().manIsDead(1);
         screen.getPlayer().setSpeed(0);
->>>>>>> origin/master
     }
     
 }

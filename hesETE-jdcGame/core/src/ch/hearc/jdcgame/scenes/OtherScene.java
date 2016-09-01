@@ -31,13 +31,14 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  *
  * @author Daniel
  */
-public class PauseScene implements Disposable{
+public class OtherScene implements Disposable{
     
     public Stage stage;
     public Viewport viewport;
     protected Table table;
+    Label returnLbl;
     
-    public PauseScene(SpriteBatch sb) {
+    public OtherScene(SpriteBatch sb, String screenName) {
         viewport = new FitViewport(JdcGame.V_WIDTH, JdcGame.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, sb);        
         Gdx.input.setInputProcessor(stage);
@@ -47,12 +48,13 @@ public class PauseScene implements Disposable{
         table.setBackground(new Image(new Texture(Gdx.files.internal("bg_menu.png"))).getDrawable());
         
         
-        Label title = new Label("Pause", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
+        Label title = new Label(screenName, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         BitmapFont font = new BitmapFont(Gdx.files.internal("ComicSansMS.fnt"));
         font.getData().setScale(0.5f);
-        Label returnLbl = new Label("Touche [ESC] pour revenir au jeu.", new Label.LabelStyle(font, Color.WHITE));
         
-        
+        if(screenName.equals("Pause")){
+            returnLbl = new Label("Touche [ESC] pour revenir au jeu.", new Label.LabelStyle(font, Color.WHITE));
+        }
         TextButton replayBtn, exitBtn;
         TextButton.TextButtonStyle textButtonStyle = makeButtonStyle();      
                 
