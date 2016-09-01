@@ -38,7 +38,7 @@ public class Door extends Enemy{
         Gdx.app.log("door", "collision");
         setCategoryFilter(JdcGame.DESTROYED_BIT);
         screen.getPlayer().loseLife(false);
-    
+        screen.getPlayer().setSpeed(0);
     }
     
 }

@@ -40,6 +40,7 @@ public class Player extends Sprite {
     private final int SPRITE_HEIGHT = 50;
     
     private int life = 5;
+    private float speed = 0.5f;
     
     public Player(PlayScreen screen) {
         super(screen.getSprites().findRegion("Run_sprite"));
@@ -115,5 +116,12 @@ public class Player extends Sprite {
         }
         Gdx.app.log("life", life + "");
     }
+
+    public float getSpeed() {
+        return speed;
+    }
     
+    public void setSpeed(float s) {
+        speed = s;
+    }
 }

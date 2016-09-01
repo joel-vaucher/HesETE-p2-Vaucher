@@ -74,6 +74,11 @@ public class PlayScreen implements Screen{
     private boolean endGame;
     
     private boolean debugMoving = false;
+      
+    private float maxSpeed;
+    private float timeToReloadSpeed;
+    private float reloadSpeed;
+    private float deltaSpeed;
     
     //Music
     public Music music;
@@ -121,6 +126,11 @@ public class PlayScreen implements Screen{
         GravityReady = true;
         timeToReloadGravity = 2;
         reloadGravity = 0;
+        
+        maxSpeed = 0.5f;
+        timeToReloadSpeed = 1;
+        reloadSpeed = 0;
+        deltaSpeed = 0.05f;
         
         endGame = false;
         
@@ -193,8 +203,18 @@ public class PlayScreen implements Screen{
                     //Gdx.app.log("position x", gamecam.position.x + " " + (float)widthmap / JdcGame.PPM);
                     if(gamecam.position.x + gameport.getWorldWidth()/ 2 < (float)widthmap / JdcGame.PPM)
                     gamecam.position.x += delta;
-                    if(player.b2body.getLinearVelocity().x <= 1f)
-                        player.b2body.applyLinearImpulse(new Vector2(0.5f, 0),player.b2body.getWorldCenter(), true);
+                    if(player.b2body.getLinearVelocity().x <= 1f){
+                        if(player.getSpeed() < maxSpeed) {                              
+                            if(reloadSpeed >= timeToReloadSpeed){
+                                player.setSpeed(player.getSpeed() + deltaSpeed);
+                                reloadSpeed = 0;
+                            }                          
+                            reloadSpeed += delta;
+                        }else
+                            reloadSpeed = 0;
+                        
+                        player.b2body.applyLinearImpulse(new Vector2(player.getSpeed(), 0),player.b2body.getWorldCenter(), true);
+                    }
                 }
                 if(!TeleportReady){
                     teleportation.update(delta);
