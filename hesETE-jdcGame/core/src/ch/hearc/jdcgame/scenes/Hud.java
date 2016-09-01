@@ -6,6 +6,8 @@
 package ch.hearc.jdcgame.scenes;
 
 import ch.hearc.jdcgame.JdcGame;
+import ch.hearc.jdcgame.screens.PlayScreen;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -25,21 +27,26 @@ public class Hud implements Disposable{
     public Stage stage;
     public Viewport viewport;
     
+    public static PlayScreen screen;
+    
     private Integer worldTimer;
     private float timeCount;
-    private Integer score;
+    //Passe à vrai si le temps = 0
+    private boolean timeUp;
+    private static Integer health;
     
-    Label countdownLabel;
-    Label scoreLabel;
-    Label timeLabel;
-    Label levelLabel;
-    Label worldLabel;
-    Label playerLabel;
+    private Label countdownLabel;
+    private static Label healthLabel;
+    private Label timeLabel;
+    private Label levelLabel;
+    private Label worldLabel;
+    private Label lifeLabel;
     
     public Hud(SpriteBatch sb) {
-        worldTimer = 300;
+        
+        worldTimer = 90;
         timeCount = 0;
-        score = 0;
+        health = 5;
         
         viewport = new FitViewport(JdcGame.V_WIDTH, JdcGame.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, sb);
@@ -48,26 +55,54 @@ public class Hud implements Disposable{
         table.top();
         table.setFillParent(true);
         
-        countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
-        scoreLabel =  new Label(String.format("%06d", score), new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
+        countdownLabel = new Label(String.format("%d", worldTimer), new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
+        healthLabel =  new Label(String.format("%d", health), new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         timeLabel =  new Label("TIME", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         levelLabel = new Label("1", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));;
         worldLabel = new Label("Level", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
-        playerLabel = new Label("Life", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
+        lifeLabel = new Label("Life", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         
-        table.add(playerLabel).expandX().padTop(10);
+        //LAbels supérieurs
+        table.add(lifeLabel).expandX().padTop(10);
         table.add(worldLabel).expandX().padTop(10);
         table.add(timeLabel).expandX().padTop(10);
+        
+        //Labels inférieurs
         table.row();
-        table.add(scoreLabel).expandX();
+        table.add(healthLabel).expandX();
         table.add(levelLabel).expandX();
         table.add(countdownLabel).expandX();
         
         stage.addActor(table);
     }
 
+    public void update(float dt){
+        timeCount += dt;
+        if(timeCount >= 1){
+            if (worldTimer > 0) {
+                worldTimer--;
+            } else {
+                timeUp = true;
+            }
+            countdownLabel.setText(String.format("%02d", worldTimer));
+            timeCount = 0;
+        }
+    }
+    
+    public static Integer updateHealth(int value){
+        
+        health -= value;
+        if(health >=0)
+            healthLabel.setText(String.format("%d", health));
+        return health;
+    }
+    
     @Override
     public void dispose() {
         stage.dispose();
+    }
+    
+    public boolean isTimeUp() {
+        return timeUp; 
     }
 }

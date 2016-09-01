@@ -125,9 +125,9 @@ public class PlayScreen implements Screen{
         endGame = false;
         
         //Son jeu
-        music = JdcGame.manager.get("audio/music/gamesic.mp3", Music.class);
-        music.setLooping(true);
-        music.play();
+        //music = JdcGame.manager.get("audio/music/gamesic.mp3", Music.class);
+        //music.setLooping(true);
+        //music.play();
         
         world.setContactListener(new WorldContactListener());
     }
@@ -152,7 +152,7 @@ public class PlayScreen implements Screen{
             player.b2body.setTransform(logicPosX,logicPosY, 0);
             teleportation.changePosition(logicPosX, logicPosY);
             TeleportReady = false;
-            JdcGame.manager.get("audio/sounds/teletransportation.mp3", Sound.class).play();
+            //JdcGame.manager.get("audio/sounds/teletransportation.mp3", Sound.class).play();
         }
         
         if(Gdx.input.isKeyJustPressed(Keys.SPACE) && GravityReady && !pause) {
@@ -164,10 +164,10 @@ public class PlayScreen implements Screen{
         if(Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
             pause = !pause;
             if(pause) {
-                music.pause();
+                //music.pause();
                 pauseScene =  new PauseScene(game.batch);
             } else {
-                music.play();
+                //music.play();
                 pauseScene.dispose();
             }
         }
@@ -184,38 +184,17 @@ public class PlayScreen implements Screen{
     }
     
     public void update(float delta){
-<<<<<<< HEAD
         handleInput(delta);
         
         if(!pause) {
             world.step(1/60f, 6, 2);
             if(!debugMoving) {
-                Gdx.app.log("position x", gamecam.position.x + " " + (float)widthmap / JdcGame.PPM);
+                //dx.app.log("position x", gamecam.position.x + " " + (float)widthmap / JdcGame.PPM);
                 if(gamecam.position.x + gameport.getWorldWidth()/ 2 < (float)widthmap / JdcGame.PPM)
                     gamecam.position.x += delta;
                 if(player.b2body.getLinearVelocity().x <= 1f)
                     player.b2body.applyLinearImpulse(new Vector2(0.5f, 0),player.b2body.getWorldCenter(), true);
-            }
-            if(!TeleportReady){
-                teleportation.update(delta);
-                reloadTeleport += delta;
-                if(reloadTeleport >= timeToReloadTeleport){
-                    TeleportReady = true;
-                    reloadTeleport = 0;
-=======
-        if(!endGame) {
-            if(!pause) {
-                handleInput(delta);
-                
-                world.step(1/60f, 6, 2);
-                if(!debugMoving) {
-                    //Gdx.app.log("position x", gamecam.position.x + " " + (float)widthmap / JdcGame.PPM);
-                    if(gamecam.position.x + gameport.getWorldWidth()/ 2 < (float)widthmap / JdcGame.PPM)
-                    gamecam.position.x += delta;
-                    if(player.b2body.getLinearVelocity().x <= 1f)
-                        player.b2body.applyLinearImpulse(new Vector2(0.5f, 0),player.b2body.getWorldCenter(), true);
->>>>>>> origin/master
-                }
+            
                 if(!TeleportReady){
                     teleportation.update(delta);
                     reloadTeleport += delta;
@@ -232,7 +211,7 @@ public class PlayScreen implements Screen{
                     }
                 }        
                 player.update(delta);
-
+                hud.update(delta);
                 //Mise a jour de la position de la camera suivant les nouvelles coordonnées
                 gamecam.update();
                 renderer.setView(gamecam);

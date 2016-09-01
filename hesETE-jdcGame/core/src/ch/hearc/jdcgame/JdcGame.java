@@ -18,6 +18,7 @@ public class JdcGame extends Game {
         public static final float PPM = 100; //Pixel Per Meter
         public static BitmapFont FONT;
         
+        public static final short NOTHING_BIT = 0;
         public static final short GROUND_BIT = 1;
         public static final short PLAYER_BIT = 2;
         public static final short WATER_BIT = 4;
@@ -36,7 +37,7 @@ public class JdcGame extends Game {
             
             manager.load("audio/music/gamesic.mp3", Music.class);
             manager.load("audio/sounds/teletransportation.mp3", Sound.class);
-            //manager.load("audio/sounds/waterson.mp3", Sound.class);
+            manager.load("audio/sounds/doorson.mp3", Sound.class);
             manager.finishLoading();
             
             FONT = new BitmapFont(Gdx.files.internal("ComicSansMS.fnt"));
