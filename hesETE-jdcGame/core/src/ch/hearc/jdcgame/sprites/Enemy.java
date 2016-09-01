@@ -37,6 +37,7 @@ public abstract class Enemy{
         this.world = screen.getWorld();
         this.map = screen.getMap();
         this.bounds = bounds;
+        this.screen = screen;
         
         defineEnemy();
     }
@@ -44,6 +45,21 @@ public abstract class Enemy{
     protected abstract void defineEnemy();
     
     public abstract void onPlayerHit();
+    
+    protected void defaultDefineEnemy() {
+       
+        BodyDef bdef = new BodyDef();
+        FixtureDef fdef = new FixtureDef();
+        PolygonShape shape = new PolygonShape();
+        
+        bdef.type = BodyDef.BodyType.StaticBody;
+        bdef.position.set((bounds.getX() + bounds.getWidth() / 2) / JdcGame.PPM, (bounds.getY() + bounds.getHeight() / 2) / JdcGame.PPM);
+            
+        body = world.createBody(bdef);
+        shape.setAsBox(bounds.getWidth() / 2 / JdcGame.PPM, bounds.getHeight() / 2 / JdcGame.PPM);
+        fdef.shape = shape;
+        fixture = body.createFixture(fdef);
+    }
     
     
     public void setCategoryFilter(short filterBit) {
