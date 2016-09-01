@@ -157,7 +157,7 @@ public class PlayScreen implements Screen{
             GravityReady = false;
         }
         
-        if(Gdx.input.isKeyJustPressed(Keys.P)) {
+        if(Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
             pause = !pause;
             if(pause) {
                 music.pause();
@@ -187,7 +187,7 @@ public class PlayScreen implements Screen{
             if(!debugMoving) {
                 Gdx.app.log("position x", gamecam.position.x + " " + (float)widthmap / JdcGame.PPM);
                 if(gamecam.position.x + gameport.getWorldWidth()/ 2 < (float)widthmap / JdcGame.PPM)
-                gamecam.position.x += delta;
+                    gamecam.position.x += delta;
                 if(player.b2body.getLinearVelocity().x <= 1f)
                     player.b2body.applyLinearImpulse(new Vector2(0.5f, 0),player.b2body.getWorldCenter(), true);
             }
