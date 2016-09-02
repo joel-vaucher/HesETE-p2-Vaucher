@@ -261,16 +261,10 @@ public class PlayScreen implements Screen{
         if(endGame) {
             game.batch.draw(new Texture("GameOver.png"), (gamecam.position.x - gameport.getWorldWidth()/ 2), 0,6.4f,3.6f);
             
-            if(Gdx.input.isTouched()) {
-                pause = !pause;
-                if(pause) {
-                //music.pause();
-                scene =  new OtherScene(game.batch, "Game Over");
-            } else {
-                //music.play();
-                scene.dispose();
+            if(Gdx.input.isTouched() && !pause) {
+                pause = true;
+                scene =  new OtherScene(game.batch, "Game Over");            
             }
-        }
         }
         game.batch.end();
         
