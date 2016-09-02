@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="600" height="22" tilewidth="16" tileheight="16" nextobjectid="360">
+ <tileset firstgid="1" name="tilesheet_complete" tilewidth="16" tileheight="16" tilecount="4224" columns="88">
+  <image source="tilesheet_complete.png" width="1408" height="768"/>
+ </tileset>
+ <layer name="background" width="600" height="22">
+  <data encoding="base64" compression="zlib">
+   eJztwzEJAAAMA7AamNf6v6pjkEB6SVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVR8ckfcuyA==
+  </data>
+ </layer>
+ <layer name="graphics" width="600" height="22">
+  <data encoding="base64" compression="zlib">
+   eJzt3Ldu21AYBWCOkuG8UDKlx90pLs+VTOlx95LyTMmWTOnVdo5W48L0QIjF3wccEBcQBUoQcA/EH6yqftmbrar95KDF4+Fs298CAEBzjtJtjpOTFo/Vpba/BQCA5qyl26wnGy0eN/UrAGBAXqfbvEnetnh8p18BABRdnqmqKzNtXwUAwHA8TLd6pF8BANR6P66qD+P6131Mt/p0jn513vcDABiqpu/7uY/YXzdHVXUruZ3cSeaSlWR11PaVATBkpf3n9Hq+Z3tS0/f93Efsr+f5zb5IXiavkq3kIDnsyW8ZgH4q7T+n19sd2pNKfXDS/xaSxWQpWS70wWmf1/Rn7FO/BYCL7nv27B/Jz+RX8ruw/pOcTPb2DswglfrgpP/tJLvJXrJf6IPTPq/pz9iVfgsA1FtKZ1pOVpLV5G5hfS/ZSDY70K9KfXDS//4m/5Kj5LjQB6d9HmX+mwPgIriafe1acj25Mapft63UByf9737yIFlL1gt9cNrnUea/OQAugsfZ154kT5Nno/o1AABn+5zO9CX5mnwb1a8BADjb3Liq5pOFZHFcv2Z4zEQBQLO20pm2k51kd1y/ZnjMRAFAs/o23w4A0HXm2wEAmtXGfHsbz0QHAJiWNubb23gmOsNlPh+Armljvt0z0WmS+XwAuuY/V8pWzQ==
+  </data>
+ </layer>
+ <layer name="gears" width="600" height="22">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+DM5AAAE=
+  </data>
+ </layer>
+ <objectgroup name="ground">
+  <object id="348" x="0" y="128" width="192" height="224"/>
+  <object id="349" x="464" y="304" width="192" height="48"/>
+  <object id="350" x="704" y="0" width="320" height="64"/>
+  <object id="351" x="2064" y="240" width="112" height="32"/>
+  <object id="352" x="2496" y="176" width="112" height="32"/>
+  <object id="353" x="2832" y="320" width="112" height="32"/>
+  <object id="354" x="2944" y="112" width="112" height="32"/>
+  <object id="355" x="1616" y="144" width="112" height="32"/>
+  <object id="356" x="976" y="0" width="272" height="64"/>
+  <object id="357" x="704" y="144" width="192" height="64"/>
+  <object id="358" x="928" y="144" width="192" height="64"/>
+  <object id="359" x="1152" y="144" width="192" height="64"/>
+ </objectgroup>
+ <objectgroup name="door"/>
+ <objectgroup name="startFlag"/>
+ <objectgroup name="leveEnfFlag"/>
+ <objectgroup name="water"/>
+ <objectgroup name="keys"/>
+</map>

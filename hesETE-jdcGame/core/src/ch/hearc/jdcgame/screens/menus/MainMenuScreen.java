@@ -9,13 +9,9 @@ import ch.hearc.jdcgame.JdcGame;
 import ch.hearc.jdcgame.screens.ScreenEnum;
 import ch.hearc.jdcgame.screens.ScreenManager;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -64,16 +60,53 @@ public class MainMenuScreen extends AbstractMenuScreen {
         TextureAtlas buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/flags.pack"));
         skin.addRegions(buttonAtlas);
         
+        ImageButton frBtn = new ImageButton(skin.getDrawable("fr"));
+        ImageButton ukBtn = new ImageButton(skin.getDrawable("uk"));
+        ImageButton deBtn = new ImageButton(skin.getDrawable("de"));
+        ImageButton itBtn = new ImageButton(skin.getDrawable("it"));
+        ImageButton ptBtn = new ImageButton(skin.getDrawable("pt"));
+        
+        frBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.log("fr","");
+            }
+        });
+        ukBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.log("en","");
+            }
+        });
+        deBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.log("de","");
+            }
+        });
+        itBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.log("it","");
+            }
+        });
+        ptBtn.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.log("pt","");
+            }
+        });
         Table flagTable = new Table();
         flagTable.pad(10);
         flagTable.defaults().padRight(2f);
         flagTable.setFillParent(true);
         flagTable.right().top();
-        flagTable.add(new ImageButton(skin.getDrawable("uk"))).size(16, 16);
-        flagTable.add(new ImageButton(skin.getDrawable("fr"))).size(16, 16);
-        flagTable.add(new ImageButton(skin.getDrawable("de"))).size(16, 16);
-        flagTable.add(new ImageButton(skin.getDrawable("it"))).size(16, 16);
-        flagTable.add(new ImageButton(skin.getDrawable("pt"))).size(16, 16);
+        flagTable.add().size(16, 16);
+        flagTable.add(frBtn).size(16, 16);
+        flagTable.add(ukBtn).size(16, 16);
+        flagTable.add(deBtn).size(16, 16);
+        flagTable.add(itBtn).size(16, 16);
+        flagTable.add(ptBtn).size(16, 16);
         
         stage.addActor(flagTable);
     }
