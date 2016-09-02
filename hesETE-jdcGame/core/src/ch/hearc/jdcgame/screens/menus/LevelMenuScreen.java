@@ -6,6 +6,7 @@
 package ch.hearc.jdcgame.screens.menus;
 
 import ch.hearc.jdcgame.JdcGame;
+import ch.hearc.jdcgame.scenes.Hud;
 import ch.hearc.jdcgame.screens.ScreenEnum;
 import ch.hearc.jdcgame.screens.ScreenManager;
 import com.badlogic.gdx.Gdx;
@@ -27,19 +28,19 @@ public class LevelMenuScreen extends AbstractMenuScreen {
         TextButton.TextButtonStyle textButtonStyle = makeButtonStyle();     
         
         FileHandle[] files = Gdx.files.internal("levels/").list();
-        int i = 1;
         for(final FileHandle file: files) {
+            
             if(file.extension().equals("tmx")) {
-                levelBtn = new TextButton("Niveau" + i, textButtonStyle);
+                levelBtn = new TextButton("Niveau " + file.nameWithoutExtension(), textButtonStyle);
                 levelBtn.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
+                        
                         ScreenManager.getInstance().showPlayScreen(ScreenEnum.PLAY_SCREEN, file.path());
                     }
                 });
                 buttonsTable.add(levelBtn);
                 buttonsTable.row();
-                i++;
             }
         }
         

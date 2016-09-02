@@ -13,19 +13,15 @@ import ch.hearc.jdcgame.sprites.Teleportation;
 import ch.hearc.jdcgame.tools.B2dWorldCreator;
 import ch.hearc.jdcgame.tools.WorldContactListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -91,7 +87,10 @@ public class PlayScreen implements Screen{
     }
     
     public PlayScreen(JdcGame game, String levelFileName){
+        
         this.levelFileName = levelFileName;
+        FileHandle file = new FileHandle(levelFileName);         
+        Hud.setLevelNumber(file.nameWithoutExtension());
         sprite = new TextureAtlas("sprite.pack");
         
         this.game = game;
@@ -181,15 +180,6 @@ public class PlayScreen implements Screen{
                 scene.dispose();
             }
         }
-        //debug
-        /*
-        System.out.println("Sxy : "+ Gdx.input.getX() + "-" + Gdx.input.getY() +
-                ", SCwh : "+ gameport.getScreenWidth() + "-" + gameport.getScreenHeight() +
-                ", Wwh : " + gameport.getWorldWidth() + "-" + gameport.getWorldHeight());
-        System.out.println(player.b2body.getPosition().x);
-        System.out.println(player.b2body.getPosition().y);
-        */
-        
     }
     
     public void update(float delta){
@@ -198,7 +188,6 @@ public class PlayScreen implements Screen{
             if(!pause) {                
                 world.step(1/60f, 6, 2);
                 if(!debugMoving) {
-                    //Gdx.app.log("position x", gamecam.position.x + " " + (float)widthmap / JdcGame.PPM);
                     if(gamecam.position.x + gameport.getWorldWidth()/ 2 < (float)widthmap / JdcGame.PPM)
                     gamecam.position.x += delta;
                     if(player.b2body.getLinearVelocity().x <= 1f){
@@ -245,13 +234,6 @@ public class PlayScreen implements Screen{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         renderer.render();
-        
-        //TiledMapTileLayer mainLayer = (TiledMapTileLayer) map.getLayers().get(0);
-        //int tileSize = (int) mainLayer.getTileWidth();
-        //int mapWidth = mainLayer.getWidth() * tileSize;  
-        //int mapHeight = mainLayer.getHeight() * tileSize;
-        //System.out.println(mapWidth);
-        //renderer Box2DDebugLines
         b2dr.render(world, gamecam.combined);
         
         game.batch.setProjectionMatrix(gamecam.combined);

@@ -23,9 +23,10 @@ public class MainMenuScreen extends AbstractMenuScreen {
     public MainMenuScreen(JdcGame game) {
         super(game);
         
-        TextButton playBtn, exitBtn;
+        TextButton playBtn, exitBtn, settingBtn;
         TextButton.TextButtonStyle textButtonStyle = makeButtonStyle();      
                 
+        playBtn = new TextButton("Jouer", textButtonStyle);
         playBtn = new TextButton("Jouer", textButtonStyle);
         exitBtn = new TextButton("Quitter", textButtonStyle);
         

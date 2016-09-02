@@ -7,10 +7,8 @@ package ch.hearc.jdcgame.scenes;
 
 import ch.hearc.jdcgame.JdcGame;
 import ch.hearc.jdcgame.screens.PlayScreen;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -41,6 +39,7 @@ public class Hud implements Disposable{
     private Label levelLabel;
     private Label worldLabel;
     private Label lifeLabel;
+    private static String number;
     
     public Hud(SpriteBatch sb) {
         
@@ -58,7 +57,7 @@ public class Hud implements Disposable{
         countdownLabel = new Label(String.format("%d", worldTimer), new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         healthLabel =  new Label(String.format("%d", health), new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         timeLabel =  new Label("TIME", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
-        levelLabel = new Label("1", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));;
+        levelLabel = new Label(number, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));;
         worldLabel = new Label("Level", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         lifeLabel = new Label("Life", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         
@@ -95,6 +94,11 @@ public class Hud implements Disposable{
         if(health >=0)
             healthLabel.setText(String.format("%d", health));
         return health;
+    }
+    
+    //Changer le numéro du level
+    public static void setLevelNumber(String value){ 
+        number = value;
     }
     
     @Override
