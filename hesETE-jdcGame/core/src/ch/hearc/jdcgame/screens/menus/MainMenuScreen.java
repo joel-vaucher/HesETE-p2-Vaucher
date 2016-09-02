@@ -9,8 +9,15 @@ import ch.hearc.jdcgame.JdcGame;
 import ch.hearc.jdcgame.screens.ScreenEnum;
 import ch.hearc.jdcgame.screens.ScreenManager;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -23,6 +30,8 @@ public class MainMenuScreen extends AbstractMenuScreen {
     
     public MainMenuScreen(JdcGame game) {
         super(game);
+
+        makeFlagsBtn();
         
         TextButton playBtn, exitBtn, settingBtn;
         TextButton.TextButtonStyle textButtonStyle = makeButtonStyle();      
@@ -49,5 +58,21 @@ public class MainMenuScreen extends AbstractMenuScreen {
         scrollTable.row();
         scrollTable.add(exitBtn);
     }
-
+    
+    private void makeFlagsBtn() {          
+        Skin skin = new Skin();
+        TextureAtlas buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/flags.pack"));
+        skin.addRegions(buttonAtlas);
+        
+        Table flagTable = new Table();
+        flagTable.setFillParent(true);
+        
+        flagTable.add(new ImageButton(skin.getDrawable("uk")));
+        flagTable.add(new ImageButton(skin.getDrawable("fr")));
+        flagTable.add(new ImageButton(skin.getDrawable("de")));
+        flagTable.add(new ImageButton(skin.getDrawable("it")));
+        flagTable.add(new ImageButton(skin.getDrawable("pt")));
+        
+        stage.addActor(flagTable);
+    }
 }
