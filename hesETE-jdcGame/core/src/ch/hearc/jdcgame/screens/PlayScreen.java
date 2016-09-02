@@ -72,6 +72,7 @@ public class PlayScreen implements Screen{
     private float gravity;
     
     private boolean endGame;
+    private Texture endScreen;
     
     private boolean debugMoving = false;
       
@@ -133,6 +134,7 @@ public class PlayScreen implements Screen{
         deltaSpeed = 0.05f;
         
         endGame = false;
+        endScreen = null;
         
         //Son jeu
         //music = JdcGame.manager.get("audio/music/gamesic.mp3", Music.class);
@@ -260,7 +262,7 @@ public class PlayScreen implements Screen{
         player.draw(game.batch);
         teleportation.render(game.batch, teleportation.x, teleportation.y);
         if(endGame) {
-            game.batch.draw(new Texture("GameOver.png"), (gamecam.position.x - gameport.getWorldWidth()/ 2), 0,6.4f,3.6f);
+            game.batch.draw(endScreen, (gamecam.position.x - gameport.getWorldWidth()/ 2), 0,6.4f,3.6f);
         }
         game.batch.end();
         
@@ -275,6 +277,11 @@ public class PlayScreen implements Screen{
     
     public void endGame(boolean victory){
         endGame = true;
+        if(victory){
+            endScreen = new Texture("Victory.png");
+        } else {
+            endScreen = new Texture("GameOver.png");
+        }
     }
 
     @Override

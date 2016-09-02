@@ -60,7 +60,7 @@ public class B2dWorldCreator {
         
         //flag end
         //create bodies/fixture
-        for(MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             new FlagEnd(screen, rect);
         }

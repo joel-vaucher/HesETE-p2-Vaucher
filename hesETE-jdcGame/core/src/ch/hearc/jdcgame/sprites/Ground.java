@@ -19,4 +19,9 @@ public class Ground extends InteractiveTileObject{
         fixture.setUserData(this);
         setCategoryFilter(JdcGame.GROUND_BIT);
     }
+
+    @Override
+    public void onPlayerHit() {
+        //rien
+    }
 }

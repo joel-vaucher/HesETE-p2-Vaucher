@@ -26,6 +26,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public abstract class InteractiveTileObject {
     
     protected Fixture fixture;
+    protected PlayScreen screen;
     
     protected TiledMap map;
     protected World world;
@@ -35,6 +36,7 @@ public abstract class InteractiveTileObject {
     
     public InteractiveTileObject(PlayScreen screen, Rectangle bounds){
         
+        this.screen = screen;
         this.world = screen.getWorld();
         this.map = screen.getMap();
         this.bounds = bounds;
@@ -52,6 +54,8 @@ public abstract class InteractiveTileObject {
         fdef.shape = shape;
         fixture = body.createFixture(fdef);
     }
+    
+    public abstract void onPlayerHit();
     
     public void setCategoryFilter(short filterBit) {
         Filter filter = new Filter();

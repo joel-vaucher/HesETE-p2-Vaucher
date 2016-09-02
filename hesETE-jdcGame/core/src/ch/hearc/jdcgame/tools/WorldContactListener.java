@@ -34,8 +34,10 @@ public class WorldContactListener implements ContactListener{
             if(object.getUserData() != null && Enemy.class.isAssignableFrom(object.getUserData().getClass())) {
                 ((Enemy) object.getUserData()).onPlayerHit();
             }
+            if(object.getUserData() != null && InteractiveTileObject.class.isAssignableFrom(object.getUserData().getClass())) {
+                ((InteractiveTileObject) object.getUserData()).onPlayerHit();
+            }
         }
-        
     }
 
     @Override

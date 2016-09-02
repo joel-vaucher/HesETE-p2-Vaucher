@@ -34,6 +34,6 @@ public class Water extends Enemy{
     @Override
     public void onPlayerHit() {
         Gdx.app.log("water", "collision");
-        //screen.getPlayer().loseLife(true);
+        screen.getPlayer().manIsDead();
     }
 }

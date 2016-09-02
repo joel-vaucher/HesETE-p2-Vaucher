@@ -87,7 +87,7 @@ public class Player extends Sprite {
         shape.setAsBox(20 / JdcGame.PPM, 20 / JdcGame.PPM);
         
         fdef.filter.categoryBits = JdcGame.PLAYER_BIT;
-        fdef.filter.maskBits = JdcGame.GROUND_BIT | JdcGame.WATER_BIT | JdcGame.DOOR_BIT;
+        fdef.filter.maskBits = JdcGame.GROUND_BIT | JdcGame.WATER_BIT | JdcGame.DOOR_BIT | JdcGame.FLAGEND_BIT;
         
         fdef.shape = shape;
         b2body.createFixture(fdef);
