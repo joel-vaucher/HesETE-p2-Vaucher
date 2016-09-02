@@ -12,6 +12,7 @@ import ch.hearc.jdcgame.screens.ScreenManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -41,6 +42,8 @@ public class LevelMenuScreen extends AbstractMenuScreen {
                 });
                 buttonsTable.add(levelBtn);
                 buttonsTable.row();
+                scrollTable.add(levelBtn);
+                scrollTable.row();
             }
         }
         
@@ -51,6 +54,8 @@ public class LevelMenuScreen extends AbstractMenuScreen {
                 ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
             }
         });
+        
+        buttonsTable.row();
         buttonsTable.add(returnBtn);
     }
     
