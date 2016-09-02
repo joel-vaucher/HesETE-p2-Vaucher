@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ch.hearc.jdcgame.screens.menus;
 
 import ch.hearc.jdcgame.JdcGame;
@@ -22,7 +27,6 @@ public class MainMenuScreen extends AbstractMenuScreen {
         TextButton playBtn, exitBtn, settingBtn;
         TextButton.TextButtonStyle textButtonStyle = makeButtonStyle();      
                 
-        playBtn = new TextButton("Jouer", textButtonStyle);
         playBtn = new TextButton("Jouer", textButtonStyle);
         exitBtn = new TextButton("Quitter", textButtonStyle);
         
