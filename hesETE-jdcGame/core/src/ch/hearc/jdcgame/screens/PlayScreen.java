@@ -20,6 +20,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -214,7 +215,15 @@ public class PlayScreen implements Screen{
                         GravityReady = true;
                         reloadGravity = 0;
                     }
-                }        
+                }  
+                Vector2 posPlay = player.b2body.getPosition();
+                Vector3 posCamUp = new Vector3(gamecam.position).sub(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
+                Vector3 posCamDown = new Vector3(gamecam.position).add(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
+                
+                if((posPlay.x < posCamUp.x || posCamDown.x < posPlay.x) || (posPlay.y < posCamUp.y || posCamDown.y < posPlay.y)) {
+                    //Gdx.app.log("play - camup - camdown", posPlay + " " + posCamUp + " " + 0);
+                    player.manIsDead(5);
+                }
                 player.update(delta);
                 hud.update(delta);
                 //Mise a jour de la position de la camera suivant les nouvelles coordonnées
@@ -231,7 +240,7 @@ public class PlayScreen implements Screen{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         renderer.render();
-        b2dr.render(world, gamecam.combined);
+        //b2dr.render(world, gamecam.combined);
         
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
@@ -259,9 +268,9 @@ public class PlayScreen implements Screen{
     public void endGame(boolean victory){
         endGame = true;
         if(victory){
-            endScreen = new Texture("Victory.png");
+            endScreen = new Texture("others/Victory.png");
         } else {
-            endScreen = new Texture("GameOver.png");
+            endScreen = new Texture("others/GameOver.png");
         }
     }
 
