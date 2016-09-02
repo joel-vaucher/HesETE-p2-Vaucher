@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.hearc.jdcgame.sprites;
 
 import ch.hearc.jdcgame.JdcGame;
 import ch.hearc.jdcgame.scenes.Hud;
 import ch.hearc.jdcgame.screens.PlayScreen;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -16,9 +10,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.EdgeShape;
-import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -123,10 +114,9 @@ public class Player extends Sprite {
         //Gdx.app.log("life", life + "");
     //}
     
-    public void manIsDead(){         
-        if(Hud.updateHealth(1) == 0){
+    public void manIsDead(int value){         
+        if(Hud.updateHealth(value) <= 0){
             screen.endGame(false);
-            
         }
             
     }

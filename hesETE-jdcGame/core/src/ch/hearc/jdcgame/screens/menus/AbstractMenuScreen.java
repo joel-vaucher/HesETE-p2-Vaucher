@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.hearc.jdcgame.screens.menus;
 
 import ch.hearc.jdcgame.JdcGame;
@@ -16,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -32,8 +28,8 @@ public abstract class AbstractMenuScreen implements Screen{
     protected Viewport viewport;
     protected Stage stage;
     protected JdcGame game;
-    protected Table buttonsTable;
-         
+    protected Table mainTable, buttonsTable, scrollTable;
+    protected ScrollPane scrollpane;   
     
     public AbstractMenuScreen(JdcGame game) {
         this.game = game;
@@ -42,15 +38,24 @@ public abstract class AbstractMenuScreen implements Screen{
         Gdx.input.setInputProcessor(stage);
         
         buttonsTable = new Table();
-        Table mainTable = new Table();
+        scrollTable = new Table();
+        scrollpane = new ScrollPane(scrollTable);
+        scrollpane.setFadeScrollBars(false);
+        scrollpane.setScrollingDisabled(true, false);
+
+        mainTable = new Table();
         mainTable.setFillParent(true);
         
-        Image logo = new Image(new Texture(Gdx.files.internal("logo.png")));
+        Image logo = new Image(new Texture(Gdx.files.internal("others/logo.png")));
         
-        buttonsTable.defaults().expandX().center();
-        buttonsTable.defaults().expandY().center();
-        buttonsTable.columnDefaults(0).right();
-        mainTable.defaults().pad(50f);
+        buttonsTable.defaults().expand().center();
+        buttonsTable.columnDefaults(0).center();
+        buttonsTable.pad(0);
+        scrollTable.defaults().expand().center();
+        scrollTable.columnDefaults(0).center();
+        scrollTable.pad(0);
+        buttonsTable.add(scrollpane);
+        mainTable.pad(50f).defaults().pad(0);
         mainTable.defaults().expandX().center();
         mainTable.defaults().expandY().center();
         mainTable.columnDefaults(0).align(Align.left);
@@ -58,7 +63,8 @@ public abstract class AbstractMenuScreen implements Screen{
         mainTable.add(logo);
         mainTable.add(buttonsTable);
         
-        stage.addActor(mainTable);    
+        stage.addActor(mainTable);
+        stage.setScrollFocus(scrollpane);
     }
     
     protected TextButton.TextButtonStyle makeButtonStyle () {
@@ -69,7 +75,7 @@ public abstract class AbstractMenuScreen implements Screen{
         
         font = JdcGame.FONT;
         skin = new Skin();
-        buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons.pack"));
+        buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/buttons.pack"));
         skin.addRegions(buttonAtlas);
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = font;
@@ -84,6 +90,7 @@ public abstract class AbstractMenuScreen implements Screen{
         return textButtonStyle;
     }
     
+    
     @Override
     public void show() {}
 
@@ -92,7 +99,7 @@ public abstract class AbstractMenuScreen implements Screen{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.getBatch().begin();
-        stage.getBatch().draw(new Texture(Gdx.files.internal("bg_menu.png")), 0, 0, JdcGame.V_WIDTH, JdcGame.V_HEIGHT);
+        stage.getBatch().draw(new Texture(Gdx.files.internal("others/bg_menu.png")), 0, 0, JdcGame.V_WIDTH, JdcGame.V_HEIGHT);
         stage.getBatch().end();
         stage.act(delta);
         stage.draw(); }

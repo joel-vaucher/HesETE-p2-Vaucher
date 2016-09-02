@@ -1,31 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.hearc.jdcgame.screens;
 
 import ch.hearc.jdcgame.JdcGame;
 import ch.hearc.jdcgame.scenes.Hud;
-import ch.hearc.jdcgame.scenes.PauseScene;
+import ch.hearc.jdcgame.scenes.OtherScene;
 import ch.hearc.jdcgame.sprites.Player;
 import ch.hearc.jdcgame.sprites.Teleportation;
 import ch.hearc.jdcgame.tools.B2dWorldCreator;
 import ch.hearc.jdcgame.tools.WorldContactListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -85,15 +76,18 @@ public class PlayScreen implements Screen{
     public Music music;
     
     private boolean pause;
-    private PauseScene pauseScene;
+    private OtherScene scene;
     
     public PlayScreen(JdcGame game) {
         this(game, levelFileName);
     }
     
     public PlayScreen(JdcGame game, String levelFileName){
+        
         this.levelFileName = levelFileName;
-        sprite = new TextureAtlas("sprite.pack");
+        FileHandle file = new FileHandle(levelFileName);         
+        Hud.setLevelNumber(file.nameWithoutExtension());
+        sprite = new TextureAtlas("sprites/sprite.pack");
         
         this.game = game;
         gamecam = new OrthographicCamera();
@@ -177,22 +171,12 @@ public class PlayScreen implements Screen{
             pause = !pause;
             if(pause) {
                 //music.pause();
-                pauseScene =  new PauseScene(game.batch);
+                scene =  new OtherScene(game.batch, "Pause");
             } else {
                 //music.play();
-                pauseScene.dispose();
+                scene.dispose();
             }
         }
-        
-        //debug
-        /*
-        System.out.println("Sxy : "+ Gdx.input.getX() + "-" + Gdx.input.getY() +
-                ", SCwh : "+ gameport.getScreenWidth() + "-" + gameport.getScreenHeight() +
-                ", Wwh : " + gameport.getWorldWidth() + "-" + gameport.getWorldHeight());
-        System.out.println(player.b2body.getPosition().x);
-        System.out.println(player.b2body.getPosition().y);
-        */
-        
     }
     
     public void update(float delta){
@@ -201,7 +185,6 @@ public class PlayScreen implements Screen{
             if(!pause) {                
                 world.step(1/60f, 6, 2);
                 if(!debugMoving) {
-                    //Gdx.app.log("position x", gamecam.position.x + " " + (float)widthmap / JdcGame.PPM);
                     if(gamecam.position.x + gameport.getWorldWidth()/ 2 < (float)widthmap / JdcGame.PPM)
                     gamecam.position.x += delta;
                     if(player.b2body.getLinearVelocity().x <= 1f){
@@ -248,13 +231,6 @@ public class PlayScreen implements Screen{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         renderer.render();
-        
-        //TiledMapTileLayer mainLayer = (TiledMapTileLayer) map.getLayers().get(0);
-        //int tileSize = (int) mainLayer.getTileWidth();
-        //int mapWidth = mainLayer.getWidth() * tileSize;  
-        //int mapHeight = mainLayer.getHeight() * tileSize;
-        //System.out.println(mapWidth);
-        //renderer Box2DDebugLines
         b2dr.render(world, gamecam.combined);
         
         game.batch.setProjectionMatrix(gamecam.combined);
@@ -262,15 +238,20 @@ public class PlayScreen implements Screen{
         player.draw(game.batch);
         teleportation.render(game.batch, teleportation.x, teleportation.y);
         if(endGame) {
-            game.batch.draw(endScreen, (gamecam.position.x - gameport.getWorldWidth()/ 2), 0,6.4f,3.6f);
+            game.batch.draw(endScreen, (gamecam.position.x - gameport.getWorldWidth()/ 2), 0, JdcGame.V_WIDTH / JdcGame.PPM, JdcGame.V_HEIGHT / JdcGame.PPM);
+            
+            if(Gdx.input.isTouched() && !pause) {
+                pause = true;
+                scene =  new OtherScene(game.batch, "Game Over");            
+            }
         }
         game.batch.end();
         
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
         if(pause) {
-            game.batch.setProjectionMatrix(pauseScene.stage.getCamera().combined);
-            pauseScene.stage.draw();
+            game.batch.setProjectionMatrix(scene.stage.getCamera().combined);
+            scene.stage.draw();
         }
 
     }
@@ -287,7 +268,7 @@ public class PlayScreen implements Screen{
     @Override
     public void resize(int width, int height) {
         gameport.update(width, height);
-        if(pause) pauseScene.stage.getViewport().update(width, height, true);
+        if(pause) scene.stage.getViewport().update(width, height, true);
     }
     
     public TiledMap getMap() {
@@ -320,6 +301,6 @@ public class PlayScreen implements Screen{
         world.dispose();
         b2dr.dispose();
         hud.dispose();
-        pauseScene.dispose();
+        scene.dispose();
     }  
 }

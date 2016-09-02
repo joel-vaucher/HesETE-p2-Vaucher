@@ -9,7 +9,15 @@ import ch.hearc.jdcgame.JdcGame;
 import ch.hearc.jdcgame.screens.ScreenEnum;
 import ch.hearc.jdcgame.screens.ScreenManager;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -22,8 +30,10 @@ public class MainMenuScreen extends AbstractMenuScreen {
     
     public MainMenuScreen(JdcGame game) {
         super(game);
+
+        makeFlagsBtn();
         
-        TextButton playBtn, exitBtn;
+        TextButton playBtn, exitBtn, settingBtn;
         TextButton.TextButtonStyle textButtonStyle = makeButtonStyle();      
                 
         playBtn = new TextButton("Jouer", textButtonStyle);
@@ -44,9 +54,27 @@ public class MainMenuScreen extends AbstractMenuScreen {
             }
         });
 
-        buttonsTable.add(playBtn);
-        buttonsTable.row();
-        buttonsTable.add(exitBtn);
+        scrollTable.add(playBtn);
+        scrollTable.row();
+        scrollTable.add(exitBtn);
     }
-
+    
+    private void makeFlagsBtn() {          
+        Skin skin = new Skin();
+        TextureAtlas buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/flags.pack"));
+        skin.addRegions(buttonAtlas);
+        
+        Table flagTable = new Table();
+        flagTable.pad(10);
+        flagTable.defaults().padRight(2f);
+        flagTable.setFillParent(true);
+        flagTable.right().top();
+        flagTable.add(new ImageButton(skin.getDrawable("uk"))).size(16, 16);
+        flagTable.add(new ImageButton(skin.getDrawable("fr"))).size(16, 16);
+        flagTable.add(new ImageButton(skin.getDrawable("de"))).size(16, 16);
+        flagTable.add(new ImageButton(skin.getDrawable("it"))).size(16, 16);
+        flagTable.add(new ImageButton(skin.getDrawable("pt"))).size(16, 16);
+        
+        stage.addActor(flagTable);
+    }
 }
