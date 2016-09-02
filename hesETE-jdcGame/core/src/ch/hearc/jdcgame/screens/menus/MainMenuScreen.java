@@ -65,13 +65,15 @@ public class MainMenuScreen extends AbstractMenuScreen {
         skin.addRegions(buttonAtlas);
         
         Table flagTable = new Table();
+        flagTable.pad(10);
+        flagTable.defaults().padRight(2f);
         flagTable.setFillParent(true);
-        
-        flagTable.add(new ImageButton(skin.getDrawable("uk")));
-        flagTable.add(new ImageButton(skin.getDrawable("fr")));
-        flagTable.add(new ImageButton(skin.getDrawable("de")));
-        flagTable.add(new ImageButton(skin.getDrawable("it")));
-        flagTable.add(new ImageButton(skin.getDrawable("pt")));
+        flagTable.right().top();
+        flagTable.add(new ImageButton(skin.getDrawable("uk"))).size(16, 16);
+        flagTable.add(new ImageButton(skin.getDrawable("fr"))).size(16, 16);
+        flagTable.add(new ImageButton(skin.getDrawable("de"))).size(16, 16);
+        flagTable.add(new ImageButton(skin.getDrawable("it"))).size(16, 16);
+        flagTable.add(new ImageButton(skin.getDrawable("pt"))).size(16, 16);
         
         stage.addActor(flagTable);
     }
