@@ -160,22 +160,11 @@
  <objectgroup name="leveEnfFlag">
   <object id="179" x="9490" y="148" width="61" height="59"/>
  </objectgroup>
- <objectgroup name="water">
-  <object id="180" x="8770" y="338" width="830" height="15"/>
-  <object id="181" x="8610" y="338" width="92" height="13"/>
-  <object id="182" x="8225" y="338" width="318" height="14"/>
-  <object id="183" x="5824" y="338" width="1697" height="12"/>
-  <object id="184" x="5520" y="340" width="79" height="10"/>
-  <object id="185" x="4209" y="339" width="1245" height="12"/>
-  <object id="186" x="3777" y="339" width="238" height="14"/>
-  <object id="187" x="2592" y="340" width="1119" height="13"/>
-  <object id="188" x="2081" y="340" width="318" height="11"/>
-  <object id="189" x="1794" y="340" width="95" height="11"/>
-  <object id="190" x="1408" y="341" width="191" height="10"/>
-  <object id="191" x="482" y="341" width="237" height="11"/>
-  <object id="192" x="194" y="340" width="94" height="13"/>
-  <object id="340" x="912" y="336" width="432" height="16"/>
- </objectgroup>
+ <layer name="water" width="600" height="22">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+DM5AAAE=
+  </data>
+ </layer>
  <objectgroup name="keys">
   <object id="333" x="5776" y="64" width="32" height="32">
    <ellipse/>
