@@ -82,7 +82,10 @@ public class Hud implements Disposable{
             timeCount = 0;
         }
     }
-    
+    public static Integer getHealth(){
+        return  health;
+        
+    }
     public static Integer updateHealth(int value){
         
         health -= value;
