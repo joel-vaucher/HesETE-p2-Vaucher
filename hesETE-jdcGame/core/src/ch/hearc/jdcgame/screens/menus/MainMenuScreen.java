@@ -10,6 +10,7 @@ import ch.hearc.jdcgame.screens.ScreenEnum;
 import ch.hearc.jdcgame.screens.ScreenManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -44,9 +45,9 @@ public class MainMenuScreen extends AbstractMenuScreen {
             }
         });
 
-        buttonsTable.add(playBtn);
-        buttonsTable.row();
-        buttonsTable.add(exitBtn);
+        scrollTable.add(playBtn);
+        scrollTable.row();
+        scrollTable.add(exitBtn);
     }
 
 }
