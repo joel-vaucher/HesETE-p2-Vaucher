@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.hearc.jdcgame.screens;
 
 import ch.hearc.jdcgame.JdcGame;
@@ -91,7 +86,7 @@ public class PlayScreen implements Screen{
         this.levelFileName = levelFileName;
         FileHandle file = new FileHandle(levelFileName);         
         Hud.setLevelNumber(file.nameWithoutExtension());
-        sprite = new TextureAtlas("sprite.pack");
+        sprite = new TextureAtlas("sprites/sprite.pack");
         
         this.game = game;
         gamecam = new OrthographicCamera();
@@ -241,7 +236,7 @@ public class PlayScreen implements Screen{
         player.draw(game.batch);
         teleportation.render(game.batch, teleportation.x, teleportation.y);
         if(endGame) {
-            game.batch.draw(new Texture("GameOver.png"), (gamecam.position.x - gameport.getWorldWidth()/ 2), 0,6.4f,3.6f);
+            game.batch.draw(new Texture("others/GameOver.png"), (gamecam.position.x - gameport.getWorldWidth()/ 2), 0,6.4f,3.6f);
             
             if(Gdx.input.isTouched() && !pause) {
                 pause = true;

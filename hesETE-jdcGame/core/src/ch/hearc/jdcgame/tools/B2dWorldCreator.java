@@ -1,4 +1,3 @@
-
 package ch.hearc.jdcgame.tools;
 
 import ch.hearc.jdcgame.screens.PlayScreen;

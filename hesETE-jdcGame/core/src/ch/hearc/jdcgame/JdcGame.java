@@ -41,7 +41,7 @@ public class JdcGame extends Game {
             manager.load("audio/sounds/doorson.mp3", Sound.class);
             manager.finishLoading();
             
-            FONT = new BitmapFont(Gdx.files.internal("ComicSansMS.fnt"));
+            FONT = new BitmapFont(Gdx.files.internal("fonts/ComicSansMS.fnt"));
             ScreenManager.getInstance().initialize(this);
             ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);               
 	}

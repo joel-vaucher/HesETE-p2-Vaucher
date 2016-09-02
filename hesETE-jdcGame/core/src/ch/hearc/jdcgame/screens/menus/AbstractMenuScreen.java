@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.hearc.jdcgame.screens.menus;
 
 import ch.hearc.jdcgame.JdcGame;
@@ -51,7 +46,7 @@ public abstract class AbstractMenuScreen implements Screen{
         mainTable = new Table();
         mainTable.setFillParent(true);
         
-        Image logo = new Image(new Texture(Gdx.files.internal("logo.png")));
+        Image logo = new Image(new Texture(Gdx.files.internal("others/logo.png")));
         
         buttonsTable.defaults().expand().center();
         buttonsTable.columnDefaults(0).center();
@@ -80,7 +75,7 @@ public abstract class AbstractMenuScreen implements Screen{
         
         font = JdcGame.FONT;
         skin = new Skin();
-        buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons.pack"));
+        buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/buttons.pack"));
         skin.addRegions(buttonAtlas);
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = font;
@@ -103,7 +98,7 @@ public abstract class AbstractMenuScreen implements Screen{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.getBatch().begin();
-        stage.getBatch().draw(new Texture(Gdx.files.internal("bg_menu.png")), 0, 0, JdcGame.V_WIDTH, JdcGame.V_HEIGHT);
+        stage.getBatch().draw(new Texture(Gdx.files.internal("others/bg_menu.png")), 0, 0, JdcGame.V_WIDTH, JdcGame.V_HEIGHT);
         stage.getBatch().end();
         stage.act(delta);
         stage.draw(); }

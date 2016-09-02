@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.hearc.jdcgame.scenes;
 
 import ch.hearc.jdcgame.JdcGame;
@@ -45,11 +40,11 @@ public class OtherScene implements Disposable{
         
         table = new Table();
         table.setFillParent(true);
-        table.setBackground(new Image(new Texture(Gdx.files.internal("bg_menu.png"))).getDrawable());
+        table.setBackground(new Image(new Texture(Gdx.files.internal("others/bg_menu.png"))).getDrawable());
         
         
         Label title = new Label(screenName, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
-        BitmapFont font = new BitmapFont(Gdx.files.internal("ComicSansMS.fnt"));
+        BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/ComicSansMS.fnt"));
         font.getData().setScale(0.5f);
         
         if(screenName.equals("Pause")){
@@ -93,7 +88,7 @@ public class OtherScene implements Disposable{
         
         font = JdcGame.FONT;
         skin = new Skin();
-        buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons.pack"));
+        buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/buttons.pack"));
         skin.addRegions(buttonAtlas);
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = font;
