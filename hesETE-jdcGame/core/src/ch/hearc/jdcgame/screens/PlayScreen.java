@@ -216,14 +216,14 @@ public class PlayScreen implements Screen{
                         reloadGravity = 0;
                     }
                 }  
-                Vector2 posPlay = player.b2body.getPosition();
-                Vector3 posCamUp = new Vector3(gamecam.position).sub(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
-                Vector3 posCamDown = new Vector3(gamecam.position).add(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
+               // Vector2 posPlay = player.b2body.getPosition();
+               // Vector3 posCamUp = new Vector3(gamecam.position).sub(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
+               // Vector3 posCamDown = new Vector3(gamecam.position).add(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
                 
-                if((posPlay.x < posCamUp.x || posCamDown.x < posPlay.x) || (posPlay.y < posCamUp.y || posCamDown.y < posPlay.y)) {
+               // if((posPlay.x < posCamUp.x || posCamDown.x < posPlay.x) || (posPlay.y < posCamUp.y || posCamDown.y < posPlay.y)) {
                     //Gdx.app.log("play - camup - camdown", posPlay + " " + posCamUp + " " + 0);
-                    player.manIsDead(5);
-                }
+               //     player.manIsDead(5);
+               /// }
                 player.update(delta);
                 hud.update(delta);
                 //Mise a jour de la position de la camera suivant les nouvelles coordonnées
@@ -267,9 +267,12 @@ public class PlayScreen implements Screen{
     
     public void endGame(boolean victory){
         endGame = true;
-        if(victory){
+        int life = Hud.getHealth();
+        if(victory && life ==5){
+            endScreen = new Texture("others/perfect.png");
+        } else if(victory){
             endScreen = new Texture("others/Victory.png");
-        } else {
+        }else {
             endScreen = new Texture("others/GameOver.png");
         }
     }
