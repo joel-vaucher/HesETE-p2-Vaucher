@@ -3,6 +3,7 @@ package ch.hearc.jdcgame.scenes;
 import ch.hearc.jdcgame.JdcGame;
 import ch.hearc.jdcgame.screens.ScreenEnum;
 import ch.hearc.jdcgame.screens.ScreenManager;
+import ch.hearc.jdcgame.tools.Localization;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -47,14 +48,14 @@ public class OtherScene implements Disposable{
         BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/ComicSansMS.fnt"));
         font.getData().setScale(0.5f);
         
-        if(screenName.equals("Pause")){
-            returnLbl = new Label("Touche [ESC] pour revenir au jeu.", new Label.LabelStyle(font, Color.WHITE));
+        if(screenName.equals(Localization.MESSAGE_2)){
+            returnLbl = new Label(Localization.MESSAGE_1, new Label.LabelStyle(font, Color.WHITE));
         }
         TextButton replayBtn, exitBtn;
         TextButton.TextButtonStyle textButtonStyle = makeButtonStyle();      
                 
-        replayBtn = new TextButton("Recommencer", textButtonStyle);
-        exitBtn = new TextButton("Quitter", textButtonStyle);
+        replayBtn = new TextButton(Localization.REPLAY_BTN, textButtonStyle);
+        exitBtn = new TextButton(Localization.QUIT_BTN, textButtonStyle);
         
         replayBtn.addListener(new ClickListener() {
             @Override

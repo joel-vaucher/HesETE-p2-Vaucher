@@ -10,6 +10,8 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JdcGame extends Game {
     
@@ -23,6 +25,7 @@ public class JdcGame extends Game {
         public static final short PLAYER_BIT = 2;
         public static final short WATER_BIT = 4;
         public static final short DOOR_BIT = 8;
+        public static final short KEY_BIT = 1;
         public static final short FLAGEND_BIT = 16;
         public static final short DESTROYED_BIT = 32;
         
@@ -30,6 +33,7 @@ public class JdcGame extends Game {
         public SpriteBatch batch;
         
         public static AssetManager manager;
+        //public List<Integer> goverList = new ArrayList<Integer>();
 	
 	@Override
 	public void create () {
@@ -39,6 +43,11 @@ public class JdcGame extends Game {
             manager.load("audio/music/gamesic.mp3", Music.class);
             manager.load("audio/sounds/teletransportation.mp3", Sound.class);
             manager.load("audio/sounds/doorson.mp3", Sound.class);
+            manager.load("audio/sounds/gameOver.mp3", Sound.class);
+            manager.load("audio/sounds/youloose.mp3", Sound.class);
+            manager.load("audio/sounds/winson.mp3", Sound.class);
+            
+            
             manager.finishLoading();
             
             FONT = new BitmapFont(Gdx.files.internal("fonts/ComicSansMS.fnt"));

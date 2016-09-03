@@ -3,6 +3,7 @@ package ch.hearc.jdcgame.screens.menus;
 import ch.hearc.jdcgame.JdcGame;
 import ch.hearc.jdcgame.screens.ScreenEnum;
 import ch.hearc.jdcgame.screens.ScreenManager;
+import ch.hearc.jdcgame.tools.Localization;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -25,7 +26,7 @@ public class LevelMenuScreen extends AbstractMenuScreen {
         for(final FileHandle file: files) {
             
             if(file.extension().equals("tmx")) {
-                levelBtn = new TextButton("Niveau " + file.nameWithoutExtension(), textButtonStyle);
+                levelBtn = new TextButton(Localization.LEVEL_BTN + " " + file.nameWithoutExtension(), textButtonStyle);
                 levelBtn.addListener(new ClickListener(){
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
@@ -40,7 +41,7 @@ public class LevelMenuScreen extends AbstractMenuScreen {
             }
         }
         
-        returnBtn = new TextButton("Retour", textButtonStyle);
+        returnBtn = new TextButton(Localization.BACK_BTN, textButtonStyle);
         returnBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

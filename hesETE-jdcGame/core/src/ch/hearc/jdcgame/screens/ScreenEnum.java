@@ -27,13 +27,6 @@ public enum ScreenEnum {
         public Screen getScreen(JdcGame game) {
             return new LevelMenuScreen(game);
         }
-    },
-    
-    SETTING_MENU {
-        @Override
-        public Screen getScreen(JdcGame game) {
-            return new SettingMenuScreen(game);
-        }
     };
     
     public abstract Screen getScreen(JdcGame game);

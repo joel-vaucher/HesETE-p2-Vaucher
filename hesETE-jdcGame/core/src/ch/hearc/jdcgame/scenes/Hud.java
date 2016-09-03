@@ -2,6 +2,7 @@ package ch.hearc.jdcgame.scenes;
 
 import ch.hearc.jdcgame.JdcGame;
 import ch.hearc.jdcgame.screens.PlayScreen;
+import ch.hearc.jdcgame.tools.Localization;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -51,10 +52,10 @@ public class Hud implements Disposable{
         
         countdownLabel = new Label(String.format("%d", worldTimer), new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         healthLabel =  new Label(String.format("%d", health), new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
-        timeLabel =  new Label("Temps", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
+        timeLabel =  new Label(Localization.Time_LAB, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         levelLabel = new Label(number, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));;
-        worldLabel = new Label("Niveau", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
-        lifeLabel = new Label("Vie", new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
+        worldLabel = new Label(Localization.LEVEL_LAB, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
+        lifeLabel = new Label(Localization.LIFE_LAB, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         
         //LAbels supérieurs
         table.add(lifeLabel).expandX().padTop(10);

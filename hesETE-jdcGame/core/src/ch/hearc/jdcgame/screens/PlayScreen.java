@@ -6,11 +6,13 @@ import ch.hearc.jdcgame.scenes.OtherScene;
 import ch.hearc.jdcgame.sprites.Player;
 import ch.hearc.jdcgame.sprites.Teleportation;
 import ch.hearc.jdcgame.tools.B2dWorldCreator;
+import ch.hearc.jdcgame.tools.Localization;
 import ch.hearc.jdcgame.tools.WorldContactListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -25,6 +27,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import java.util.Random;
 
 /**
  *
@@ -132,9 +135,9 @@ public class PlayScreen implements Screen{
         endScreen = null;
         
         //Son jeu
-        //music = JdcGame.manager.get("audio/music/gamesic.mp3", Music.class);
-        //music.setLooping(true);
-        //music.play();
+        music = JdcGame.manager.get("audio/music/gamesic.mp3", Music.class);
+        music.setLooping(true);
+        music.play();
         
         world.setContactListener(new WorldContactListener());
     }
@@ -159,7 +162,7 @@ public class PlayScreen implements Screen{
             player.b2body.setTransform(logicPosX,logicPosY, 0);
             teleportation.changePosition(logicPosX, logicPosY);
             TeleportReady = false;
-            //JdcGame.manager.get("audio/sounds/teletransportation.mp3", Sound.class).play();
+            JdcGame.manager.get("audio/sounds/teletransportation.mp3", Sound.class).play();
         }
         
         if(Gdx.input.isKeyJustPressed(Keys.SPACE) && GravityReady && !pause) {
@@ -172,7 +175,7 @@ public class PlayScreen implements Screen{
             pause = !pause;
             if(pause) {
                 //music.pause();
-                scene =  new OtherScene(game.batch, "Pause");
+                scene =  new OtherScene(game.batch, Localization.MESSAGE_2);
             } else {
                 //music.play();
                 scene.dispose();
@@ -216,14 +219,13 @@ public class PlayScreen implements Screen{
                         reloadGravity = 0;
                     }
                 }  
-               // Vector2 posPlay = player.b2body.getPosition();
-               // Vector3 posCamUp = new Vector3(gamecam.position).sub(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
-               // Vector3 posCamDown = new Vector3(gamecam.position).add(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
+                Vector2 posPlay = player.b2body.getPosition();
+                Vector3 posCamUp = new Vector3(gamecam.position).sub(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
+                Vector3 posCamDown = new Vector3(gamecam.position).add(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
                 
-               // if((posPlay.x < posCamUp.x || posCamDown.x < posPlay.x) || (posPlay.y < posCamUp.y || posCamDown.y < posPlay.y)) {
-                    //Gdx.app.log("play - camup - camdown", posPlay + " " + posCamUp + " " + 0);
-               //     player.manIsDead(5);
-               /// }
+                if((posPlay.x < posCamUp.x || posCamDown.x < posPlay.x) || (posPlay.y < posCamUp.y || posCamDown.y < posPlay.y)) {
+                    player.manIsDead(5);
+                }
                 player.update(delta);
                 hud.update(delta);
                 //Mise a jour de la position de la camera suivant les nouvelles coordonnées
@@ -240,7 +242,7 @@ public class PlayScreen implements Screen{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         renderer.render();
-        //b2dr.render(world, gamecam.combined);
+        b2dr.render(world, gamecam.combined);
         
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
@@ -267,13 +269,21 @@ public class PlayScreen implements Screen{
     
     public void endGame(boolean victory){
         endGame = true;
+        
         int life = Hud.getHealth();
         if(victory && life ==5){
             endScreen = new Texture("others/perfect.png");
+            music.stop();
+            JdcGame.manager.get("audio/sounds/winson.mp3", Sound.class).play();
         } else if(victory){
             endScreen = new Texture("others/Victory.png");
+            music.stop();
+            JdcGame.manager.get("audio/sounds/winson.mp3", Sound.class).play();
         }else {
             endScreen = new Texture("others/GameOver.png");
+            music.stop();
+            //JdcGame.manager.get("audio/sounds/youloose.mp3", Sound.class).play();
+            JdcGame.manager.get("audio/sounds/gameOver.mp3", Sound.class).play();
         }
     }
 

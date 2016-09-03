@@ -26,7 +26,6 @@ public class Door extends Enemy{
         setCategoryFilter(JdcGame.DESTROYED_BIT);
         screen.getPlayer().manIsDead(1);
         screen.getPlayer().setSpeed(0);
-        //Hud.updateHealth(1);
     }
     
 }
