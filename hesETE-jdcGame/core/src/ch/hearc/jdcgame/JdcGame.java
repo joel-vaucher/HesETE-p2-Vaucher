@@ -41,12 +41,14 @@ public class JdcGame extends Game {
             manager = new AssetManager();
             
             manager.load("audio/music/gamesic.mp3", Music.class);
+            manager.load("audio/music/menuson.mp3", Music.class);
             manager.load("audio/sounds/teletransportation.mp3", Sound.class);
             manager.load("audio/sounds/doorson.mp3", Sound.class);
             manager.load("audio/sounds/gameOver.mp3", Sound.class);
             manager.load("audio/sounds/youloose.mp3", Sound.class);
             manager.load("audio/sounds/winson.mp3", Sound.class);
-            
+            manager.load("audio/sounds/buttonson.mp3", Sound.class);
+            manager.load("audio/sounds/click.mp3", Sound.class);
             
             manager.finishLoading();
             

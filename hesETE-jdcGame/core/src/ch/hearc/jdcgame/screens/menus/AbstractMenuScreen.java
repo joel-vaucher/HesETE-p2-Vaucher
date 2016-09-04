@@ -3,6 +3,7 @@ package ch.hearc.jdcgame.screens.menus;
 import ch.hearc.jdcgame.JdcGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -30,6 +31,7 @@ public abstract class AbstractMenuScreen implements Screen{
     protected JdcGame game;
     protected Table mainTable, buttonsTable, scrollTable;
     protected ScrollPane scrollpane;   
+    protected final Music music;
     
     public AbstractMenuScreen(JdcGame game) {
         this.game = game;
@@ -65,6 +67,11 @@ public abstract class AbstractMenuScreen implements Screen{
         
         stage.addActor(mainTable);
         stage.setScrollFocus(scrollpane);
+        
+        music = JdcGame.manager.get("audio/music/menuson.mp3", Music.class);
+        music.setLooping(true);
+        music.setVolume(1);
+        music.play();
     }
     
     protected TextButton.TextButtonStyle makeButtonStyle () {

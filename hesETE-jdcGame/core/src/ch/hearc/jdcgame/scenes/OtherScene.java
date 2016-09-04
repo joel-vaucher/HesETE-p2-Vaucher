@@ -5,12 +5,14 @@ import ch.hearc.jdcgame.screens.ScreenEnum;
 import ch.hearc.jdcgame.screens.ScreenManager;
 import ch.hearc.jdcgame.tools.Localization;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -60,14 +62,28 @@ public class OtherScene implements Disposable{
         replayBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                JdcGame.manager.get("audio/sounds/click.mp3", Sound.class).play();
                 ScreenManager.getInstance().showScreen(ScreenEnum.PLAY_SCREEN);
             }
-        });      
+        });     
+        replayBtn.addListener(new ClickListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                JdcGame.manager.get("audio/sounds/buttonson.mp3", Sound.class).play();
+            }
+        });
         
         exitBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                JdcGame.manager.get("audio/sounds/click.mp3", Sound.class).play();
                 ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+            }
+        });
+        exitBtn.addListener(new ClickListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                JdcGame.manager.get("audio/sounds/buttonson.mp3", Sound.class).play();
             }
         });
         

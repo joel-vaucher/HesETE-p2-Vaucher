@@ -10,9 +10,12 @@ import ch.hearc.jdcgame.screens.ScreenEnum;
 import ch.hearc.jdcgame.screens.ScreenManager;
 import ch.hearc.jdcgame.tools.Localization;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -54,15 +57,30 @@ public class MainMenuScreen extends AbstractMenuScreen {
         playBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                JdcGame.manager.get("audio/sounds/click.mp3", Sound.class).play();
                 ScreenManager.getInstance().showScreen(ScreenEnum.LEVEL_MENU);
+            }
+        });
+        playBtn.addListener(new ClickListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                JdcGame.manager.get("audio/sounds/buttonson.mp3", Sound.class).play();
             }
         });
         
         exitBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                JdcGame.manager.get("audio/sounds/click.mp3", Sound.class).play();
                 dispose();
                 Gdx.app.exit();
+            }
+        });
+        
+        exitBtn.addListener(new ClickListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                JdcGame.manager.get("audio/sounds/buttonson.mp3", Sound.class).play();
             }
         });
    
@@ -119,6 +137,9 @@ public class MainMenuScreen extends AbstractMenuScreen {
     }
     
     private void translateLanguage(String language, String lg, TextButton playBtn, TextButton exitBtn){
+        
+        JdcGame.manager.get("audio/sounds/click.mp3", Sound.class).play();
+        
         FileHandle baseFileHandle = Gdx.files.internal("../src/ch/hearc/jdcgame/localization/Bundle");
         Locale locale = new Locale(language, lg);
         

@@ -27,7 +27,6 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import java.util.Random;
 
 /**
  *
@@ -261,6 +260,7 @@ public class PlayScreen implements Screen{
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
         if(pause) {
+            music.stop();
             game.batch.setProjectionMatrix(scene.stage.getCamera().combined);
             scene.stage.draw();
         }
@@ -282,9 +282,13 @@ public class PlayScreen implements Screen{
         }else {
             endScreen = new Texture("others/GameOver.png");
             music.stop();
-            //JdcGame.manager.get("audio/sounds/youloose.mp3", Sound.class).play();
-            JdcGame.manager.get("audio/sounds/gameOver.mp3", Sound.class).play();
+            JdcGame.manager.get("audio/sounds/youloose.mp3", Sound.class).play();
+            //JdcGame.manager.get("audio/sounds/gameOver.mp3", Sound.class).play();
         }
+    }
+    
+    public void collideWithKey(){
+        
     }
 
     @Override
