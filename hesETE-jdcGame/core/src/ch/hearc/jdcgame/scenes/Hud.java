@@ -53,7 +53,7 @@ public class Hud implements Disposable{
         countdownLabel = new Label(String.format("%d", worldTimer), new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         healthLabel =  new Label(String.format("%d", health), new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         timeLabel =  new Label(Localization.Time_LAB, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
-        levelLabel = new Label(number, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));;
+        levelLabel = new Label(number, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         worldLabel = new Label(Localization.LEVEL_LAB, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         lifeLabel = new Label(Localization.LIFE_LAB, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         

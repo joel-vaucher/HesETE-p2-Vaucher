@@ -1,6 +1,7 @@
 package ch.hearc.jdcgame.screens;
 
 import ch.hearc.jdcgame.JdcGame;
+import ch.hearc.jdcgame.scenes.GaugeHud;
 import ch.hearc.jdcgame.scenes.Hud;
 import ch.hearc.jdcgame.scenes.OtherScene;
 import ch.hearc.jdcgame.sprites.Player;
@@ -21,6 +22,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -40,6 +42,7 @@ public class PlayScreen implements Screen{
     private OrthographicCamera gamecam;
     private Viewport gameport;
     private Hud hud;
+    private GaugeHud gHud;
     
     //Chargement de la map
     private TmxMapLoader mapLoader;
@@ -96,6 +99,7 @@ public class PlayScreen implements Screen{
         gamecam = new OrthographicCamera();
         gameport = new FitViewport(JdcGame.V_WIDTH / JdcGame.PPM, JdcGame.V_HEIGHT / JdcGame.PPM, gamecam);
         hud = new Hud(game.batch);
+        gHud = new GaugeHud(game.batch);
         
         //Loader
         mapLoader = new TmxMapLoader();
@@ -205,17 +209,23 @@ public class PlayScreen implements Screen{
                 }
                 if(!TeleportReady){
                     teleportation.update(delta);
+                    float percent = Interpolation.linear.apply(reloadTeleport/timeToReloadTeleport, timeToReloadTeleport/timeToReloadTeleport, 0.1f);
                     reloadTeleport += delta;
+                    gHud.updateTelepartionGauge(percent);
                     if(reloadTeleport >= timeToReloadTeleport){
                         TeleportReady = true;
                         reloadTeleport = 0;
+                        gHud.emptyGaugeTeleportation();
                     }
                 }
                 if(!GravityReady){
+                    float percent = Interpolation.linear.apply(reloadGravity/timeToReloadGravity, timeToReloadGravity/timeToReloadGravity, 0.1f);
                     reloadGravity += delta;
+                    gHud.updateGravityGauge(percent);
                     if(reloadGravity >= timeToReloadGravity){
                         GravityReady = true;
                         reloadGravity = 0;
+                        gHud.emptyGaugeGravity();
                     }
                 }  
                 Vector2 posPlay = player.b2body.getPosition();
@@ -259,6 +269,9 @@ public class PlayScreen implements Screen{
         
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+        game.batch.setProjectionMatrix(gHud.stage.getCamera().combined);
+        gHud.stage.draw();
+        
         if(pause) {
             music.stop();
             game.batch.setProjectionMatrix(scene.stage.getCamera().combined);
