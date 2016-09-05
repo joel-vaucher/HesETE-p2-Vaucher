@@ -160,4 +160,5 @@
   <object id="69" x="9521" y="228" width="63" height="61"/>
  </objectgroup>
  <objectgroup name="water"/>
+ <objectgroup name="keys"/>
 </map>
