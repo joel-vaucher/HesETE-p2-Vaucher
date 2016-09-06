@@ -13,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
- *
+ *  Classe abstraite représentant les ennemies
  */
 public abstract class Enemy{
     
@@ -41,7 +41,7 @@ public abstract class Enemy{
     }
     
     /**
-     * 
+     *
      */
     protected abstract void defineEnemy();
     

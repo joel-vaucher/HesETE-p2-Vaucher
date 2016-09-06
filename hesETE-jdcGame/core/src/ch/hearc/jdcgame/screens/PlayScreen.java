@@ -234,7 +234,7 @@ public class PlayScreen implements Screen{
                     if(reloadTeleport >= timeToReloadTeleport){
                         TeleportReady = true;
                         reloadTeleport = 0;
-                        gHud.emptyGaugeTeleportation();
+                        gHud.fullGaugeTeleportation();
                     }
                 }
                 if(!GravityReady){
@@ -244,7 +244,7 @@ public class PlayScreen implements Screen{
                     if(reloadGravity >= timeToReloadGravity){
                         GravityReady = true;
                         reloadGravity = 0;
-                        gHud.emptyGaugeGravity();
+                        gHud.fullGaugeGravity();
                     }
                 }  
                 Vector2 posPlay = player.b2body.getPosition();

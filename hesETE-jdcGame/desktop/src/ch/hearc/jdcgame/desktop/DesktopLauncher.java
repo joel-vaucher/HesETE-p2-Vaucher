@@ -6,7 +6,8 @@ import ch.hearc.jdcgame.JdcGame;
 import com.badlogic.gdx.Files;
 
 /**
- * 
+ * Point d'entrée du programme
+ * Initialisation et paramètrage d'une nouvelle application 
  */
 public class DesktopLauncher {
     public static void main (String[] arg) {

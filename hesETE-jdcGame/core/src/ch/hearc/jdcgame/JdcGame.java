@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
- * 
+ * Classe principale du programme
  */
 public class JdcGame extends Game {
     
@@ -36,7 +36,7 @@ public class JdcGame extends Game {
         //public List<Integer> goverList = new ArrayList<Integer>();
 	
         /**
-         * 
+         * Chargement des ressources et initialisation des éléments du jeu
          */
 	@Override
 	public void create () {

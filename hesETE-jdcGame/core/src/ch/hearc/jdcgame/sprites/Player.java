@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 /**
- *
+ * Représente le joueur
  */
 public class Player extends Sprite {
     

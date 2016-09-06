@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
- *
+ *  Affichage du niveau de vie, du niveau en cours et du temps restant
  */
 public class Hud implements Disposable{
     public Stage stage;
@@ -37,7 +37,7 @@ public class Hud implements Disposable{
     private static String number;
     
     /**
-     * 
+     * Création et positionnement des éléments
      * @param sb 
      */
     public Hud(SpriteBatch sb) {
@@ -53,6 +53,7 @@ public class Hud implements Disposable{
         table.top();
         table.setFillParent(true);
         
+        // Initialisation des labels
         countdownLabel = new Label(String.format("%d", worldTimer), new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         healthLabel =  new Label(String.format("%d", health), new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         timeLabel =  new Label(Localization.Time_LAB, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
@@ -60,7 +61,7 @@ public class Hud implements Disposable{
         worldLabel = new Label(Localization.LEVEL_LAB, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         lifeLabel = new Label(Localization.LIFE_LAB, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         
-        //LAbels supérieurs
+        //Labels supérieurs
         table.add(lifeLabel).expandX().padTop(10);
         table.add(worldLabel).expandX().padTop(10);
         table.add(timeLabel).expandX().padTop(10);
@@ -75,7 +76,7 @@ public class Hud implements Disposable{
     }
 
     /**
-     * 
+     * Mise à jour du temps restant
      * @param dt 
      */
     public void update(float dt){
@@ -92,8 +93,8 @@ public class Hud implements Disposable{
     }
     
     /**
-     * 
-     * @return 
+     * Retourne le nombre de vie restantes
+     * @return : Nombre de vie
      */
     public static Integer getHealth(){
         return  health;
@@ -101,9 +102,9 @@ public class Hud implements Disposable{
     }
     
     /**
-     * 
-     * @param value
-     * @return 
+     * Mettre à jour le nombre de vie restantes
+     * @param value : Nombre de vie à enlever
+     * @return : Nouveau nombre de vie
      */
     public static Integer updateHealth(int value){
         
@@ -114,15 +115,15 @@ public class Hud implements Disposable{
     }
     
     /**
-     * Changement du numéro du level
-     * @param value 
+     * Changement du numéro du niveau
+     * @param value : Numéro du niveau
      */
     public static void setLevelNumber(String value){ 
         number = value;
     }
     
     /**
-     * 
+     * Retourne vrai si le temps est écoulé
      * @return 
      */
     public boolean isTimeUp() {

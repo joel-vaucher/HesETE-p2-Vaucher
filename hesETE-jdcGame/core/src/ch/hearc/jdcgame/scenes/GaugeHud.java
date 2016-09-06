@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
- *
+ *  Affichage des jauges du temps de rechargement
  */
 public class GaugeHud implements Disposable {
     public Stage stage;
@@ -22,26 +22,28 @@ public class GaugeHud implements Disposable {
     
     public static PlayScreen screen;
     
+    private Image gaugeGravity;
+    private Image gaugeTeleport;
     private Image gaugeHidenGravity;
     private Image gaugeHidenTeleport;
-    
-    private Actor gaugeGravity;
-    private Actor gaugeTeleport;
     
     private float startX, endX;
     private float percentGravity;
     private float percentTeleport;
 
     /**
-     * 
+     * Création et positionnement des jauges
      * @param sb 
      */
     public GaugeHud(SpriteBatch sb) {
         viewport = new FitViewport(JdcGame.V_WIDTH, JdcGame.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, sb);
 
+        // Récupération des textures
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("others/gauges.pack"));
         
+        // Initialisation des jauges (simples images)
+        // Initialisation de deux images qui permettront de simuler le chargement
         gaugeHidenTeleport = new Image(atlas.findRegion("gauge_hiden"));
         gaugeHidenGravity = new Image(atlas.findRegion("gauge_hiden"));
         gaugeTeleport = new Image(atlas.findRegion("gauge_green"));
@@ -60,14 +62,14 @@ public class GaugeHud implements Disposable {
         startX = gaugeHidenGravity.getX();
         endX = 102;
         
-        emptyGaugeGravity();
-        emptyGaugeTeleportation();
+        fullGaugeGravity();
+        fullGaugeTeleportation();
     }
     
     /**
-     * 
+     * Fait disparaitre le cache de la jauge de la gravité
      */
-    public void emptyGaugeGravity() {
+    public void fullGaugeGravity() {
         gaugeHidenGravity.setSize(0, 6);        
         gaugeHidenGravity.setX(gaugeGravity.getX() + 5);
         gaugeHidenGravity.setY(gaugeGravity.getY() + 2);
@@ -75,9 +77,9 @@ public class GaugeHud implements Disposable {
     }
     
     /**
-     * 
+     * Fait disparaitre le cache de la jauge de la téléportation
      */
-    public void emptyGaugeTeleportation () {
+    public void fullGaugeTeleportation () {
         gaugeHidenTeleport.setSize(0, 6);
         gaugeHidenTeleport.setX(gaugeTeleport.getX() + 5);
         gaugeHidenTeleport.setY(gaugeTeleport.getY() + 2);
@@ -85,27 +87,43 @@ public class GaugeHud implements Disposable {
     }
     
     /**
-     * 
-     * @param percent 
+     * Simule le chargement de la jauge de la gravité
+     * en variant la taille d'un cache
+     * @param percent : Pourcentage du temps passé
      */
-    public void updateGravityGauge(float percent) {       
-        gaugeHidenGravity.setWidth(104 - 104 * percent);
-        gaugeHidenGravity.setX(gaugeGravity.getWidth() + 12 - gaugeHidenGravity.getWidth());
-        gaugeHidenGravity.invalidate();
-        stage.act();
-        stage.draw();        
+    public void updateGravityGauge(float percent) {
+        // Appel de la méthode update en indiquant la jauge à mettre à jour
+        updateGauge(gaugeGravity, gaugeHidenGravity, percent);
     }
     
     /**
-     * 
-     * @param percent 
+     * Simule le chargement de la jauge de la téléportation
+     * en variant la taille d'un cache
+     * @param percent : Pourcentage du temps passé
      */
     public void updateTelepartionGauge(float percent) {  
-        gaugeHidenTeleport.setWidth(104 - 104 * percent);
-        gaugeHidenTeleport.setX(gaugeTeleport.getWidth() + 12 - gaugeHidenTeleport.getWidth());
-        gaugeHidenTeleport.invalidate();
+        // Appel de la méthode update en indiquant la jauge à mettre à jour
+        updateGauge(gaugeTeleport, gaugeHidenTeleport, percent);
+    }
+    
+    /**
+     * Simule le chargement de la jauge de la gravité 
+     * en variant la taille d'un cache
+     * 
+     * La taille du cache est calculé à l'aide 
+     *  - du pourcentage de temps passé
+     *  - de la taille de la jauge
+     * 
+     * @param gauge : Jauge
+     * @param gaugeHiden : Cache de la jauge
+     * @param percent : Pourcentage du temps passé
+     */
+    private void updateGauge(Image gauge, Image gaugeHiden, float percent) {
+        gaugeHiden.setWidth(104 - 104 * percent);
+        gaugeHiden.setX(gauge.getWidth() + 12 - gaugeHiden.getWidth());
+        gaugeHiden.invalidate();
         stage.act();
-        stage.draw();
+        stage.draw();    
     }
 
     @Override

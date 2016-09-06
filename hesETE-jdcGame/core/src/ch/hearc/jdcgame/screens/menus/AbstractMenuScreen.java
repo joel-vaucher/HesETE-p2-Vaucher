@@ -21,7 +21,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
- *
+ *  Cette classe abstraite sert de base pour les screens de menu
+ *  Elle initialise et positionne les éléments commun à tous les menus
  */
 public abstract class AbstractMenuScreen implements Screen{
     
@@ -33,26 +34,36 @@ public abstract class AbstractMenuScreen implements Screen{
     protected final Music music;
     
     /**
-     * 
+     * Constructeur initialisant les éléments communs
      * @param game 
      */
     public AbstractMenuScreen(JdcGame game) {
+        // Initialisation du viewport et stage
         this.game = game;
         viewport = new FitViewport(JdcGame.V_WIDTH, JdcGame.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, ((JdcGame) game).batch);
+        // Association des entrées au stage
         Gdx.input.setInputProcessor(stage);
         
+        /*
+            Tables permettant de positionner les éléments
+             - buttonsTable : table contenant le bouton retour et la liste des autres boutons
+             - scrollTable : table contenant des boutons formant une liste
+             - scrollPane : permet de rendre la liste des boutons (scrollTable) défilante
+             - mainTable : table contenant le logo du jeu et buttonsTable
+        */
         buttonsTable = new Table();
         scrollTable = new Table();
         scrollpane = new ScrollPane(scrollTable);
         scrollpane.setFadeScrollBars(false);
         scrollpane.setScrollingDisabled(true, false);
-
         mainTable = new Table();
         mainTable.setFillParent(true);
         
+        // Logo du jeu
         Image logo = new Image(new Texture(Gdx.files.internal("others/logo.png")));
         
+        // Positionnement des éléments
         buttonsTable.defaults().expand().center();
         buttonsTable.columnDefaults(0).center();
         buttonsTable.pad(0);
@@ -71,6 +82,7 @@ public abstract class AbstractMenuScreen implements Screen{
         stage.addActor(mainTable);
         stage.setScrollFocus(scrollpane);
         
+        // Musique de fond
         music = JdcGame.manager.get("audio/music/menuson.mp3", Music.class);
         music.setLooping(true);
         music.setVolume(1);
@@ -78,8 +90,8 @@ public abstract class AbstractMenuScreen implements Screen{
     }
     
     /**
-     * 
-     * @return 
+     * Création et renvoie du style des boutons du menu
+     * @return Style des boutons
      */
     protected TextButton.TextButtonStyle makeButtonStyle () {
         TextButton.TextButtonStyle textButtonStyle;
@@ -110,9 +122,11 @@ public abstract class AbstractMenuScreen implements Screen{
 
     @Override
     public void render(float delta) {
+        // Nettoie de l'écran
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.getBatch().begin();
+        // Background
         stage.getBatch().draw(new Texture(Gdx.files.internal("others/bg_menu.png")), 0, 0, JdcGame.V_WIDTH, JdcGame.V_HEIGHT);
         stage.getBatch().end();
         stage.act(delta);

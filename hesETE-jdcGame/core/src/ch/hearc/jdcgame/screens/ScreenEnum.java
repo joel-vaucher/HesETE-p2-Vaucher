@@ -6,7 +6,7 @@ import ch.hearc.jdcgame.JdcGame;
 import com.badlogic.gdx.Screen;
 
 /**
- *
+ * Enumération utilisée par ScreenManager
  */
 public enum ScreenEnum {
     MAIN_MENU {
@@ -29,17 +29,17 @@ public enum ScreenEnum {
     };
     
     /**
-     * 
+     * Permet de renvoier le screen souhaité
      * @param game
-     * @return 
+     * @return Nouveau Screen
      */
     public abstract Screen getScreen(JdcGame game);
 
     /**
-     * 
+     * Permet de renvoier l'interface de jeu en indiquant le niveau
      * @param game
-     * @param levelFileName
-     * @return 
+     * @param levelFileName : Chemin du fichier du niveau
+     * @return Nouveau PlayScreen
      */
     public Screen getPlayScreen(JdcGame game, String levelFileName) {
         return new PlayScreen(game, levelFileName);

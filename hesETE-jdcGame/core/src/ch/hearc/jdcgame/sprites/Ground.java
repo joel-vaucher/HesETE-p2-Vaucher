@@ -5,7 +5,7 @@ import ch.hearc.jdcgame.screens.PlayScreen;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
- *
+ * Classe représentant le sol de la carte
  */
 public class Ground extends InteractiveTileObject{
     /**

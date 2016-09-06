@@ -15,7 +15,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -26,12 +25,12 @@ import java.util.Locale;
 
 
 /**
- *
+ *  Menu principal du programme
  */
 public class MainMenuScreen extends AbstractMenuScreen {
     
     /**
-     * 
+     * Création du menu
      * @param game 
      */
     public MainMenuScreen(JdcGame game) {
@@ -40,16 +39,17 @@ public class MainMenuScreen extends AbstractMenuScreen {
     }
     
     /**
-     * 
+     * Initialise et positionne les éléments du menu
      */
     private void mainElememts() {    
         
         final TextButton playBtn, exitBtn;
-        TextButton.TextButtonStyle textButtonStyle = makeButtonStyle(); 
+        TextButton.TextButtonStyle textButtonStyle = makeButtonStyle();
+        // Récupération des drapeaux pour les boutons de traduction
         Skin skin = new Skin();
         TextureAtlas buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/flags.pack"));
         skin.addRegions(buttonAtlas);
-                
+        // Initialisation des boutons pour la traduction
         ImageButton frBtn = new ImageButton(skin.getDrawable("fr"));
         ImageButton ukBtn = new ImageButton(skin.getDrawable("uk"));
         ImageButton deBtn = new ImageButton(skin.getDrawable("de"));
@@ -59,6 +59,7 @@ public class MainMenuScreen extends AbstractMenuScreen {
         playBtn = new TextButton(Localization.START_BTN, textButtonStyle);
         exitBtn = new TextButton(Localization.QUIT_BTN, textButtonStyle);
         
+        // Action lors du clic de souris --> Affiche la liste des niveaux
         playBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -66,6 +67,7 @@ public class MainMenuScreen extends AbstractMenuScreen {
                 ScreenManager.getInstance().showScreen(ScreenEnum.LEVEL_MENU);
             }
         });
+        // Action lors du survol de souris --> Emettre un bruit
         playBtn.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -73,6 +75,7 @@ public class MainMenuScreen extends AbstractMenuScreen {
             }
         });
         
+        // Action lors du clic de souris --> Sortir du programme
         exitBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -81,7 +84,7 @@ public class MainMenuScreen extends AbstractMenuScreen {
                 Gdx.app.exit();
             }
         });
-        
+        // Action lors du survol de souris --> Emettre un bruit
         exitBtn.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -105,7 +108,9 @@ public class MainMenuScreen extends AbstractMenuScreen {
         flagTable.add(itBtn).size(16, 16);
         flagTable.add(ptBtn).size(16, 16);
         
-        //Gestion de la localisation et internationalisation
+        /* 
+         *  Gestion de la localisation et internationalisation
+         */
         frBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {        
@@ -142,6 +147,7 @@ public class MainMenuScreen extends AbstractMenuScreen {
     }
     
     /**
+     * Changement de langue
      * 
      * @param language
      * @param lg
