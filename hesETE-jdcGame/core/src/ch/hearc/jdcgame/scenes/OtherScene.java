@@ -27,7 +27,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  *
- * @author Daniel
  */
 public class OtherScene implements Disposable{
     
@@ -36,6 +35,11 @@ public class OtherScene implements Disposable{
     protected Table table;
     Label returnLbl;
     
+    /**
+     * 
+     * @param sb
+     * @param screenName 
+     */
     public OtherScene(SpriteBatch sb, String screenName) {
         viewport = new FitViewport(JdcGame.V_WIDTH, JdcGame.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, sb);        
@@ -97,6 +101,10 @@ public class OtherScene implements Disposable{
         stage.addActor(table);
     }
     
+    /**
+     * 
+     * @return 
+     */
     protected TextButton.TextButtonStyle makeButtonStyle () {
         TextButton.TextButtonStyle textButtonStyle;
         BitmapFont font;

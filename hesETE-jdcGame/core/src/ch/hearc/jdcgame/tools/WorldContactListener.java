@@ -10,7 +10,6 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 
 /**
  *
- * @author charlesombangndo
  */
 public class WorldContactListener implements ContactListener{
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.hearc.jdcgame.scenes;
 
 import ch.hearc.jdcgame.JdcGame;
@@ -20,7 +15,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  *
- * @author Daniel
  */
 public class GaugeHud implements Disposable {
     public Stage stage;
@@ -38,6 +32,10 @@ public class GaugeHud implements Disposable {
     private float percentGravity;
     private float percentTeleport;
 
+    /**
+     * 
+     * @param sb 
+     */
     public GaugeHud(SpriteBatch sb) {
         viewport = new FitViewport(JdcGame.V_WIDTH, JdcGame.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, sb);
@@ -66,6 +64,9 @@ public class GaugeHud implements Disposable {
         emptyGaugeTeleportation();
     }
     
+    /**
+     * 
+     */
     public void emptyGaugeGravity() {
         gaugeHidenGravity.setSize(0, 6);        
         gaugeHidenGravity.setX(gaugeGravity.getX() + 5);
@@ -73,6 +74,9 @@ public class GaugeHud implements Disposable {
         percentGravity = 0;
     }
     
+    /**
+     * 
+     */
     public void emptyGaugeTeleportation () {
         gaugeHidenTeleport.setSize(0, 6);
         gaugeHidenTeleport.setX(gaugeTeleport.getX() + 5);
@@ -80,6 +84,10 @@ public class GaugeHud implements Disposable {
         percentTeleport = 0;
     }
     
+    /**
+     * 
+     * @param percent 
+     */
     public void updateGravityGauge(float percent) {       
         gaugeHidenGravity.setWidth(104 - 104 * percent);
         gaugeHidenGravity.setX(gaugeGravity.getWidth() + 12 - gaugeHidenGravity.getWidth());
@@ -88,6 +96,10 @@ public class GaugeHud implements Disposable {
         stage.draw();        
     }
     
+    /**
+     * 
+     * @param percent 
+     */
     public void updateTelepartionGauge(float percent) {  
         gaugeHidenTeleport.setWidth(104 - 104 * percent);
         gaugeHidenTeleport.setX(gaugeTeleport.getWidth() + 12 - gaugeHidenTeleport.getWidth());

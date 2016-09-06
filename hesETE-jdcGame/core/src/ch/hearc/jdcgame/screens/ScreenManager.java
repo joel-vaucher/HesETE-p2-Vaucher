@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 
 /**
  *
- * @author Daniel
  */
 public class ScreenManager {
     
@@ -13,21 +12,35 @@ public class ScreenManager {
     private static ScreenManager instance;
     private JdcGame game;
     
+    /**
+     * 
+     */
     private ScreenManager() {
         super();
     }
     
-    // Singleton : retourner l'instance
+    /**
+     * Singleton
+     * @return instance
+     */
     public static ScreenManager getInstance() {
         if(instance == null)
             instance = new ScreenManager();
         return instance;
     }
     
+    /**
+     * 
+     * @param game 
+     */
     public void initialize(JdcGame game) {
         this.game = game;
     }
     
+    /**
+     * 
+     * @param screenEnum 
+     */
     public void showScreen(ScreenEnum screenEnum) {
         Screen currentScreen = game.getScreen();
         Screen newScreen = screenEnum.getScreen(game);
@@ -38,6 +51,11 @@ public class ScreenManager {
         }
     }
     
+    /**
+     * 
+     * @param screenEnum
+     * @param levelFileName 
+     */
     public void showPlayScreen(ScreenEnum screenEnum, String levelFileName) {
         Screen currentScreen = game.getScreen();
         Screen newScreen = screenEnum.PLAY_SCREEN.getPlayScreen(game, levelFileName);

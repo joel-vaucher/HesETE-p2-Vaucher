@@ -1,6 +1,5 @@
 package ch.hearc.jdcgame;
 
-import ch.hearc.jdcgame.screens.PlayScreen;
 import ch.hearc.jdcgame.screens.ScreenEnum;
 import ch.hearc.jdcgame.screens.ScreenManager;
 import com.badlogic.gdx.Game;
@@ -10,9 +9,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * 
+ */
 public class JdcGame extends Game {
     
         public static final int V_WIDTH = 640;
@@ -35,6 +35,9 @@ public class JdcGame extends Game {
         public static AssetManager manager;
         //public List<Integer> goverList = new ArrayList<Integer>();
 	
+        /**
+         * 
+         */
 	@Override
 	public void create () {
             batch = new SpriteBatch();
@@ -62,9 +65,9 @@ public class JdcGame extends Game {
             super.render();
             manager.update();
 	}
-	
+
 	@Override
 	public void dispose () {
-		batch.dispose();
+            batch.dispose();
 	}
 }

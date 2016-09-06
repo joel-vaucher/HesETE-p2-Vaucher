@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.Array;
 
 /**
  *
- * @author joel
  */
 public class Teleportation {
     
@@ -24,6 +23,10 @@ public class Teleportation {
     private final int SPRITE_WIDTH = 40;
     private final int SPRITE_HEIGHT = 50;
     
+    /**
+     * 
+     * @param screen 
+     */
     public Teleportation(PlayScreen screen) {
         
         TextureAtlas.AtlasRegion tp = screen.getSprites().findRegion("Teleportation_sprite");
@@ -42,6 +45,11 @@ public class Teleportation {
         tpSprite = new TextureRegion(tp.getTexture(), tp.getRegionX(), tp.getRegionY(), SPRITE_WIDTH, SPRITE_HEIGHT);
     }
     
+    /**
+     * 
+     * @param x
+     * @param y 
+     */
     public void changePosition(float x, float y){
         //System.out.println(x + " " + y);
         this.x = x;
@@ -49,14 +57,29 @@ public class Teleportation {
         stateTimerTp = 0;
     }
     
+    /**
+     * 
+     * @param delta 
+     */
     public void update(float delta){
         tpSprite = getFrameTeleporting(delta);
     }
     
+    /**
+     * 
+     * @param batch
+     * @param x
+     * @param y 
+     */
     public void render(SpriteBatch batch, float x, float y){
         batch.draw(tpSprite, x - SPRITE_WIDTH / 2 / JdcGame.PPM, y - SPRITE_HEIGHT / 2 / JdcGame.PPM, SPRITE_WIDTH / JdcGame.PPM, SPRITE_HEIGHT / JdcGame.PPM);
     }
 
+    /**
+     * 
+     * @param delta
+     * @return 
+     */
     private TextureRegion getFrameTeleporting(float delta) {
         TextureRegion pic = tpAnimation.getKeyFrame(stateTimerTp);
         stateTimerTp += delta;

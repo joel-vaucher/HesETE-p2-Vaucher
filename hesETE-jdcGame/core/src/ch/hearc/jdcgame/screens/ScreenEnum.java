@@ -7,7 +7,6 @@ import com.badlogic.gdx.Screen;
 
 /**
  *
- * @author Daniel
  */
 public enum ScreenEnum {
     MAIN_MENU {
@@ -29,8 +28,19 @@ public enum ScreenEnum {
         }
     };
     
+    /**
+     * 
+     * @param game
+     * @return 
+     */
     public abstract Screen getScreen(JdcGame game);
 
+    /**
+     * 
+     * @param game
+     * @param levelFileName
+     * @return 
+     */
     public Screen getPlayScreen(JdcGame game, String levelFileName) {
         return new PlayScreen(game, levelFileName);
     }

@@ -32,7 +32,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  *
- * @author Daniel
  */
 public class PlayScreen implements Screen{
 
@@ -84,10 +83,19 @@ public class PlayScreen implements Screen{
     private boolean pause;
     private OtherScene scene;
     
+    /**
+     * 
+     * @param game 
+     */
     public PlayScreen(JdcGame game) {
         this(game, levelFileName);
     }
     
+    /**
+     * 
+     * @param game
+     * @param levelFileName 
+     */
     public PlayScreen(JdcGame game, String levelFileName){
         
         this.levelFileName = levelFileName;
@@ -145,6 +153,10 @@ public class PlayScreen implements Screen{
         world.setContactListener(new WorldContactListener());
     }
     
+    /**
+     * 
+     * @return 
+     */
     public TextureAtlas getSprites(){
         return sprite;
     }
@@ -153,7 +165,10 @@ public class PlayScreen implements Screen{
     public void show() {
     }
 
-    //Evenements input 
+    /**
+     * Evenements input
+     * @param delta 
+     */
     public void handleInput(float delta){
         
         if(Gdx.input.isTouched() && TeleportReady && !pause) {
@@ -186,6 +201,10 @@ public class PlayScreen implements Screen{
         }
     }
     
+    /**
+     * 
+     * @param delta 
+     */
     public void update(float delta){
         if(!endGame) {
             handleInput(delta);
@@ -280,6 +299,10 @@ public class PlayScreen implements Screen{
 
     }
     
+    /**
+     * 
+     * @param victory 
+     */
     public void endGame(boolean victory){
         endGame = true;
         
@@ -300,6 +323,9 @@ public class PlayScreen implements Screen{
         }
     }
     
+    /**
+     * 
+     */
     public void collideWithKey(){
         
     }
@@ -310,14 +336,26 @@ public class PlayScreen implements Screen{
         if(pause) scene.stage.getViewport().update(width, height, true);
     }
     
+    /**
+     * 
+     * @return 
+     */
     public TiledMap getMap() {
         return map;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public World getWorld() {
         return world;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public Player getPlayer() {
         return player;
     }

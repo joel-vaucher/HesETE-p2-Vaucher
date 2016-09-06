@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.hearc.jdcgame.tools;
 
 /**
  *
- * @author charlesombangndo
  */
 public class Localization {
     
@@ -23,7 +17,7 @@ public class Localization {
     
     public static String MESSAGE_1 = "Touche [ESC] pour revenir au jeu.";
     public static String MESSAGE_2 = "PAUSE";
-    
+
     public static void setStartBtn(String name){
         START_BTN = name;
     }

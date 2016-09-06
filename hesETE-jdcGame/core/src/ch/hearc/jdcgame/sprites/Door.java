@@ -6,10 +6,14 @@ import com.badlogic.gdx.math.Rectangle;
 
 /**
  *
- * @author charlesombangndo
  */
 public class Door extends Enemy{
 
+    /**
+     * 
+     * @param screen
+     * @param bounds 
+     */
     public Door(PlayScreen screen, Rectangle bounds) {
         super(screen, bounds);
         fixture.setUserData(this);

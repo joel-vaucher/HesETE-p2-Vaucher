@@ -7,16 +7,17 @@ package ch.hearc.jdcgame.sprites;
 
 import ch.hearc.jdcgame.JdcGame;
 import ch.hearc.jdcgame.screens.PlayScreen;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
  *
- * @author charlesombangndo
  */
 public class Key extends InteractiveTileObject{
-
+    /**
+     * 
+     * @param screen
+     * @param bounds 
+     */
     public Key(PlayScreen screen, Rectangle bounds) {
         super(screen, bounds);
         fixture.setUserData(this);

@@ -22,7 +22,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  *
- * @author Daniel
  */
 public abstract class AbstractMenuScreen implements Screen{
     
@@ -33,6 +32,10 @@ public abstract class AbstractMenuScreen implements Screen{
     protected ScrollPane scrollpane;   
     protected final Music music;
     
+    /**
+     * 
+     * @param game 
+     */
     public AbstractMenuScreen(JdcGame game) {
         this.game = game;
         viewport = new FitViewport(JdcGame.V_WIDTH, JdcGame.V_HEIGHT, new OrthographicCamera());
@@ -74,6 +77,10 @@ public abstract class AbstractMenuScreen implements Screen{
         music.play();
     }
     
+    /**
+     * 
+     * @return 
+     */
     protected TextButton.TextButtonStyle makeButtonStyle () {
         TextButton.TextButtonStyle textButtonStyle;
         BitmapFont font;
