@@ -160,6 +160,7 @@
   <object id="69" x="9521" y="228" width="63" height="61"/>
  </objectgroup>
  <objectgroup name="water"/>
+<<<<<<< HEAD
  <objectgroup name="keys">
   <object id="247" x="352" y="128" width="32" height="32"/>
   <object id="248" x="592" y="256" width="32" height="32"/>
@@ -227,4 +228,7 @@
   <object id="314" x="8976" y="240" width="32" height="32"/>
   <object id="316" x="9472" y="32" width="32" height="32"/>
  </objectgroup>
+=======
+ <objectgroup name="keys"/>
+>>>>>>> origin/master
 </map>

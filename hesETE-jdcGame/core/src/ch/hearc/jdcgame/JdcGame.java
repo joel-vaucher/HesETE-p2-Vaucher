@@ -10,6 +10,9 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * 
+ */
 public class JdcGame extends Game {
     
         public static final int V_WIDTH = 640;
@@ -32,6 +35,9 @@ public class JdcGame extends Game {
         public static AssetManager manager;
         //public List<Integer> goverList = new ArrayList<Integer>();
 	
+        /**
+         * 
+         */
 	@Override
 	public void create () {
             batch = new SpriteBatch();
@@ -59,9 +65,9 @@ public class JdcGame extends Game {
             super.render();
             manager.update();
 	}
-	
+
 	@Override
 	public void dispose () {
-		batch.dispose();
+            batch.dispose();
 	}
 }

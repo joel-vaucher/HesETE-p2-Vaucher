@@ -7,9 +7,13 @@ import com.badlogic.gdx.math.Rectangle;
 
 /**
  *
- * @author charlesombangndo
  */
 public class Water extends Enemy{
+    /**
+     * 
+     * @param screen
+     * @param bounds 
+     */
     public Water(PlayScreen screen, Rectangle bounds) {
         super(screen, bounds);
         fixture.setUserData(this);

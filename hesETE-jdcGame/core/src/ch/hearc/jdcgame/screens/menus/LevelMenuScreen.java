@@ -14,10 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
  *
- * @author Daniel
  */
 public class LevelMenuScreen extends AbstractMenuScreen {
     
+    /**
+     * 
+     * @param game 
+     */
     public LevelMenuScreen(JdcGame game) {
         super(game);
                           

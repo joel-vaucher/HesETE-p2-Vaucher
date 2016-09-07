@@ -16,7 +16,6 @@ import com.badlogic.gdx.physics.box2d.World;
 
 /**
  *
- * @author charlesombangndo
  */
 public abstract class InteractiveTileObject {
     
@@ -29,6 +28,11 @@ public abstract class InteractiveTileObject {
     protected Rectangle bounds;
     protected Body body;
     
+    /**
+     * 
+     * @param screen
+     * @param bounds 
+     */
     public InteractiveTileObject(PlayScreen screen, Rectangle bounds){
         
         this.screen = screen;
@@ -50,16 +54,27 @@ public abstract class InteractiveTileObject {
         fixture = body.createFixture(fdef);
     }
     
+    /**
+     * 
+     */
     public abstract void onPlayerHit();
     
+    /**
+     * 
+     * @param filterBit 
+     */
     public void setCategoryFilter(short filterBit) {
         Filter filter = new Filter();
         filter.categoryBits = filterBit;
         fixture.setFilterData(filter);
     }
     
-    //Obtenir la cellule de collision dans la map
+    /**
+     * Obtenir la cellule de collision dans la map
+     * @return 
+     */
     public TiledMapTileLayer.Cell getCell(int offsetX, int offsetY){
+
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
         return layer.getCell(((int)(body.getPosition().x * JdcGame.PPM / 16))+ offsetX,
                ((int)(body.getPosition().y * JdcGame.PPM / 16) + offsetY));

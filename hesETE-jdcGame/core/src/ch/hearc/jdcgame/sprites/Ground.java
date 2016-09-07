@@ -6,9 +6,13 @@ import com.badlogic.gdx.math.Rectangle;
 
 /**
  *
- * @author joel
  */
 public class Ground extends InteractiveTileObject{
+    /**
+     * 
+     * @param screen
+     * @param bounds 
+     */
     public Ground(PlayScreen screen, Rectangle bounds) {
         super(screen, bounds);
         fixture.setUserData(this);

@@ -27,16 +27,21 @@ import java.util.Locale;
 
 /**
  *
- * @author Daniel
  */
 public class MainMenuScreen extends AbstractMenuScreen {
     
+    /**
+     * 
+     * @param game 
+     */
     public MainMenuScreen(JdcGame game) {
         super(game);
-
         mainElememts();
     }
     
+    /**
+     * 
+     */
     private void mainElememts() {    
         
         final TextButton playBtn, exitBtn;
@@ -136,6 +141,13 @@ public class MainMenuScreen extends AbstractMenuScreen {
         stage.addActor(flagTable);
     }
     
+    /**
+     * 
+     * @param language
+     * @param lg
+     * @param playBtn
+     * @param exitBtn 
+     */
     private void translateLanguage(String language, String lg, TextButton playBtn, TextButton exitBtn){
         
         JdcGame.manager.get("audio/sounds/click.mp3", Sound.class).play();

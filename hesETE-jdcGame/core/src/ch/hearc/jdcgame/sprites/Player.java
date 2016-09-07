@@ -17,7 +17,6 @@ import com.badlogic.gdx.utils.Array;
 
 /**
  *
- * @author joel
  */
 public class Player extends Sprite {
     
@@ -37,6 +36,10 @@ public class Player extends Sprite {
     private int life = 5;
     private float speed = 0.5f;
     
+    /**
+     * 
+     * @param screen 
+     */
     public Player(PlayScreen screen) {
         super(screen.getSprites().findRegion("Run_sprite"));
         
@@ -61,11 +64,18 @@ public class Player extends Sprite {
         setRegion(runSprite);
     }    
     
+    /**
+     * 
+     * @param delta 
+     */
     public void update(float delta){
         setPosition(b2body.getPosition().x - getWidth()/2,  b2body.getPosition().y - getHeight() / 2);
         setRegion(getFrameRunning(delta));
     }
 
+    /**
+     * 
+     */
     public void definePlayer() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(100 / JdcGame.PPM, 100 / JdcGame.PPM);
@@ -95,6 +105,11 @@ public class Player extends Sprite {
         b2body.createFixture(fdef).setUserData("deadpart");
     }
 
+    /**
+     * 
+     * @param delta
+     * @return 
+     */
     private TextureRegion getFrameRunning(float delta) {
         TextureRegion pic = runAnimation.getKeyFrame(stateTimerRun%runAnimation.getAnimationDuration());
         stateTimerRun += delta;
@@ -115,6 +130,10 @@ public class Player extends Sprite {
         //Gdx.app.log("life", life + "");
     //}
     
+    /**
+     * 
+     * @param value 
+     */
     public void manIsDead(int value){         
         if(Hud.updateHealth(value) <= 0){
             screen.endGame(false);
@@ -124,10 +143,18 @@ public class Player extends Sprite {
         
     }
 
+    /**
+     * 
+     * @return 
+     */
     public float getSpeed() {
         return speed;
     }
     
+    /**
+     * 
+     * @param s 
+     */
     public void setSpeed(float s) {
         speed = s;
     }

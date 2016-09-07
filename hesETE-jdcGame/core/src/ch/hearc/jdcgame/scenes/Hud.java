@@ -15,7 +15,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  *
- * @author Daniel
  */
 public class Hud implements Disposable{
     public Stage stage;
@@ -38,6 +37,10 @@ public class Hud implements Disposable{
     private static String number;
     private Label point;
     
+    /**
+     * 
+     * @param sb 
+     */
     public Hud(SpriteBatch sb) {
         
         worldTimer = 90;
@@ -72,11 +75,21 @@ public class Hud implements Disposable{
         
         stage.addActor(table);
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
     public static Integer getHealth(){
         return  health;
         
     }
+    
+    /**
+     * 
+     * @param value
+     * @return 
+     */
     public static Integer updateHealth(int value){
         
         health -= value;
@@ -85,7 +98,10 @@ public class Hud implements Disposable{
         return health;
     }
     
-    //Changer le numéro du level
+    /**
+     * Changement du numéro du level
+     * @param value 
+     */
     public static void setLevelNumber(String value){ 
         number = value;
     }
@@ -93,14 +109,9 @@ public class Hud implements Disposable{
     public static void addScore(int value){
         score +=value;
         scoreLabel.setText(String.format("%06d", score));
-    }
-    
+    }   
     @Override
     public void dispose() {
         stage.dispose();
-    }
-    
-    public boolean isTimeUp() {
-        return timeUp; 
     }
 }

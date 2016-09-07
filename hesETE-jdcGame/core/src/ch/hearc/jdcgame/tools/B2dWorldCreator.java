@@ -2,9 +2,9 @@ package ch.hearc.jdcgame.tools;
 
 import ch.hearc.jdcgame.screens.PlayScreen;
 import ch.hearc.jdcgame.sprites.Door;
-import ch.hearc.jdcgame.sprites.Keys;
 import ch.hearc.jdcgame.sprites.FlagEnd;
 import ch.hearc.jdcgame.sprites.Ground;
+import ch.hearc.jdcgame.sprites.Key;
 import ch.hearc.jdcgame.sprites.Water;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -18,10 +18,12 @@ import com.badlogic.gdx.physics.box2d.World;
 
 /**
  *
- * @author charlesombangndo
  */
 public class B2dWorldCreator {
-    
+    /**
+     * 
+     * @param screen 
+     */
     public B2dWorldCreator(PlayScreen screen){
         World world = screen.getWorld();
         TiledMap map = screen.getMap();
@@ -62,7 +64,7 @@ public class B2dWorldCreator {
         for(MapObject object : map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             System.out.println(rect);
-            new Keys(screen, rect);
+            new Key(screen, rect);
         }
     }
 }
