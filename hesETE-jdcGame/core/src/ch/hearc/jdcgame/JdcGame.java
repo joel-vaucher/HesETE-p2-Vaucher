@@ -27,7 +27,7 @@ public class JdcGame extends Game {
         public static final short DOOR_BIT = 8;
         public static final short STAR_BIT = 8;
         public static final short FLAGEND_BIT = 16;
-        public static final short DESTROYED_BIT = 16;
+        public static final short DESTROYED_BIT = 32;
         
 
         public SpriteBatch batch;
