@@ -28,13 +28,14 @@ public class Hud implements Disposable{
     private boolean timeUp;
     private static Integer health;
     
-    private Label countdownLabel;
+    private static Integer score;
     private static Label healthLabel;
-    private Label timeLabel;
+    private static Label scoreLabel;
     private Label levelLabel;
     private Label worldLabel;
     private Label lifeLabel;
     private static String number;
+    private Label point;
     
     /**
      * Création et positionnement des éléments
@@ -45,6 +46,7 @@ public class Hud implements Disposable{
         worldTimer = 90;
         timeCount = 0;
         health = 5;
+        score = 0;
         
         viewport = new FitViewport(JdcGame.V_WIDTH, JdcGame.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, sb);
@@ -54,9 +56,9 @@ public class Hud implements Disposable{
         table.setFillParent(true);
         
         // Initialisation des labels
-        countdownLabel = new Label(String.format("%d", worldTimer), new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
+        scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         healthLabel =  new Label(String.format("%d", health), new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
-        timeLabel =  new Label(Localization.Time_LAB, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
+        point =  new Label(Localization.SCORE_LAB, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         levelLabel = new Label(number, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         worldLabel = new Label(Localization.LEVEL_LAB, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         lifeLabel = new Label(Localization.LIFE_LAB, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
@@ -64,33 +66,17 @@ public class Hud implements Disposable{
         //Labels supérieurs
         table.add(lifeLabel).expandX().padTop(10);
         table.add(worldLabel).expandX().padTop(10);
-        table.add(timeLabel).expandX().padTop(10);
+        table.add(point).expandX().padTop(10);
         
         //Labels inférieurs
         table.row();
         table.add(healthLabel).expandX();
         table.add(levelLabel).expandX();
-        table.add(countdownLabel).expandX();
+        table.add(scoreLabel).expandX();
         
         stage.addActor(table);
     }
-
-    /**
-     * Mise à jour du temps restant
-     * @param dt 
-     */
-    public void update(float dt){
-        timeCount += dt;
-        if(timeCount >= 1){
-            if (worldTimer > 0) {
-                worldTimer--;
-            } else {
-                timeUp = true;
-            }
-            countdownLabel.setText(String.format("%02d", worldTimer));
-            timeCount = 0;
-        }
-    }
+    
     
     /**
      * Retourne le nombre de vie restantes
@@ -122,13 +108,10 @@ public class Hud implements Disposable{
         number = value;
     }
     
-    /**
-     * Retourne vrai si le temps est écoulé
-     * @return 
-     */
-    public boolean isTimeUp() {
-        return timeUp; 
-    }
+    public static void addScore(int value){
+        score +=value;
+        scoreLabel.setText(String.format("%06d", score));
+    }   
     
     @Override
     public void dispose() {

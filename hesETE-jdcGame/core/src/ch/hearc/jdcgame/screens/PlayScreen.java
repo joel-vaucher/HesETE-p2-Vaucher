@@ -255,7 +255,7 @@ public class PlayScreen implements Screen{
                     player.manIsDead(5);
                 }
                 player.update(delta);
-                hud.update(delta);
+                //hud.update(delta);
                 //Mise a jour de la position de la camera suivant les nouvelles coordonnées
                 gamecam.update();
                 renderer.setView(gamecam);
@@ -270,7 +270,7 @@ public class PlayScreen implements Screen{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         renderer.render();
-        b2dr.render(world, gamecam.combined);
+        //b2dr.render(world, gamecam.combined);
         
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();

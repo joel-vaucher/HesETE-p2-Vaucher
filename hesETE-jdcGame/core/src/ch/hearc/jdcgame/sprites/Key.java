@@ -6,13 +6,13 @@
 package ch.hearc.jdcgame.sprites;
 
 import ch.hearc.jdcgame.JdcGame;
+import ch.hearc.jdcgame.scenes.Hud;
 import ch.hearc.jdcgame.screens.PlayScreen;
 import com.badlogic.gdx.math.Rectangle;
 
-/**
- *
- */
+    
 public class Key extends InteractiveTileObject{
+
     /**
      * 
      * @param screen
@@ -21,13 +21,18 @@ public class Key extends InteractiveTileObject{
     public Key(PlayScreen screen, Rectangle bounds) {
         super(screen, bounds);
         fixture.setUserData(this);
-        setCategoryFilter(JdcGame.KEY_BIT);
+        setCategoryFilter(JdcGame.STAR_BIT);
     }
 
     @Override
     public void onPlayerHit() {
-        System.out.println("touche");
-        
+        setCategoryFilter(JdcGame.DESTROYED_BIT);
+        getCell(0,0).setTile(null);
+        getCell(-1,0).setTile(null);
+        getCell(-1,-1).setTile(null);
+        getCell(0,-1).setTile(null);
+        Hud.addScore(100);
     }
+    
     
 }

@@ -1,8 +1,8 @@
 package ch.hearc.jdcgame.desktop;
 
+import ch.hearc.jdcgame.JdcGame;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import ch.hearc.jdcgame.JdcGame;
 import com.badlogic.gdx.Files;
 
 /**
