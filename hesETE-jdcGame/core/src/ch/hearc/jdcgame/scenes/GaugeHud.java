@@ -2,13 +2,17 @@ package ch.hearc.jdcgame.scenes;
 
 import ch.hearc.jdcgame.JdcGame;
 import ch.hearc.jdcgame.screens.PlayScreen;
+import ch.hearc.jdcgame.tools.Localization;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -21,6 +25,9 @@ public class GaugeHud implements Disposable {
     public Viewport viewport;
     
     public static PlayScreen screen;
+    
+    private Label gravityLbl;
+    private Label teleportLbl;
     
     private Image gaugeGravity;
     private Image gaugeTeleport;
@@ -48,16 +55,28 @@ public class GaugeHud implements Disposable {
         gaugeHidenGravity = new Image(atlas.findRegion("gauge_hiden"));
         gaugeTeleport = new Image(atlas.findRegion("gauge_green"));
         gaugeGravity = new Image(atlas.findRegion("gauge_blue"));
+        
+        BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/ComicSansMS.fnt"));
+        font.getData().setScale(0.5f);
+        
+        gravityLbl = new Label(Localization.GRAVITY_LAB, new Label.LabelStyle(font, Color.WHITE));
+        teleportLbl = new Label(Localization.TELEPORT_LAB, new Label.LabelStyle(font, Color.WHITE));
        
         stage.addActor(gaugeGravity);
         stage.addActor(gaugeTeleport);
         stage.addActor(gaugeHidenGravity);
         stage.addActor(gaugeHidenTeleport);
+        stage.addActor(gravityLbl);
+        stage.addActor(teleportLbl);
         
         gaugeGravity.setX(15);
         gaugeGravity.setY(5);
+        gravityLbl.setX(15);
+        gravityLbl.setY(15);
         gaugeTeleport.setX(15);
-        gaugeTeleport.setY(20);
+        gaugeTeleport.setY(30);
+        teleportLbl.setX(15);
+        teleportLbl.setY(40);
         
         startX = gaugeHidenGravity.getX();
         endX = 102;

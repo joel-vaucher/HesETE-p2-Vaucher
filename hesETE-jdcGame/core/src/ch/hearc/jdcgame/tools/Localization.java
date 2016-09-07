@@ -14,6 +14,8 @@ public class Localization {
     public static String LIFE_LAB ="Vie";
     public static String LEVEL_LAB ="Niveau";
     public static String SCORE_LAB ="Point";
+    public static String GRAVITY_LAB ="Gravite";
+    public static String TELEPORT_LAB ="Teleportation";
     
     public static String MESSAGE_1 = "Touche [ESC] pour revenir au jeu.";
     public static String MESSAGE_2 = "PAUSE";
@@ -43,6 +45,14 @@ public class Localization {
 
     public static void setTimeLab(String name) {
         SCORE_LAB = name;
+    }
+    
+    public static void setGravityLab(String name) {
+        GRAVITY_LAB = name;
+    }
+    
+    public static void setTeleportLab(String name) {
+        TELEPORT_LAB = name;
     }
     
     public static void setMessage(String name) {

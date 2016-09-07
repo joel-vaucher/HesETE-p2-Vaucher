@@ -172,6 +172,8 @@ public class MainMenuScreen extends AbstractMenuScreen {
         String life = lang.format("label_1");
         String level = lang.format("label_2");
         String time = lang.format("label_3");
+        String gravity = lang.format("label_4");
+        String teleport = lang.format("label_5");
                 
         String message_1 = lang.format("message_1");
         String message_2 = lang.format("message_2");
@@ -185,6 +187,8 @@ public class MainMenuScreen extends AbstractMenuScreen {
         Localization.setLifeLab(life);
         Localization.setLevelLab(level);
         Localization.setTimeLab(time);
+        Localization.setGravityLab(gravity);
+        Localization.setTeleportLab(teleport);
         Localization.setMessage(message_1);
         Localization.setMessage2(message_2);
         
