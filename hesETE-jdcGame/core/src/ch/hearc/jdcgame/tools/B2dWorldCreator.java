@@ -2,7 +2,7 @@ package ch.hearc.jdcgame.tools;
 
 import ch.hearc.jdcgame.screens.PlayScreen;
 import ch.hearc.jdcgame.sprites.Door;
-import ch.hearc.jdcgame.sprites.Key;
+import ch.hearc.jdcgame.sprites.Keys;
 import ch.hearc.jdcgame.sprites.FlagEnd;
 import ch.hearc.jdcgame.sprites.Ground;
 import ch.hearc.jdcgame.sprites.Water;
@@ -61,7 +61,8 @@ public class B2dWorldCreator {
         //create bodies/fixture
         for(MapObject object : map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Key(screen, rect);
+            System.out.println(rect);
+            new Keys(screen, rect);
         }
     }
 }

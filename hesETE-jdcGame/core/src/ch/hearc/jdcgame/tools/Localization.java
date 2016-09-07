@@ -19,7 +19,7 @@ public class Localization {
     
     public static String LIFE_LAB ="Vie";
     public static String LEVEL_LAB ="Niveau";
-    public static String Time_LAB ="Temps";
+    public static String SCORE_LAB ="Point";
     
     public static String MESSAGE_1 = "Touche [ESC] pour revenir au jeu.";
     public static String MESSAGE_2 = "PAUSE";
@@ -48,7 +48,7 @@ public class Localization {
     }
 
     public static void setTimeLab(String name) {
-        Time_LAB = name;
+        SCORE_LAB = name;
     }
     
     public static void setMessage(String name) {

@@ -58,9 +58,10 @@ public abstract class InteractiveTileObject {
         fixture.setFilterData(filter);
     }
     
-    public TiledMapTileLayer.Cell getCell(){
+    //Obtenir la cellule de collision dans la map
+    public TiledMapTileLayer.Cell getCell(int offsetX, int offsetY){
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
-        return layer.getCell((int)(body.getPosition().x * JdcGame.PPM / 16),
-                (int)(body.getPosition().y * JdcGame.PPM / 16));
+        return layer.getCell(((int)(body.getPosition().x * JdcGame.PPM / 16))+ offsetX,
+               ((int)(body.getPosition().y * JdcGame.PPM / 16) + offsetY));
     }
 }

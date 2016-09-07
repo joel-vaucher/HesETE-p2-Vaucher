@@ -78,7 +78,8 @@ public class Player extends Sprite {
         shape.setAsBox(20 / JdcGame.PPM, 20 / JdcGame.PPM);
         
         fdef.filter.categoryBits = JdcGame.PLAYER_BIT;
-        fdef.filter.maskBits = JdcGame.GROUND_BIT | JdcGame.WATER_BIT | JdcGame.DOOR_BIT | JdcGame.FLAGEND_BIT;
+        //Elements de collision
+        fdef.filter.maskBits = JdcGame.GROUND_BIT | JdcGame.WATER_BIT | JdcGame.DOOR_BIT | JdcGame.FLAGEND_BIT | JdcGame.STAR_BIT;
         
         fdef.shape = shape;
         b2body.createFixture(fdef);
@@ -117,8 +118,10 @@ public class Player extends Sprite {
     public void manIsDead(int value){         
         if(Hud.updateHealth(value) <= 0){
             screen.endGame(false);
-        }
-            
+        }   
+    }
+    public void KeyCollision(){
+        
     }
 
     public float getSpeed() {

@@ -1,6 +1,5 @@
 package ch.hearc.jdcgame;
 
-import ch.hearc.jdcgame.screens.PlayScreen;
 import ch.hearc.jdcgame.screens.ScreenEnum;
 import ch.hearc.jdcgame.screens.ScreenManager;
 import com.badlogic.gdx.Game;
@@ -10,8 +9,6 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import java.util.ArrayList;
-import java.util.List;
 
 public class JdcGame extends Game {
     
@@ -25,9 +22,9 @@ public class JdcGame extends Game {
         public static final short PLAYER_BIT = 2;
         public static final short WATER_BIT = 4;
         public static final short DOOR_BIT = 8;
-        public static final short KEY_BIT = 1;
+        public static final short STAR_BIT = 16;
         public static final short FLAGEND_BIT = 16;
-        public static final short DESTROYED_BIT = 32;
+        public static final short DESTROYED_BIT = 16;
         
 
         public SpriteBatch batch;
