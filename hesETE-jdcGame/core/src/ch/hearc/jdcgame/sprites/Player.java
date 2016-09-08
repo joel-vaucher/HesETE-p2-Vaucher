@@ -41,8 +41,8 @@ public class Player extends Sprite {
      * @param screen 
      */
     public Player(PlayScreen screen) {
+        //récuperation de l'image du package et des informations sur la position des frames dans l'image
         super(screen.getSprites().findRegion("Run_sprite"));
-        
         AtlasRegion run =screen.getSprites().findRegion("Run_sprite");
         
         this.world = screen.getWorld();
@@ -50,6 +50,7 @@ public class Player extends Sprite {
         
         stateTimerRun = 0;
         
+        //création du tableau de texture à passer en boucle dans l'animation
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for(int i = 0;  i < 5; i++){
             frames.add(new TextureRegion(getTexture(), run.getRegionX() + i*SPRITE_WIDTH, run.getRegionY(), SPRITE_WIDTH, SPRITE_HEIGHT));
@@ -57,9 +58,12 @@ public class Player extends Sprite {
         runAnimation = new Animation(0.1f, frames);
         frames.clear();
         
+        //image par défaut
         runSprite = new TextureRegion(getTexture(), run.getRegionX(), run.getRegionY(), SPRITE_WIDTH, SPRITE_HEIGHT);
         
+        //création du Body du player
         definePlayer();
+        //definit l'image par défaut comme image à afficher ainsi que sa taille
         setBounds(0, 0, (float)SPRITE_WIDTH / JdcGame.PPM, (float)SPRITE_HEIGHT / JdcGame.PPM);
         setRegion(runSprite);
     }    
@@ -69,6 +73,7 @@ public class Player extends Sprite {
      * @param delta 
      */
     public void update(float delta){
+        //adapte la position de l'image à la position du Body (modifier par la teleportation et autre)
         setPosition(b2body.getPosition().x - getWidth()/2,  b2body.getPosition().y - getHeight() / 2);
         setRegion(getFrameRunning(delta));
     }
@@ -77,16 +82,20 @@ public class Player extends Sprite {
      * 
      */
     public void definePlayer() {
+        //defini la position de la zone de collision ainsi que son type
         BodyDef bdef = new BodyDef();
         bdef.position.set(100 / JdcGame.PPM, 100 / JdcGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
+        //ajoute le Body dans le monde et l'empêche de pouvoir entrer en veille
         b2body = world.createBody(bdef);
         b2body.setSleepingAllowed(false);
         
+        //définit la taille/forme de la zone de collision
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(20 / JdcGame.PPM, 20 / JdcGame.PPM);
         
+        //défini le bit (type d'objet/calque) de player ainsi que les bits avec lesquelles il peut entrer en collision
         fdef.filter.categoryBits = JdcGame.PLAYER_BIT;
         //Elements de collision
         fdef.filter.maskBits = JdcGame.GROUND_BIT | JdcGame.WATER_BIT | JdcGame.DOOR_BIT | JdcGame.FLAGEND_BIT | JdcGame.STAR_BIT;
@@ -94,7 +103,11 @@ public class Player extends Sprite {
         fdef.shape = shape;
         b2body.createFixture(fdef);
         
+        //définition d'un senseur
+        //zone n'apportant pas de collision mais lançant les evenements de collision
+        //la zone est exactement celle du joueur, mais il pourrait en être autrement
         PolygonShape deadpart = new PolygonShape();
+        //typical square
         deadpart.set(new Vector2[]{new Vector2( 20 / JdcGame.PPM, 20 / JdcGame.PPM),
                                     new Vector2( 20 / JdcGame.PPM, -20 / JdcGame.PPM),
                                     new Vector2( -20 / JdcGame.PPM, -20 / JdcGame.PPM),
@@ -107,6 +120,8 @@ public class Player extends Sprite {
 
     /**
      * 
+     * met à jour stateTimerRun qui est le temps dans la boucle d'animation de la course
+     * et retourne l'image correspondant à ce temps dans la boucle.
      * @param delta
      * @return 
      */
@@ -132,6 +147,7 @@ public class Player extends Sprite {
     
     /**
      * 
+     * change les vie du joueur à value
      * @param value 
      */
     public void manIsDead(int value){         
