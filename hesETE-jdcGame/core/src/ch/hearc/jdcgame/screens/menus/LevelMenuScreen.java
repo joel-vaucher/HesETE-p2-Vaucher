@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import java.io.InputStream;
 
 /**
  *  Menu avec la liste des niveaux
@@ -29,12 +30,16 @@ public class LevelMenuScreen extends AbstractMenuScreen {
         TextButton.TextButtonStyle textButtonStyle = makeButtonStyle();     
         
         // Recherche et parcour des fichiers contenu dans le dossier levels
-        FileHandle[] files = Gdx.files.internal("levels/").list();
-        for(final FileHandle file: files) {
+        FileHandle listFiles = Gdx.files.internal("levels/levels.txt");
+        String files[] = listFiles.readString().split("[\\r\\n]+");
+        
+        for(String filename : files) {
+            final FileHandle file = Gdx.files.internal("levels/" + filename);
             // Si le fichier est un tmx --> fichier niveau
             if(file.extension().equals("tmx")) {
                 // Création d'un bouton pour le niveau trouvé
                 levelBtn = new TextButton(Localization.LEVEL_BTN + " " + file.nameWithoutExtension(), textButtonStyle);
+
                 // Action lors du clic de souris --> Affiche le niveau
                 levelBtn.addListener(new ClickListener(){
                     @Override
@@ -50,10 +55,9 @@ public class LevelMenuScreen extends AbstractMenuScreen {
                     public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                         JdcGame.manager.get("audio/sounds/buttonson.mp3", Sound.class).play();
                     }
-                });
+                });   
+                
                 // Ajout du bouton au tableau servant de liste
-                buttonsTable.add(levelBtn);
-                buttonsTable.row();
                 scrollTable.add(levelBtn);
                 scrollTable.row();
             }

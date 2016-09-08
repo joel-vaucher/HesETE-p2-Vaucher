@@ -47,7 +47,6 @@ public class Teleportation {
      * @param y 
      */
     public void changePosition(float x, float y){
-        //System.out.println(x + " " + y);
         this.x = x;
         this.y = y;
         stateTimerTp = 0;
