@@ -70,6 +70,7 @@ public class PlayScreen implements Screen{
     private boolean endGame;
     private Texture endScreen;
     
+    //bloque le mouvement horizontale de la camera et du joueur
     private boolean debugMoving = false;
       
     private float maxSpeed;
@@ -97,12 +98,15 @@ public class PlayScreen implements Screen{
      * @param levelFileName 
      */
     public PlayScreen(JdcGame game, String levelFileName){
-        
+        //récupération du niveau
         this.levelFileName = levelFileName;
         FileHandle file = new FileHandle(levelFileName);         
         Hud.setLevelNumber(file.nameWithoutExtension());
+        
+        //récupération des images de sprites
         sprite = new TextureAtlas("sprites/sprite.pack");
         
+        //création de la camera/fenetre
         this.game = game;
         gamecam = new OrthographicCamera();
         gameport = new FitViewport(JdcGame.V_WIDTH / JdcGame.PPM, JdcGame.V_HEIGHT / JdcGame.PPM, gamecam);
@@ -116,6 +120,8 @@ public class PlayScreen implements Screen{
         widthmap = map.getProperties().get("width", Integer.class) *
                    map.getProperties().get("tilewidth", Integer.class);
         
+        
+        //initialisation
         gamecam.position.set(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
     
         pause = false;
@@ -125,6 +131,7 @@ public class PlayScreen implements Screen{
         world = new World(new Vector2(0, gravity), true);
         b2dr = new Box2DDebugRenderer();
         
+        //création des Body du terrain (sol, mur, eau, piece, ...)
         new B2dWorldCreator(this);
         
         player = new Player(this);
@@ -145,7 +152,7 @@ public class PlayScreen implements Screen{
         endGame = false;
         endScreen = null;
         
-        //Son jeu
+        //Son du jeu
         music = JdcGame.manager.get("audio/music/gamesic.mp3", Music.class);
         music.setLooping(true);
         music.play();
@@ -167,29 +174,38 @@ public class PlayScreen implements Screen{
 
     /**
      * Evenements input
+     * appeler depuis la fonction update(float delta)
+     * effectue certain code en fonction des touches pressées
      * @param delta 
      */
     public void handleInput(float delta){
         
         if(Gdx.input.isTouched() && TeleportReady && !pause) {
-            
+            //TELEPORTATION
+            //enlève la partie noir de l'écran (gutter) de la valeur
             float gamePosX = Gdx.input.getX() - gameport.getLeftGutterWidth();
             float gamePosY = Gdx.input.getY() - gameport.getTopGutterHeight();
+            //change la proportion de l'écran (en pixel) à la logique du jeu (mètre) ainsi que l'ajout du décalage générer par la position de la caméra dans le monde
             float logicPosX =  (gamecam.position.x - gameport.getWorldWidth()/ 2) + (gameport.getWorldWidth()/gameport.getScreenWidth()) * gamePosX ;
             float logicPosY =  gameport.getWorldHeight() - (gameport.getWorldHeight()/gameport.getScreenHeight()) * gamePosY;
+            //change la position du joueur
             player.b2body.setTransform(logicPosX,logicPosY, 0);
+            //affiche la zone bleu à l'endroit de la téléportation
             teleportation.changePosition(logicPosX, logicPosY);
             TeleportReady = false;
+            //produit le son "ppuuiiiouuu"
             JdcGame.manager.get("audio/sounds/teletransportation.mp3", Sound.class).play();
         }
         
         if(Gdx.input.isKeyJustPressed(Keys.SPACE) && GravityReady && !pause) {
+            //CHANGEMENT DE GRAVITE
             gravity *= -1;
             world.setGravity(new Vector2(0, gravity));
             GravityReady = false;
         }
         
         if(Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+            //PAUSE
             pause = !pause;
             if(pause) {
                 //music.pause();
@@ -202,7 +218,8 @@ public class PlayScreen implements Screen{
     }
     
     /**
-     * 
+     * fonction qui fait "bouger" le jeu en effectuant les déplacements continue
+     * cette fonction est appeller depuis render(float delta)
      * @param delta 
      */
     public void update(float delta){
@@ -262,20 +279,27 @@ public class PlayScreen implements Screen{
             }
         }
     }
-    
+    /***
+     * cette fonction va afficher les images sur la camera en fonction de leur position dans le monde
+     * @param delta 
+     */
     @Override
     public void render(float delta) {
         update(delta);
         
+        //nettoyage de l'écran
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         renderer.render();
+        //affichage du background et des pourtours des Body
         b2dr.render(world, gamecam.combined);
         
+        //affichage  du joueur et de la teleportation (si besoin)
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
         player.draw(game.batch);
         teleportation.render(game.batch, teleportation.x, teleportation.y);
+        //si la partie est fini, affiche l'écran de fin
         if(endGame) {
             game.batch.draw(endScreen, (gamecam.position.x - gameport.getWorldWidth()/ 2), 0, JdcGame.V_WIDTH / JdcGame.PPM, JdcGame.V_HEIGHT / JdcGame.PPM);
             
@@ -286,6 +310,7 @@ public class PlayScreen implements Screen{
         }
         game.batch.end();
         
+        //affiche HUD
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
         game.batch.setProjectionMatrix(gHud.stage.getCamera().combined);

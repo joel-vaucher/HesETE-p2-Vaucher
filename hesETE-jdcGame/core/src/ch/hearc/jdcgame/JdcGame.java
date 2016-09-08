@@ -15,11 +15,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class JdcGame extends Game {
     
+        //constantes
+        //taille du jeu
         public static final int V_WIDTH = 640;
         public static final int V_HEIGHT = 360;
         public static final float PPM = 100; //Pixel Per Meter
         public static BitmapFont FONT;
         
+        //Bit de collision (filter/calque)
         public static final short NOTHING_BIT = 0;
         public static final short GROUND_BIT = 1;
         public static final short PLAYER_BIT = 2;
