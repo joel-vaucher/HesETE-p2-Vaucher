@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
- * 
+ * Classe principale du programme
  */
 public class JdcGame extends Game {
     
@@ -28,7 +28,7 @@ public class JdcGame extends Game {
         public static final short PLAYER_BIT = 2;
         public static final short WATER_BIT = 4;
         public static final short DOOR_BIT = 8;
-        public static final short KEY_BIT = 1;
+        public static final short STAR_BIT = 8;
         public static final short FLAGEND_BIT = 16;
         public static final short DESTROYED_BIT = 32;
         
@@ -39,7 +39,7 @@ public class JdcGame extends Game {
         //public List<Integer> goverList = new ArrayList<Integer>();
 	
         /**
-         * 
+         * Chargement des ressources et initialisation des éléments du jeu
          */
 	@Override
 	public void create () {

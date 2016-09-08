@@ -251,7 +251,7 @@ public class PlayScreen implements Screen{
                     if(reloadTeleport >= timeToReloadTeleport){
                         TeleportReady = true;
                         reloadTeleport = 0;
-                        gHud.emptyGaugeTeleportation();
+                        gHud.fullGaugeTeleportation();
                     }
                 }
                 if(!GravityReady){
@@ -261,7 +261,7 @@ public class PlayScreen implements Screen{
                     if(reloadGravity >= timeToReloadGravity){
                         GravityReady = true;
                         reloadGravity = 0;
-                        gHud.emptyGaugeGravity();
+                        gHud.fullGaugeGravity();
                     }
                 }  
                 Vector2 posPlay = player.b2body.getPosition();
@@ -272,7 +272,7 @@ public class PlayScreen implements Screen{
                     player.manIsDead(5);
                 }
                 player.update(delta);
-                hud.update(delta);
+                //hud.update(delta);
                 //Mise a jour de la position de la camera suivant les nouvelles coordonnées
                 gamecam.update();
                 renderer.setView(gamecam);
@@ -291,8 +291,9 @@ public class PlayScreen implements Screen{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         renderer.render();
+
         //affichage du background et des pourtours des Body
-        b2dr.render(world, gamecam.combined);
+        //b2dr.render(world, gamecam.combined);
         
         //affichage  du joueur et de la teleportation (si besoin)
         game.batch.setProjectionMatrix(gamecam.combined);

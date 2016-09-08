@@ -4,7 +4,8 @@ import ch.hearc.jdcgame.JdcGame;
 import com.badlogic.gdx.Screen;
 
 /**
- *
+ *  ScreenManager permet de changer de screen.
+ *  Une seule instance de cette classe peut exister.
  */
 public class ScreenManager {
     
@@ -13,7 +14,7 @@ public class ScreenManager {
     private JdcGame game;
     
     /**
-     * 
+     * Constructeur privé
      */
     private ScreenManager() {
         super();
@@ -30,7 +31,7 @@ public class ScreenManager {
     }
     
     /**
-     * 
+     * Initialize la propriété game
      * @param game 
      */
     public void initialize(JdcGame game) {
@@ -38,29 +39,31 @@ public class ScreenManager {
     }
     
     /**
-     * 
-     * @param screenEnum 
+     * Afficher le screen souhaité
+     * @param screenEnum
      */
     public void showScreen(ScreenEnum screenEnum) {
         Screen currentScreen = game.getScreen();
+        // Obtention et affectation du nouveau screen
         Screen newScreen = screenEnum.getScreen(game);
-        game.setScreen(newScreen);
-        
+        game.setScreen(newScreen);     
+        // Suppression de l'ancien screen si nécessaire
         if(currentScreen != null) {
             currentScreen.dispose();
         }
     }
     
     /**
-     * 
-     * @param screenEnum
-     * @param levelFileName 
+     * Affiche l'interface de jeu avec le niveau souhaité
+     * @param screenEnum : interface de jeu
+     * @param levelFileName : fichier du niveau souhaité
      */
     public void showPlayScreen(ScreenEnum screenEnum, String levelFileName) {
         Screen currentScreen = game.getScreen();
+        // Obtention et affectation du nouveau jeu
         Screen newScreen = screenEnum.PLAY_SCREEN.getPlayScreen(game, levelFileName);
         game.setScreen(newScreen);
-        
+        // Suppression de l'ancien screen si nécessaire  
         if(currentScreen != null) {
             currentScreen.dispose();
         }

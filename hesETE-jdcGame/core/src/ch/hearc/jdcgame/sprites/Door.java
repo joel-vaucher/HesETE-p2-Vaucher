@@ -5,14 +5,14 @@ import ch.hearc.jdcgame.screens.PlayScreen;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
- *
+ * Classe représentant les portes présentes dans le jeu
  */
 public class Door extends Enemy{
 
     /**
-     * 
+     * Création de la porte
      * @param screen
-     * @param bounds 
+     * @param bounds : emplacement de la porte dans la carte du jeu 
      */
     public Door(PlayScreen screen, Rectangle bounds) {
         super(screen, bounds);

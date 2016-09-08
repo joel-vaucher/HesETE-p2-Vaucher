@@ -5,11 +5,11 @@ import ch.hearc.jdcgame.screens.PlayScreen;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
- *
+ * Classe représentant le drapeau de fin de niveau
  */
 public class FlagEnd extends InteractiveTileObject{
     /**
-     * 
+     * Création du drapeau
      * @param screen
      * @param bounds 
      */

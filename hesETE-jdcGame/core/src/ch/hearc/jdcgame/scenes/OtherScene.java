@@ -26,7 +26,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
- *
+ *  Affiche un écran de pause
  */
 public class OtherScene implements Disposable{
     
@@ -36,19 +36,19 @@ public class OtherScene implements Disposable{
     Label returnLbl;
     
     /**
-     * 
-     * @param sb
-     * @param screenName 
+     * Construction de l'écran de pause
+     * @param sb : Batch du screen actuel
+     * @param screenName : Nom de l'écran
      */
     public OtherScene(SpriteBatch sb, String screenName) {
         viewport = new FitViewport(JdcGame.V_WIDTH, JdcGame.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, sb);        
         Gdx.input.setInputProcessor(stage);
         
+        // Table servant à la mise en page + background
         table = new Table();
         table.setFillParent(true);
         table.setBackground(new Image(new Texture(Gdx.files.internal("others/bg_menu.png"))).getDrawable());
-        
         
         Label title = new Label(screenName, new Label.LabelStyle(JdcGame.FONT, Color.WHITE));
         BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/ComicSansMS.fnt"));
@@ -57,19 +57,23 @@ public class OtherScene implements Disposable{
         if(screenName.equals(Localization.MESSAGE_2)){
             returnLbl = new Label(Localization.MESSAGE_1, new Label.LabelStyle(font, Color.WHITE));
         }
+        
         TextButton replayBtn, exitBtn;
         TextButton.TextButtonStyle textButtonStyle = makeButtonStyle();      
                 
         replayBtn = new TextButton(Localization.REPLAY_BTN, textButtonStyle);
         exitBtn = new TextButton(Localization.QUIT_BTN, textButtonStyle);
         
+        
+        // Action lors du clic de souris --> Recharge une nouvelle partie
         replayBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 JdcGame.manager.get("audio/sounds/click.mp3", Sound.class).play();
                 ScreenManager.getInstance().showScreen(ScreenEnum.PLAY_SCREEN);
             }
-        });     
+        }); 
+        // Action lors du survol de souris --> Emettre un bruit    
         replayBtn.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -77,6 +81,7 @@ public class OtherScene implements Disposable{
             }
         });
         
+        // Action lors du clic de souris --> Afficher le menu principal
         exitBtn.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -84,6 +89,7 @@ public class OtherScene implements Disposable{
                 ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
             }
         });
+        // Action lors du survol de souris --> Emettre un bruit
         exitBtn.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -91,6 +97,7 @@ public class OtherScene implements Disposable{
             }
         });
         
+        // Positionnement
         table.add(title).padBottom(20f);
         table.row();
         table.add(replayBtn);
@@ -102,8 +109,8 @@ public class OtherScene implements Disposable{
     }
     
     /**
-     * 
-     * @return 
+     * Création et renvoie du style des boutons du menu
+     * @return Style des boutons
      */
     protected TextButton.TextButtonStyle makeButtonStyle () {
         TextButton.TextButtonStyle textButtonStyle;
