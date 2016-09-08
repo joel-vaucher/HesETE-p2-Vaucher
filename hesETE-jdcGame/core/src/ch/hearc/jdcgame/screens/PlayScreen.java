@@ -125,7 +125,7 @@ public class PlayScreen implements Screen{
         
         
         //initialisation
-        gamecam.position.set(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
+        gamecam.position.set(gameport.getWorldWidth()/ 2 + 65, gameport.getWorldHeight()/ 2, 0);
     
         pause = false;
         
@@ -268,7 +268,7 @@ public class PlayScreen implements Screen{
                 Vector3 posCamDown = new Vector3(gamecam.position).add(gameport.getWorldWidth()/ 2, gameport.getWorldHeight()/ 2, 0);
                 
                 if((posPlay.x < posCamUp.x || posCamDown.x < posPlay.x) || (posPlay.y < posCamUp.y || posCamDown.y < posPlay.y)) {
-                    player.manIsDead(5);
+                    //player.manIsDead(5);
                 }
                 player.update(delta);
                 //hud.update(delta);
