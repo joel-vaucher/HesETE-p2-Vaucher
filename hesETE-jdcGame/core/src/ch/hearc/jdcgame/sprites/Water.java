@@ -6,14 +6,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
- *
+ * Représente l'eau de la carte
  */
 public class Water extends Enemy{
-    /**
-     * 
-     * @param screen
-     * @param bounds 
-     */
+
     public Water(PlayScreen screen, Rectangle bounds) {
         super(screen, bounds);
         fixture.setUserData(this);

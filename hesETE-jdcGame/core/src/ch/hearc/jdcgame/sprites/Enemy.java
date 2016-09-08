@@ -40,19 +40,10 @@ public abstract class Enemy{
         defineEnemy();
     }
     
-    /**
-     *
-     */
     protected abstract void defineEnemy();
     
-    /**
-     * 
-     */
     public abstract void onPlayerHit();
     
-    /**
-     * 
-     */
     protected void defaultDefineEnemy() {
        
         BodyDef bdef = new BodyDef();
@@ -68,10 +59,6 @@ public abstract class Enemy{
         fixture = body.createFixture(fdef);
     }
     
-    /**
-     * 
-     * @param filterBit 
-     */
     public void setCategoryFilter(short filterBit) {
         Filter filter = new Filter();
         filter.categoryBits = filterBit;

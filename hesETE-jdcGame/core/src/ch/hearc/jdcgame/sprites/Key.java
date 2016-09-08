@@ -10,14 +10,11 @@ import ch.hearc.jdcgame.scenes.Hud;
 import ch.hearc.jdcgame.screens.PlayScreen;
 import com.badlogic.gdx.math.Rectangle;
 
-    
+/**
+ * Classe représentant les étoiles du jeu
+ */    
 public class Key extends InteractiveTileObject{
 
-    /**
-     * 
-     * @param screen
-     * @param bounds 
-     */
     public Key(PlayScreen screen, Rectangle bounds) {
         super(screen, bounds);
         fixture.setUserData(this);

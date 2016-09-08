@@ -36,10 +36,6 @@ public class Player extends Sprite {
     private int life = 5;
     private float speed = 0.5f;
     
-    /**
-     * 
-     * @param screen 
-     */
     public Player(PlayScreen screen) {
         //récuperation de l'image du package et des informations sur la position des frames dans l'image
         super(screen.getSprites().findRegion("Run_sprite"));
@@ -69,7 +65,7 @@ public class Player extends Sprite {
     }    
     
     /**
-     * 
+     * Mise à jour de l'animation
      * @param delta 
      */
     public void update(float delta){
@@ -79,7 +75,7 @@ public class Player extends Sprite {
     }
 
     /**
-     * 
+     * Bounds du joueur
      */
     public void definePlayer() {
         //defini la position de la zone de collision ainsi que son type
@@ -119,8 +115,7 @@ public class Player extends Sprite {
     }
 
     /**
-     * 
-     * met à jour stateTimerRun qui est le temps dans la boucle d'animation de la course
+     * Met à jour stateTimerRun qui est le temps dans la boucle d'animation de la course
      * et retourne l'image correspondant à ce temps dans la boucle.
      * @param delta
      * @return 
@@ -137,17 +132,8 @@ public class Player extends Sprite {
         return pic;
     }
     
-    //public void loseLife(boolean all){
-        //life = all ? 0 : life-1;
-        //if(life == 0){
-        //    screen.endGame(false);
-        //}
-        //Gdx.app.log("life", life + "");
-    //}
-    
     /**
-     * 
-     * change les vie du joueur à value
+     * Change les vie du joueur à value
      * @param value 
      */
     public void manIsDead(int value){         
@@ -158,19 +144,11 @@ public class Player extends Sprite {
     public void KeyCollision(){
         
     }
-
-    /**
-     * 
-     * @return 
-     */
+    
     public float getSpeed() {
         return speed;
     }
-    
-    /**
-     * 
-     * @param s 
-     */
+
     public void setSpeed(float s) {
         speed = s;
     }

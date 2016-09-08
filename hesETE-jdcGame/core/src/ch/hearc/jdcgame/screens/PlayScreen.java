@@ -31,7 +31,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
- *
+ * Ecran de jeu
  */
 public class PlayScreen implements Screen{
 
@@ -85,7 +85,9 @@ public class PlayScreen implements Screen{
     private OtherScene scene;
     
     /**
-     * 
+     * Constructeur sans précision du niveau
+     *  - Cahrgement du niveau stocké
+     *  - Utilisé pour recommencer le jeu
      * @param game 
      */
     public PlayScreen(JdcGame game) {
@@ -93,7 +95,8 @@ public class PlayScreen implements Screen{
     }
     
     /**
-     * 
+     * Constructeur avec niveau
+     *  - Utilisée pour commencer une nouvelle partie
      * @param game
      * @param levelFileName 
      */
@@ -160,10 +163,6 @@ public class PlayScreen implements Screen{
         world.setContactListener(new WorldContactListener());
     }
     
-    /**
-     * 
-     * @return 
-     */
     public TextureAtlas getSprites(){
         return sprite;
     }
@@ -218,7 +217,7 @@ public class PlayScreen implements Screen{
     }
     
     /**
-     * fonction qui fait "bouger" le jeu en effectuant les déplacements continue
+     * Fonction qui fait "bouger" le jeu en effectuant les déplacements continue
      * cette fonction est appeller depuis render(float delta)
      * @param delta 
      */
@@ -279,8 +278,8 @@ public class PlayScreen implements Screen{
             }
         }
     }
-    /***
-     * cette fonction va afficher les images sur la camera en fonction de leur position dans le monde
+    /**
+     * Cette fonction va afficher les images sur la camera en fonction de leur position dans le monde
      * @param delta 
      */
     @Override
@@ -326,7 +325,7 @@ public class PlayScreen implements Screen{
     }
     
     /**
-     * 
+     * Fin du jeu --> affiche le message de victoire ou de perte
      * @param victory 
      */
     public void endGame(boolean victory){
@@ -349,39 +348,21 @@ public class PlayScreen implements Screen{
         }
     }
     
-    /**
-     * 
-     */
-    public void collideWithKey(){
-        
-    }
 
     @Override
     public void resize(int width, int height) {
         gameport.update(width, height);
         if(pause) scene.stage.getViewport().update(width, height, true);
     }
-    
-    /**
-     * 
-     * @return 
-     */
+
     public TiledMap getMap() {
         return map;
     }
     
-    /**
-     * 
-     * @return 
-     */
     public World getWorld() {
         return world;
     }
     
-    /**
-     * 
-     * @return 
-     */
     public Player getPlayer() {
         return player;
     }
@@ -398,7 +379,7 @@ public class PlayScreen implements Screen{
     @Override
     public void dispose() {
     
-        //libération ressources
+        // Libération ressources
         map.dispose();
         renderer.dispose();
         world.dispose();

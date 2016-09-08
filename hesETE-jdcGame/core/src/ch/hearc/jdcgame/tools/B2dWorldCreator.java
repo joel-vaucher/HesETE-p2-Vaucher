@@ -17,13 +17,9 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
- *
+ * Création du monde
  */
 public class B2dWorldCreator {
-    /**
-     * 
-     * @param screen 
-     */
     public B2dWorldCreator(PlayScreen screen){
         World world = screen.getWorld();
         TiledMap map = screen.getMap();

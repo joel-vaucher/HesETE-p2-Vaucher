@@ -8,11 +8,6 @@ import com.badlogic.gdx.math.Rectangle;
  * Classe représentant le sol de la carte
  */
 public class Ground extends InteractiveTileObject{
-    /**
-     * 
-     * @param screen
-     * @param bounds 
-     */
     public Ground(PlayScreen screen, Rectangle bounds) {
         super(screen, bounds);
         fixture.setUserData(this);

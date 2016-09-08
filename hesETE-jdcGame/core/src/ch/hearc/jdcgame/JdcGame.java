@@ -36,7 +36,6 @@ public class JdcGame extends Game {
         public SpriteBatch batch;
         
         public static AssetManager manager;
-        //public List<Integer> goverList = new ArrayList<Integer>();
 	
         /**
          * Chargement des ressources et initialisation des éléments du jeu

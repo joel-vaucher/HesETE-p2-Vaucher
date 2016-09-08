@@ -1,7 +1,7 @@
 package ch.hearc.jdcgame.tools;
 
 /**
- *
+ * Traduction
  */
 public class Localization {
     

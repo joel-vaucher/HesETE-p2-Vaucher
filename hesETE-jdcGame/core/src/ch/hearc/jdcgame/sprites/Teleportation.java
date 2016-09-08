@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
 /**
- *
+ * Animation de la téléportation
  */
 public class Teleportation {
     
@@ -23,10 +23,6 @@ public class Teleportation {
     private final int SPRITE_WIDTH = 40;
     private final int SPRITE_HEIGHT = 50;
     
-    /**
-     * 
-     * @param screen 
-     */
     public Teleportation(PlayScreen screen) {
         
         TextureAtlas.AtlasRegion tp = screen.getSprites().findRegion("Teleportation_sprite");
@@ -46,7 +42,7 @@ public class Teleportation {
     }
     
     /**
-     * 
+     * Changement de position de l'animation
      * @param x
      * @param y 
      */
@@ -58,7 +54,7 @@ public class Teleportation {
     }
     
     /**
-     * 
+     * Mise à jour de l'animation
      * @param delta 
      */
     public void update(float delta){
@@ -66,7 +62,7 @@ public class Teleportation {
     }
     
     /**
-     * 
+     * Rendu de l'animation
      * @param batch
      * @param x
      * @param y 
@@ -76,7 +72,8 @@ public class Teleportation {
     }
 
     /**
-     * 
+     * Met à jour stateTimerTP qui est le temps dans la boucle d'animation de la téléportation
+     * et retourne l'image correspondant à ce temps dans la boucle.
      * @param delta
      * @return 
      */
