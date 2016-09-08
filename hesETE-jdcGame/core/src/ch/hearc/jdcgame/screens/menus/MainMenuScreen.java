@@ -158,7 +158,7 @@ public class MainMenuScreen extends AbstractMenuScreen {
         
         JdcGame.manager.get("audio/sounds/click.mp3", Sound.class).play();
         
-        FileHandle baseFileHandle = Gdx.files.internal("../src/ch/hearc/jdcgame/localization/Bundle");
+        FileHandle baseFileHandle = Gdx.files.internal("localization/Bundle");
         Locale locale = new Locale(language, lg);
         
         I18NBundle lang = I18NBundle.createBundle(baseFileHandle, locale);
